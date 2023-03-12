@@ -5,7 +5,6 @@
 
 class Graph {
 public:
-    explicit Graph(int size);
     /*
     * Auxiliary function to find a vertex with a given ID.
     */
@@ -27,7 +26,5 @@ public:
     std::vector<Vertex *> getVertexSet() const;
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
-
-    int size;
 };
 #endif //DA_GRAPH_H

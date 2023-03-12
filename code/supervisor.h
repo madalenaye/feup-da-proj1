@@ -28,7 +28,7 @@ private:
 
     //Station::StationH stations;
     unordered_map<string, int> idStations;
-    Graph graph = Graph(532);
+    Graph graph;
 };
 
 

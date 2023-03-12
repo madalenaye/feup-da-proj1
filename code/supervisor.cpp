@@ -29,7 +29,7 @@ void Supervisor::createStations() {
     string currentLine, name, district, municipality, township, line;
     int i = 1;
     myFile.open("../data/stations.csv");
-
+    graph.addVertex(0,Station(""));
     getline(myFile, currentLine);
     int fieldNr = 0;
     while (getline(myFile,currentLine)){
