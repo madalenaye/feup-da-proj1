@@ -26,7 +26,7 @@ private:
     void createStations();
     void createGraph();
 
-    Station::StationH stations;
+    //Station::StationH stations;
     unordered_map<string, int> idStations;
     Graph graph = Graph(532);
 };

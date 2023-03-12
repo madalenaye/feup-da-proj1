@@ -12,7 +12,7 @@ void Graph::addVertex(const int &id, Station station) {
     if(v1 != nullptr) return;
     Vertex* v = new Vertex(id);
     v->setStation(station);
-    vertexSet.push_back(v);
+    vertexSet[id] = v;
 }
 void Graph::addEdge(const int &sourc, const int &dest, int capacity, string service) {
     auto v1 = findVertex(sourc);

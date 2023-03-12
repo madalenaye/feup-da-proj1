@@ -1,5 +1,5 @@
 
-#include "VertexEdge.h"
+#include "vertexEdge.h"
 
 /************************* Vertex  **************************/
 

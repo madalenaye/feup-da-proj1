@@ -1,7 +1,3 @@
-//
-// Created by Madalena Ye on 11/03/2023.
-//
-
 #include "supervisor.h"
 
 Supervisor::Supervisor() {
@@ -21,7 +17,8 @@ void Supervisor::createGraph() {
         getline(is,stationB,',');
         getline(is,x,','); capacity = stoi(x);
         getline(is,service,',');
-        graph.addEdge(idStations[stationA],idStations[stationB],capacity, service);
+        if (service.back() == '\r') service.pop_back();
+        graph.addEdge(idStations[stationA],idStations[stationB], capacity, service);
     }
     inFile.close();
 }
@@ -66,9 +63,11 @@ void Supervisor::createStations() {
             }
             else if (fieldNr == 4) {
                 line = field;
+                if (line.back() == '\r') line.pop_back();
                 Station station(name,district,municipality,township,line);
                 fieldNr = -1;
-                stations.insert(station);
+
+                //stations.insert(station);
                 idStations.insert({station.getName(),i});
                 graph.addVertex(i++, station);
             }

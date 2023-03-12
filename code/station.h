@@ -19,7 +19,7 @@ public:
     string getMunicipality() const;
     string getTownship() const;
     string getLine() const;
-    struct StationHash{
+    /*struct StationHash{
         int operator()(const Station& station){
             string c=station.getName();
             int v=0;
@@ -32,7 +32,7 @@ public:
                 return station1.getName()==station2.getName();
         }
     };
-    typedef unordered_set<Station,Station::StationHash,Station::StationHash> StationH;
+    typedef unordered_set<Station,Station::StationHash,Station::StationHash> StationH;*/
 private:
     string name;
     string district;
