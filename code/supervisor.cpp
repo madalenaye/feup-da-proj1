@@ -7,20 +7,48 @@ Supervisor::Supervisor() {
 
 void Supervisor::createGraph() {
     ifstream inFile;
-    string stationA, stationB, service, line, x;
-    int capacity;
+    string source, target, service, line, x;
+    Station stationA(""), stationB("");
+    int capacity, idA, idB, i=1;
     inFile.open("../data/network.csv");
     getline(inFile, line);
     while(getline(inFile, line)){
         istringstream is(line);
-        getline(is,stationA,',');
-        getline(is,stationB,',');
+        getline(is,source,',');
+        getline(is,target,',');
         getline(is,x,','); capacity = stoi(x);
         getline(is,service,',');
+
         if (service.back() == '\r') service.pop_back();
-        graph.addEdge(idStations[stationA],idStations[stationB], capacity, service);
+
+        stationA = *stations.find(source);
+        stationB = *stations.find(target);
+
+        if ((idStations.find(source)) == nullptr){
+            idA = i++;
+            graph.addVertex(idA,stationA);
+            idStations.insert({source,idA});
+        }
+        else {
+            idA = idStations[source];
+        }
+        if ((idStations.find(target)) == nullptr){
+            idB = i++;
+            graph.addVertex(idB,stationB);
+            idStations.insert({target,idB });
+        }
+        else {
+            idB = idStations[target];
+        }
+
+        graph.addEdge(idA,idB, capacity, service);
     }
     inFile.close();
+    for (auto it = stations.begin(); it != stations.end();){
+        if (idStations.find(it->getName()) == nullptr)
+            it = stations.erase(it);
+        else it++;
+    }
 }
 
 void Supervisor::createStations() {
@@ -62,14 +90,15 @@ void Supervisor::createStations() {
                 }
             }
             else if (fieldNr == 4) {
+                fieldNr = -1;
                 line = field;
                 if (line.back() == '\r') line.pop_back();
+                if (line == "Rede Espanhola") {
+                    fieldNr = 0;
+                    continue;
+                }
                 Station station(name,district,municipality,township,line);
-                fieldNr = -1;
-
-                //stations.insert(station);
-                idStations.insert({station.getName(),i});
-                graph.addVertex(i++, station);
+                stations.insert(station).second;
             }
             fieldNr++;
         }

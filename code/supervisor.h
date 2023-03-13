@@ -1,6 +1,3 @@
-//
-// Created by Madalena Ye on 11/03/2023.
-//
 
 #ifndef DA_SUPERVISOR_H
 #define DA_SUPERVISOR_H
@@ -25,8 +22,7 @@ private:
 
     void createStations();
     void createGraph();
-
-    //Station::StationH stations;
+    Station::StationH stations;
     unordered_map<string, int> idStations;
     Graph graph;
 };

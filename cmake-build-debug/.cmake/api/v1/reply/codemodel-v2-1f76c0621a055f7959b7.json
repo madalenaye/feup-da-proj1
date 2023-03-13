@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.23"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "DA::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-DA-Debug-3a1c787c1f0f6095508a.json",
+					"jsonFile" : "target-DA-Debug-097e44708de7963e52d7.json",
 					"name" : "DA",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/santo/OneDrive/Ambiente de Trabalho/Uni/2ano/DA/Proj/cmake-build-debug",
-		"source" : "C:/Users/santo/OneDrive/Ambiente de Trabalho/Uni/2ano/DA/Proj"
+		"build" : "/home/luisdu/CLionProjects/feup-da-proj1/cmake-build-debug",
+		"source" : "/home/luisdu/CLionProjects/feup-da-proj1"
 	},
 	"version" : 
 	{

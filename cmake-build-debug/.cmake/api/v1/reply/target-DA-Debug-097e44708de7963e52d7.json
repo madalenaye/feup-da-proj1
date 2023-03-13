@@ -2,10 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "DA.exe"
-		},
-		{
-			"path" : "DA.pdb"
+			"path" : "DA"
 		}
 	],
 	"backtrace" : 1,
@@ -38,7 +35,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g"
+					"fragment" : "-g -fdiagnostics-color=always"
 				},
 				{
 					"fragment" : "-std=gnu++11"
@@ -76,16 +73,12 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
-			},
-			{
-				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
-				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
 	"name" : "DA",
-	"nameOnDisk" : "DA.exe",
+	"nameOnDisk" : "DA",
 	"paths" : 
 	{
 		"build" : ".",

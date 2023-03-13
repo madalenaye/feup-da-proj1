@@ -3,6 +3,10 @@
 
 /************************* Vertex  **************************/
 
+Station Vertex::getStation() const {
+    return station;
+}
+
 Vertex::Vertex(int id): id(id) {}
 
 Edge * Vertex::addEdge(Vertex *d, int capacity, string service) {

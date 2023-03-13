@@ -31,7 +31,7 @@ public:
     double getDist() const;
     Edge *getPath() const;
     std::vector<Edge *> getIncoming() const;
-
+    Station getStation() const;
 
     void setId(int info);
     void setStation(Station station);
