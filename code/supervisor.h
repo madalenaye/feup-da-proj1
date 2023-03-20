@@ -17,7 +17,9 @@ class Supervisor{
 public:
     Supervisor();
 
-    unordered_map<string, int> getId();
+    unordered_map<string, int> getId() const;
+    Graph getGraph() const;
+    bool isStation(string station);
 private:
 
     void createStations();

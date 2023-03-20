@@ -7,6 +7,7 @@
 #include "supervisor.h"
 #include "station.h"
 #include <iostream>
+#include <climits>
 
 class Menu{
 public:
@@ -15,6 +16,26 @@ public:
     static void end();
 
 private:
+    void basicService();
+
+    //T2
+    void maxFlow(const string& srcStation, const string& destStation); //T2.1
+    void t2(); //T2.2
+    void statistics(); //T2.3
+    void t4(const string& destStation); //T2.4
+
+    //T3
+    void costOptimization();
+
+    //T4
+    void lineFailures();
+
+    //validate
+
+    int customTop(const string& message, int n);
+    string validateStation();
+
+
     Supervisor* supervisor;
 };
 #endif //DA_MENU_H

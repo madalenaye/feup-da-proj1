@@ -56,7 +56,7 @@ unsigned int Vertex::getIndegree() const {
     return this->indegree;
 }
 
-double Vertex::getDist() const {
+int Vertex::getDist() const {
     return this->dist;
 }
 
@@ -84,7 +84,7 @@ void Vertex::setIndegree(unsigned int indegree) {
     this->indegree = indegree;
 }
 
-void Vertex::setDist(double dist) {
+void Vertex::setDist(int dist) {
     this->dist = dist;
 }
 
@@ -124,7 +124,7 @@ bool Edge::isSelected() const {
     return this->selected;
 }
 
-double Edge::getFlow() const {
+int Edge::getFlow() const {
     return flow;
 }
 
@@ -136,6 +136,6 @@ void Edge::setReverse(Edge *reverse) {
     this->reverse = reverse;
 }
 
-void Edge::setFlow(double flow) {
+void Edge::setFlow(int flow) {
     this->flow = flow;
 }

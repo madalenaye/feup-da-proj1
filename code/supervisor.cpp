@@ -49,6 +49,8 @@ void Supervisor::createGraph() {
             it = stations.erase(it);
         else it++;
     }
+
+
 }
 
 void Supervisor::createStations() {
@@ -106,6 +108,14 @@ void Supervisor::createStations() {
     myFile.close();
 }
 
-unordered_map<string, int> Supervisor::getId() {
+unordered_map<string, int> Supervisor::getId() const{
     return idStations;
+}
+
+Graph Supervisor::getGraph() const {
+    return graph;
+}
+
+bool Supervisor::isStation(string station){
+    return idStations.find(station) != idStations.end();
 }

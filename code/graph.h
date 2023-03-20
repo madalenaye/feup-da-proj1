@@ -2,6 +2,7 @@
 #define DA_GRAPH_H
 
 #include "vertexEdge.h"
+#include <algorithm>
 
 class Graph {
 public:
@@ -20,11 +21,23 @@ public:
      * destination vertices and the edge weight (w).
      * Returns true if successful, and false if the source or destination vertex does not exist.
      */
-    void addEdge(const int &sourc, const int &dest, int capacity, string service);
+    void addEdge(const int &source, const int &dest, int capacity, string service);
 
     int getNumVertex() const;
     std::vector<Vertex *> getVertexSet() const;
-protected:
+    void edmondsKarp(int source, int target);
+
+    int maxFlow(int source, int target);
+
+private:
     std::vector<Vertex *> vertexSet;    // vertex set
+    bool findAugmentingPath(Vertex *src, Vertex *dest);
+
+    void testAndVisit(std::queue<Vertex *> &queue, Edge *e, Vertex *v, int value);
+
+    int findMinResidualAlongPath(Vertex *src, Vertex *dest);
+
+    void augmentFlowAlongPath(Vertex *src, Vertex *dest, int f);
+
 };
 #endif //DA_GRAPH_H
