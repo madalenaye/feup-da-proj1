@@ -1,3 +1,0 @@
-/home/luisdu/CLionProjects/feup-da-proj1/cmake-build-debug/CMakeFiles/DA.dir
-/home/luisdu/CLionProjects/feup-da-proj1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/luisdu/CLionProjects/feup-da-proj1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
