@@ -129,3 +129,28 @@ int Graph::maxFlow(int source, int target){
     }
     return maxFlow;
 }
+
+int Graph::minCost(int source, int target) {
+    Vertex* src = findVertex(source);
+    Vertex* dest = findVertex(target);
+    if (src == nullptr || dest == nullptr || src == dest)
+        return -1;
+
+    int cost = 0;
+
+    edmondsKarp(source, target);
+
+    for (int i = 1; i < vertexSet.size(); i++) {
+        Vertex* v = vertexSet[i];
+        for (auto e: v->getAdj()) {
+            if (e->getFlow() != 0) {
+                cost += 2;
+                if (e->getService() == "STANDARD")
+                    cost +=2;
+                else
+                    cost += 4;
+            }
+        }
+    }
+    return cost;
+}

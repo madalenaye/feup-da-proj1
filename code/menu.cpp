@@ -26,7 +26,14 @@ void Menu::init() {
         }
 
         else if (option == "2"){
+            string srcStation = validateStation(false);
+            string destStation = validateStation(true);
 
+            while (destStation == srcStation){
+                cout << "Please choose two different stations.\n";
+                destStation = validateStation(true);
+            }
+            costOptimization(srcStation, destStation);
         }
 
         else if (option == "3"){
@@ -55,12 +62,12 @@ void Menu::basicService(){
 
         cin >> option;
         if (option == "1"){
-            string srcStation = validateStation();
-            string destStation = validateStation();
+            string srcStation = validateStation(false);
+            string destStation = validateStation(true);
 
             while (destStation == srcStation){
                 cout << "Please choose two different stations.\n";
-                destStation = validateStation();
+                destStation = validateStation(true);
             }
 
             maxFlow(srcStation,destStation);
@@ -75,7 +82,7 @@ void Menu::basicService(){
             return;
         }
         else if (option == "4"){
-            string destStation = validateStation();
+            string destStation = validateStation(true);
             t4(destStation); //....
             return;
         }
@@ -115,24 +122,6 @@ void Menu::t2() {
                 pairs.emplace_back(supervisor->getGraph().getVertexSet()[i]->getStation().getName(),supervisor->getGraph().getVertexSet()[j]->getStation().getName());
             }
         }
-
-    /*
-    for (auto u: supervisor->getGraph().getVertexSet()) {
-        if (u->getId() == 0) continue;
-        for (auto v: supervisor->getGraph().getVertexSet()) {
-            if (v->getId() == 0) continue;
-            if (u != v) {
-                int flow = supervisor->getGraph().maxFlow(u->getId(), v->getId());
-                if (max < flow) {
-                    pairs.clear();
-                    max = flow;
-                }
-                if (max == flow)
-                    pairs.emplace_back(u->getStation().getName(), v->getStation().getName());
-            }
-        }
-    }*/
-
     cout << "Max: " << max << "\n"; //....
     for (const auto& pair: pairs){
         cout << pair.first <<" - " << pair.second << "\n";
@@ -160,24 +149,35 @@ void Menu::t4(const string& destStation){
     }
 }
 
-void Menu::costOptimization(){
-    
+void Menu::costOptimization(const string& srcStation, const string& destStation){
+    int src = supervisor->getId()[srcStation];
+    int dest = supervisor->getId()[destStation];
+
+    int cost = supervisor->getGraph().minCost(src,dest);
+    cout << "Minimum cost for the maximum amount of trains : " << cost << "\n";
+
 }
 void Menu::lineFailures(){
 
 }
-string Menu::validateStation(){
-    string station;
-    cout << " Insert the name of the station (ex: Porto Campanhã): "; cin >> station;
+string Menu::validateStation(bool dest){
 
-    while(cin.fail() || !supervisor->isStation(station)) {
+    string station;
+
+    if (dest)
+        cout << " Insert the name of the target station (ex: Porto Campanhã): ";
+    else{
+        cin.ignore();
+        cout << " Insert the name of the source station (ex: Porto Campanhã): ";
+    }
+    getline(cin,station,'\n');
+
+    while(!supervisor->isStation(station)) {
         if (station == "0") return "0";
-        if (cin.fail() || station.size() != 3) cout << " Invalid input " << '\n';
         else cout << " That station does not exist in our database " << '\n';
-        cout << " Insert the name of the station (ex: Porto Campanhã): ";
+        cout << " Insert the name of a valid station (ex: Porto Campanhã): ";
         cin.clear();
-        cin.ignore(INT_MAX, '\n');
-        cin >> station;
+        getline(cin,station,'\n');
     }
     return station;
 }

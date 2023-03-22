@@ -26,7 +26,7 @@ public:
     int getNumVertex() const;
     std::vector<Vertex *> getVertexSet() const;
     void edmondsKarp(int source, int target);
-
+    int minCost(int source, int target);
     int maxFlow(int source, int target);
 
 private:

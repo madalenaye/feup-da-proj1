@@ -25,7 +25,7 @@ private:
     void t4(const string& destStation); //T2.4
 
     //T3
-    void costOptimization();
+    void costOptimization(const string& srcStation, const string& destStation);
 
     //T4
     void lineFailures();
@@ -33,7 +33,7 @@ private:
     //validate
 
     int customTop(const string& message, int n);
-    string validateStation();
+    string validateStation(bool dest);
 
 
     Supervisor* supervisor;
