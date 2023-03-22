@@ -154,7 +154,7 @@ void Menu::costOptimization(const string& srcStation, const string& destStation)
     int dest = supervisor->getId()[destStation];
 
     int cost = supervisor->getGraph().minCost(src,dest);
-    cout << "Minimum cost for the maximum amount of trains : " << cost << "\n";
+    cout << "Minimum cost for the maximum amount of trains between " << srcStation << " and " << destStation << " : " << cost << "\n";
 
 }
 void Menu::lineFailures(){
