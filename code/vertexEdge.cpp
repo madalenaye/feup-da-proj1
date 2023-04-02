@@ -102,7 +102,7 @@ Edge::Edge(Vertex *orig, Vertex *dest, int capacity, string service): orig(orig)
     if (service == "STANDARD")
         cost = 2;
     else
-        cost = 40;
+        cost = 4;
 }
 
 void Edge::setResidualCapacity(int residualCapacity) {

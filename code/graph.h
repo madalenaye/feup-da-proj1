@@ -39,5 +39,6 @@ private:
 
     void augmentFlowAlongPath(Vertex *src, Vertex *dest, int f);
 
+    int pathCost(Vertex *src, Vertex *dest);
 };
 #endif //DA_GRAPH_H

@@ -106,7 +106,7 @@ int Graph::maxFlow(int source, int target){
             edge->setResidualCapacity(edge->getCapacity());
 
     int i = 1;
-    //encontrar caminhos de aumento de fluxo
+
     while (findAugmentingPath(src,dest)) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
@@ -119,7 +119,7 @@ int Graph::maxFlow(int source, int target){
 }
 
 bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
-    for(Vertex* v: vertexSet) {
+    for(Vertex* v: vertexSet){
         v->setDist(INF);
         v->setPath(nullptr);
         v->setVisited(false);
@@ -127,61 +127,64 @@ bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
 
     src->setDist(0);
 
+
     MutablePriorityQueue<Vertex> q;
     q.insert(src);
 
-    while(!q.empty()) {
+    while(!q.empty()){
         Vertex* v = q.extractMin();
         v->setVisited(true);
-
-        if(v == dest) {
-            // Found a path from source to dest
-            return true;
-        }
-
-        for(Edge* e : v->getAdj()) {
+        for (Edge* e: v->getAdj()){
             Vertex* w = e->getDest();
-            double newDist = v->getDist() + e->getCost();
-
-           // testAndVisit1(q, e, w, newDist);
-        }
-
-        for(Edge* e : v->getIncoming()) {
-            Vertex* w = e->getOrig();
-            double newDist = v->getDist() - e->getCost();
-
-            //testAndVisit1(q, e, w, newDist);
+            int residual = e->getResidualCapacity();
+            if (!w->isVisited() && residual > 0){
+                double oldDist = w->getDist();
+                if (e->getCost() < oldDist){
+                    w->setDist(e->getCost());
+                    w->setPath(e);
+                    if(oldDist == INF)
+                        q.insert(w);
+                    else
+                        q.decreaseKey(w);
+                }
+            }
         }
     }
-
-    // No path from source to dest
-    return false;
-
-
+    return dest->isVisited();
 }
-
+int Graph::pathCost(Vertex* src, Vertex* dest){
+    int cost = 0;
+    for(Vertex* v = dest; v != src;){
+        Edge* e = v->getPath();
+        cost += e->getCost();
+        v = e->getOrig();
+    }
+    return cost;
+}
 int Graph::minCost(int source, int target) {
+
     Vertex* src = findVertex(source);
-    Vertex*  dest = findVertex(target);
+    Vertex* dest = findVertex(target);
     if (src == nullptr || dest == nullptr || src == dest)
         return 0;
 
-    for (Vertex*  v : vertexSet)
-        for (Edge* e : v->getAdj())
-            e->setFlow(0);
+    int flow = 0, cost = 0;
+
+    for (Vertex* vertex : vertexSet)
+        for (Edge* edge : vertex->getAdj())
+            edge->setResidualCapacity(edge->getCapacity());
+
+    int i = 1;
 
     while (findMinCostAugmentingPath(src,dest)) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
-    }
-    int cost = 0;
-    for (int i = 1; i < vertexSet.size(); i++) {
-        Vertex* v = vertexSet[i];
-        for (auto e: v->getAdj()) {
-            if (e->getFlow() != 0) {
-               cost += e->getCost();
-            }
-        }
+        cout << "Path nr. " << i++ << " : ";
+        printPath(src,dest);
+        cout << endl;
+        flow += f;
+        cost += pathCost(src,dest);
     }
     return cost;
+
 }

@@ -20,7 +20,7 @@ void Supervisor::createGraph() {
     ifstream inFile;
     string source, target, service, line, x;
     int capacity, idA, idB, id=0;
-    inFile.open("../data/network.csv");
+    inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
