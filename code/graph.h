@@ -2,7 +2,9 @@
 #define DA_GRAPH_H
 
 #include "vertexEdge.h"
+#include "MutablePriorityQueue.h"
 #include <algorithm>
+#include <stack>
 
 class Graph {
 public:
@@ -23,9 +25,7 @@ public:
      */
     void addEdge(const int &source, const int &dest, int capacity, string service);
 
-    int getNumVertex() const;
     std::vector<Vertex *> getVertexSet() const;
-    void edmondsKarp(int source, int target);
     int minCost(int source, int target);
     int maxFlow(int source, int target);
 
@@ -33,7 +33,7 @@ private:
     std::vector<Vertex *> vertexSet;    // vertex set
     bool findAugmentingPath(Vertex *src, Vertex *dest);
 
-    void testAndVisit(std::queue<Vertex *> &queue, Edge *e, Vertex *v, int value);
+    bool findMinCostAugmentingPath(Vertex* src, Vertex* dest);
 
     int findMinResidualAlongPath(Vertex *src, Vertex *dest);
 

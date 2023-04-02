@@ -4,106 +4,96 @@ Supervisor::Supervisor() {
     createStations();
     createGraph();
 }
-
+int Supervisor::makeVertex(string name, int &id) {
+    auto it = idStations.find(name);
+    int stationId;
+    if (it == idStations.end()) {
+        stationId = id++;
+        graph.addVertex(stationId, *stations.find(name));
+        idStations[name] = stationId;
+    } else {
+        stationId = it->second;
+    }
+    return stationId;
+}
 void Supervisor::createGraph() {
     ifstream inFile;
     string source, target, service, line, x;
-    Station stationA(""), stationB("");
-    int capacity, idA, idB, i=1;
+    int capacity, idA, idB, id=0;
     inFile.open("../data/network.csv");
     getline(inFile, line);
-    while(getline(inFile, line)){
+
+    while(getline(inFile, line)) {
+
         istringstream is(line);
-        getline(is,source,',');
-        getline(is,target,',');
-        getline(is,x,','); capacity = stoi(x);
-        getline(is,service,',');
+
+        checkField(is, source);
+        checkField(is,target);
+        checkField(is, x); capacity = stoi(x);
+        checkField(is, service);
 
         if (service.back() == '\r') service.pop_back();
 
-        stationA = *stations.find(source);
-        stationB = *stations.find(target);
+        idA = makeVertex(source, id);
+        idB = makeVertex(target, id);
 
-        if ((idStations.find(source)) == nullptr){
-            idA = i++;
-            graph.addVertex(idA,stationA);
-            idStations.insert({source,idA});
-        }
-        else {
-            idA = idStations[source];
-        }
-        if ((idStations.find(target)) == nullptr){
-            idB = i++;
-            graph.addVertex(idB,stationB);
-            idStations.insert({target,idB });
-        }
-        else {
-            idB = idStations[target];
-        }
-
-        graph.addEdge(idA,idB, capacity, service);
+        graph.addEdge(idA, idB, capacity, service);
     }
+
     inFile.close();
+
+    removeUnusedStations();
+}
+
+void Supervisor::removeUnusedStations(){
     for (auto it = stations.begin(); it != stations.end();){
         if (idStations.find(it->getName()) == nullptr)
             it = stations.erase(it);
         else it++;
     }
-
-
 }
+
+string Supervisor::removeQuotes(istringstream& iss, string field){
+    string s = field.substr(1);
+
+    while (!iss.eof() && s.back() != '\"') {
+        getline(iss, field, ',');
+        s += ',' + field;
+    }
+    return s.substr(0, s.length() - 1);
+}
+
+void Supervisor::checkField(istringstream& iss, string& field){
+    getline(iss,field,',');
+    if (field[0] == '\"')
+        field = removeQuotes(iss, field);
+}
+
 
 void Supervisor::createStations() {
 
     ifstream myFile;
     string currentLine, name, district, municipality, township, line;
-    int i = 1;
+
     myFile.open("../data/stations.csv");
-    graph.addVertex(0,Station(""));
+
     getline(myFile, currentLine);
-    int fieldNr = 0;
+
     while (getline(myFile,currentLine)){
         istringstream iss(currentLine);
-        string field;
 
-        while (getline(iss, field, ',')) {
-            if (fieldNr == 0) {
-                name = field;
-            }
-            else if (fieldNr == 1) {
-                district = field;
-            }
-            else if (fieldNr == 2) {
-                municipality = field;
-            }
-            else if (fieldNr == 3) {
-                if (field[0] == '\"') {
-                    township = field.substr(1);
-                    while (!iss.eof()) {
-                        getline(iss, field, ',');
-                        township += ',' + field;
-                        if (field[field.length() - 1] == '\"') {
-                            break;
-                        }
-                    }
-                    township = township.substr(0, township.length() - 1);
-                } else {
-                    township = field;
-                }
-            }
-            else if (fieldNr == 4) {
-                fieldNr = -1;
-                line = field;
-                if (line.back() == '\r') line.pop_back();
-                if (line == "Rede Espanhola") {
-                    fieldNr = 0;
-                    continue;
-                }
-                Station station(name,district,municipality,township,line);
-                stations.insert(station).second;
-            }
-            fieldNr++;
-        }
+        checkField(iss,name);
+        checkField(iss,district);
+        checkField(iss,municipality);
+        checkField(iss,township);
+        checkField(iss,line);
+
+        if (line.back() == '\r') line.pop_back();
+        if (line == "Rede Espanhola") continue;
+
+        Station station(name,district,municipality,township,line);
+        stations.insert(station);
+
     }
     myFile.close();
 }

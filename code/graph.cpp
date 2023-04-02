@@ -1,7 +1,5 @@
-//
-// Created by Madalena Ye on 11/03/2023.
-//
 #include "graph.h"
+#include "MutablePriorityQueue.h"
 
 
 void Graph::addVertex(const int &id, Station station) {
@@ -26,12 +24,11 @@ Vertex * Graph::findVertex(const int &id) const {
     return vertexSet[id];
 }
 
-
-void Graph::testAndVisit(std::queue<Vertex*>& queue, Edge* e, Vertex* w, int residual){
-    if (!w->isVisited() && residual > 0) {
-        w->setVisited(true);
-        w->setPath(e);
-        queue.push(w);
+void Graph::testAndVisit(std::queue<Vertex *> &queue, Edge *e, Vertex *v, int value){
+    if (!v->isVisited() && value > 0) {
+        v->setVisited(true);
+        v->setPath(e);
+        queue.push(v);
     }
 }
 
@@ -49,11 +46,15 @@ bool Graph::findAugmentingPath(Vertex* src, Vertex* dest){
         Vertex* v = queue.front();
         queue.pop();
 
-        for (Edge* e: v->getAdj())
-            testAndVisit(queue,e,e->getDest(),e->getCapacity()-e->getFlow());
-
-        for (Edge* e: v->getIncoming())
-            testAndVisit(queue,e,e->getOrig(),e->getFlow());
+        for (Edge* e: v->getAdj()) {
+            Vertex* w = e->getDest();
+            int residual = e->getResidualCapacity();
+            if (!w->isVisited() && residual > 0) {
+                w->setVisited(true);
+                w->setPath(e);
+                queue.push(w);
+            }
+        }
     }
 
     return dest->isVisited();
@@ -63,92 +64,129 @@ int Graph::findMinResidualAlongPath(Vertex* src, Vertex* dest){
     int f = INF;
     for(Vertex* v = dest; v != src;){
         Edge* e = v->getPath();
-        if (e->getDest() == v){
-            f = std::min(f,e->getCapacity()-e->getFlow());
-            v = e->getOrig();
-        }
-        else{
-            f = std::min(f,e->getFlow());
-            v = e->getDest();
-        }
+        f = std::min(f,e->getResidualCapacity());
+        v = e->getOrig();
     }
     return f;
 }
-
 void Graph::augmentFlowAlongPath(Vertex *src, Vertex *dest, int f){
     for (Vertex* v = dest; v != src;){
         Edge* e = v->getPath();
-        int flow = e->getFlow();
+        Edge* reverse = e->getReverse();
+        e->setResidualCapacity(e->getResidualCapacity()-f);
+        reverse->setResidualCapacity(reverse->getResidualCapacity()+f);
 
-        //capacidade residual
-        if (e->getDest() == v){
-            e->setFlow(flow+f);
-            v = e->getOrig();
-        }
-
-            //fluxo no sentido oposto
-        else{
-            e->setFlow(flow-f);
-            v = e->getDest();
-        }
+        v = e->getOrig();
     }
 }
 
+void printPath(Vertex* src,Vertex* dest){
+    stack<Vertex*> r;
+    for (Vertex* v = dest; v != src;){
+        r.push(v);
+        Edge* e = v->getPath();
+        if (e->getDest() == v){
+            v = e->getOrig();
+        }
 
-void Graph::edmondsKarp(int source, int target) {
+        else{
+            v = e->getDest();
+        }
+    }
+    cout << src->getStation().getName() << " - ";
+    while (!r.empty()){
+        cout << r.top()->getStation().getName() << " - ";
+        r.pop();
+    }
+    cout << endl;
+}
+int Graph::maxFlow(int source, int target){
+
     Vertex* src = findVertex(source);
-    Vertex*  dest = findVertex(target);
+    Vertex* dest = findVertex(target);
     if (src == nullptr || dest == nullptr || src == dest)
-        return;
+        return 0 ;
+    int flow = 0;
 
-    //reset dos fluxos
-    for (Vertex*  v : vertexSet)
-        for (Edge* e : v->getAdj())
-            e->setFlow(0);
+    for (Vertex* vertex : vertexSet)
+        for (Edge* edge : vertex->getAdj())
+            edge->setResidualCapacity(edge->getCapacity());
 
+    int i = 1;
     //encontrar caminhos de aumento de fluxo
     while (findAugmentingPath(src,dest)) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
+        cout << "Path nr. " << i++ << " : ";
+        printPath(src,dest);
+        cout << endl;
+        flow+=f;
     }
+    return flow;
 }
 
-int Graph::maxFlow(int source, int target){
-
-    Vertex* src = findVertex(source);
-    Vertex*  dest = findVertex(target);
-    if (src == nullptr || dest == nullptr || src == dest)
-        return -1;
-
-    int maxFlow = 0;
-
-    edmondsKarp(source, target);
-
-    for(auto e : src->getAdj()) {
-        maxFlow += e->getFlow();
+bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
+    for(Vertex* v: vertexSet) {
+        v->setDist(INF);
+        v->setPath(nullptr);
+        v->setVisited(false);
     }
-    return maxFlow;
+
+    src->setDist(0);
+
+    MutablePriorityQueue<Vertex> q;
+    q.insert(src);
+
+    while(!q.empty()) {
+        Vertex* v = q.extractMin();
+        v->setVisited(true);
+
+        if(v == dest) {
+            // Found a path from source to dest
+            return true;
+        }
+
+        for(Edge* e : v->getAdj()) {
+            Vertex* w = e->getDest();
+            double newDist = v->getDist() + e->getCost();
+
+           // testAndVisit1(q, e, w, newDist);
+        }
+
+        for(Edge* e : v->getIncoming()) {
+            Vertex* w = e->getOrig();
+            double newDist = v->getDist() - e->getCost();
+
+            //testAndVisit1(q, e, w, newDist);
+        }
+    }
+
+    // No path from source to dest
+    return false;
+
+
 }
 
 int Graph::minCost(int source, int target) {
     Vertex* src = findVertex(source);
-    Vertex* dest = findVertex(target);
+    Vertex*  dest = findVertex(target);
     if (src == nullptr || dest == nullptr || src == dest)
-        return -1;
+        return 0;
 
+    for (Vertex*  v : vertexSet)
+        for (Edge* e : v->getAdj())
+            e->setFlow(0);
+
+    while (findMinCostAugmentingPath(src,dest)) {
+        auto f = findMinResidualAlongPath(src, dest);
+        augmentFlowAlongPath(src, dest, f);
+    }
     int cost = 0;
-
-    edmondsKarp(source, target);
-
     for (int i = 1; i < vertexSet.size(); i++) {
         Vertex* v = vertexSet[i];
         for (auto e: v->getAdj()) {
             if (e->getFlow() != 0) {
-                cost += 2;
-                if (e->getService() == "STANDARD")
-                    cost +=2;
-                else
-                    cost += 4;
+               cost += e->getCost();
             }
         }
     }

@@ -27,6 +27,15 @@ private:
     Station::StationH stations;
     unordered_map<string, int> idStations;
     Graph graph;
+
+
+    string removeQuotes(istringstream &iss, string field);
+
+    void checkField(istringstream &iss, string &field);
+
+    int makeVertex(string name, int &id);
+
+    void removeUnusedStations();
 };
 
 

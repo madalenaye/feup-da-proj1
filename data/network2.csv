@@ -1,0 +1,6 @@
+Station_A,Station_B,Capacity,Service
+Casa Branca,Monte das Flores,2,STANDARD
+Monte das Flores,Évora,2,STANDARD
+Évora,Portalegre,2,STANDARD
+Portalegre,Santa Clara-Sabóia,2,STANDARD
+Casa Branca,Portalegre,2,ALFA PENDULAR

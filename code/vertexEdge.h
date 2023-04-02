@@ -46,6 +46,7 @@ public:
     void removeOutgoingEdges();
 
 
+    int queueIndex = 0;
 private:
     int id;                // identifier
     std::vector<Edge *> adj;  // outgoing edges
@@ -58,9 +59,11 @@ private:
     int dist = 0;
     Edge *path = nullptr;
 
+
+
     std::vector<Edge *> incoming; // incoming edges
 
-    int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
+    // required by MutablePriorityQueue and UFDS
 
     void deleteEdge(Edge *edge);
 };
@@ -73,27 +76,32 @@ public:
 
     Vertex * getDest() const;
     int getCapacity() const;
+    int getResidualCapacity() const;
     string getService() const;
     bool isSelected() const;
     Vertex * getOrig() const;
     Edge *getReverse() const;
     int getFlow() const;
-
+    int getCost() const;
     void setSelected(bool selected);
     void setReverse(Edge *reverse);
     void setFlow(int flow);
+    void setResidualCapacity(int residualCapacity);
 private:
     Vertex * dest; // destination vertex
     int capacity; // edge weight, can also be used for capacity
+    int residualCapacity;
     string service;
     // auxiliary fields
     bool selected = false;
-
+    int cost;
     // used for bidirectional edges
     Vertex *orig;
     Edge *reverse = nullptr;
 
     int flow; // for flow-related problems
+
+    void setCost(int cost);
 };
 
 #endif //DA_VERTEXEDGE_H

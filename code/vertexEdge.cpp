@@ -98,7 +98,27 @@ void Vertex::setStation(Station station) {
 
 /********************** Edge  ****************************/
 
-Edge::Edge(Vertex *orig, Vertex *dest, int capacity, string service): orig(orig), dest(dest), capacity(capacity), service(service) {}
+Edge::Edge(Vertex *orig, Vertex *dest, int capacity, string service): orig(orig), dest(dest), capacity(capacity), service(service) {
+    if (service == "STANDARD")
+        cost = 2;
+    else
+        cost = 40;
+}
+
+void Edge::setResidualCapacity(int residualCapacity) {
+    this->residualCapacity = residualCapacity;
+}
+
+int Edge::getResidualCapacity() const {
+    return this->residualCapacity;
+}
+void Edge::setCost(int cost){
+    this->cost = cost;
+}
+
+int Edge::getCost() const{
+    return this->cost;
+}
 
 Vertex * Edge::getDest() const {
     return this->dest;
