@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['orig_263',['orig',['../class_edge.html#a48f1521d20ead8492fd1d184656862f5',1,'Edge']]]
+  ['path_255',['path',['../class_vertex.html#a4e83821f961f6eb63ad210260ba0e1e2',1,'Vertex']]],
+  ['processing_256',['processing',['../class_vertex.html#a305dc8fcad6e4c7ef2491409ca7ddaa4',1,'Vertex']]]
 ];

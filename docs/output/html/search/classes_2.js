@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['heap_140',['Heap',['../class_heap.html',1,'']]]
+  ['menu_136',['Menu',['../class_menu.html',1,'']]],
+  ['mutablepriorityqueue_137',['MutablePriorityQueue',['../class_mutable_priority_queue.html',1,'']]]
 ];

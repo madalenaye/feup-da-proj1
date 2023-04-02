@@ -73,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="graph_8h_source.html">graph.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_graph_8h_source.html">Graph.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -88,19 +88,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a95e4fc836ea15984157cfcffaaa8371d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a95e4fc836ea15984157cfcffaaa8371d">minCost</a> (int source, int target)</td></tr>
 <tr class="separator:a95e4fc836ea15984157cfcffaaa8371d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7902f8f8a5ef7cc0319afcc95af0b1a4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a7902f8f8a5ef7cc0319afcc95af0b1a4">maxFlow</a> (int source, int target)</td></tr>
+<tr class="memdesc:a7902f8f8a5ef7cc0319afcc95af0b1a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the maximum flow from the source vertex to the target vertex using the Edmonds-Karp algorithm.  <a href="class_graph.html#a7902f8f8a5ef7cc0319afcc95af0b1a4">More...</a><br /></td></tr>
 <tr class="separator:a7902f8f8a5ef7cc0319afcc95af0b1a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ada20033a1f3809827d5251bfeb8a84d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ada20033a1f3809827d5251bfeb8a84d7">findAugmentingPath</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest)</td></tr>
+<tr class="memdesc:ada20033a1f3809827d5251bfeb8a84d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the shortest augmenting path from the source to the target using a BFS.  <a href="class_graph.html#ada20033a1f3809827d5251bfeb8a84d7">More...</a><br /></td></tr>
 <tr class="separator:ada20033a1f3809827d5251bfeb8a84d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4ee1efb1c4fef61b36d7ee5e52b418b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ab4ee1efb1c4fef61b36d7ee5e52b418b">findMinCostAugmentingPath</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest)</td></tr>
+<tr class="memdesc:ab4ee1efb1c4fef61b36d7ee5e52b418b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the minimum cost augmenting path from the source vertex to the destination vertex.  <a href="class_graph.html#ab4ee1efb1c4fef61b36d7ee5e52b418b">More...</a><br /></td></tr>
 <tr class="separator:ab4ee1efb1c4fef61b36d7ee5e52b418b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a239d63949207e09f989868fb999ea8ca"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a239d63949207e09f989868fb999ea8ca">findMinResidualAlongPath</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest)</td></tr>
+<tr class="memdesc:a239d63949207e09f989868fb999ea8ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the minimum residual capacity along the chosen augmenting path from the source to the target.  <a href="class_graph.html#a239d63949207e09f989868fb999ea8ca">More...</a><br /></td></tr>
 <tr class="separator:a239d63949207e09f989868fb999ea8ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38e27327caaa899a30e060ab40932e99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a38e27327caaa899a30e060ab40932e99">augmentFlowAlongPath</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest, int f)</td></tr>
-<tr class="separator:a38e27327caaa899a30e060ab40932e99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb278aa71f7d4b95ebf66dfa7bc15f4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#adb278aa71f7d4b95ebf66dfa7bc15f4f">augmentFlowAlongPath</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest, int flow)</td></tr>
+<tr class="memdesc:adb278aa71f7d4b95ebf66dfa7bc15f4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Augments the flow along the chosen augmenting path from the source to the target.  <a href="class_graph.html#adb278aa71f7d4b95ebf66dfa7bc15f4f">More...</a><br /></td></tr>
+<tr class="separator:adb278aa71f7d4b95ebf66dfa7bc15f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8122dcb05def418a82e0cf23afacbfe6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a8122dcb05def418a82e0cf23afacbfe6">pathCost</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest)</td></tr>
+<tr class="memdesc:a8122dcb05def418a82e0cf23afacbfe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the cost of the path found from the source vertex to the destination vertex.  <a href="class_graph.html#a8122dcb05def418a82e0cf23afacbfe6">More...</a><br /></td></tr>
 <tr class="separator:a8122dcb05def418a82e0cf23afacbfe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
@@ -177,8 +183,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a38e27327caaa899a30e060ab40932e99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38e27327caaa899a30e060ab40932e99">&#9670;&nbsp;</a></span>augmentFlowAlongPath()</h2>
+<a id="adb278aa71f7d4b95ebf66dfa7bc15f4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb278aa71f7d4b95ebf66dfa7bc15f4f">&#9670;&nbsp;</a></span>augmentFlowAlongPath()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,7 +208,7 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>f</em>&#160;</td>
+          <td class="paramname"><em>flow</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -216,6 +222,18 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Augments the flow along the chosen augmenting path from the source to the target. </p>
+<p>This function updates the flow along the chosen augmenting path from the source vertex to the target vertexin the graph by adding or subtracting the flow amount <code>flow</code> from the residual capacity of each edge along the path.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>A pointer to the source vertex. </td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the target vertex. </td></tr>
+    <tr><td class="paramname">flow</td><td>The amount of flow to augment along the path.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
 
 </div>
 </div>
@@ -253,6 +271,18 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Finds the shortest augmenting path from the source to the target using a BFS. </p>
+<p>This function finds the shortest augmenting path from the source vertex to the target vertex in the graph using a breadth-first search algorithm.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>A pointer to the source vertex. </td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the target vertex.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if a path from the source to the target was found, false otherwise.</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
+
 </div>
 </div>
 <a id="ab4ee1efb1c4fef61b36d7ee5e52b418b"></a>
@@ -289,6 +319,18 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Finds the minimum cost augmenting path from the source vertex to the destination vertex. </p>
+<p>This function uses Dijkstra's algorithm with a priority queue to find the minimum cost augmenting path from the source vertex to the destination vertex in the graph. The function updates the path information for each visited vertex and returns a boolean indicating whether a path was found or not.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>A pointer to the source vertex. </td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the destination vertex. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if a minimum cost augmenting path was found, false otherwise.</dd></dl>
+<dl class="section user"><dt>Time Complexity</dt><dd>O((V + E) * log(V)), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
+
 </div>
 </div>
 <a id="a239d63949207e09f989868fb999ea8ca"></a>
@@ -324,6 +366,18 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Finds the minimum residual capacity along the chosen augmenting path from the source to the target. </p>
+<p>This function finds the minimum residual capacity along the chosen augmenting path from the source vertex to the target vertex in the graph, by examining each edge along the path and returning the smallest residual capacity.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>A pointer to the source vertex. </td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the target vertex.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The bottleneck capacity of the chosen augmenting path from the source to the target.</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
 
 </div>
 </div>
@@ -388,6 +442,18 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Finds the maximum flow from the source vertex to the target vertex using the Edmonds-Karp algorithm. </p>
+<p>This function implements the Edmonds-Karp algorithm to find the maximum flow from the source vertex to the target vertex in the graph. The algorithm works by repeatedly finding the shortest augmenting path from the source to the target using BFS, and then augmenting the flow along that path until no more augmenting paths exist.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The identifier of the source vertex. </td></tr>
+    <tr><td class="paramname">target</td><td>The identifier of the target vertex.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The maximum flow from the source vertex to the target vertex.</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V * E²), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
+
 </div>
 </div>
 <a id="a95e4fc836ea15984157cfcffaaa8371d"></a>
@@ -415,6 +481,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Calculates the minimum cost maximum flow from the source vertex to the destination vertex using the successive shortest path algorithm.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The source vertex. </td></tr>
+    <tr><td class="paramname">target</td><td>The destination vertex. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The minimum cost of the flow from the source to the target, or 0 if there is no feasible flow. </dd></dl>
 
 </div>
 </div>
@@ -452,6 +527,18 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Calculates the cost of the path found from the source vertex to the destination vertex. </p>
+<p>This function implementsFord-Fulkerson algorithm to find the minimum cost maximum flow from the source vertex to the target vertex in the graph. The algorithm works by repeatedly finding the minimum cost augmenting path from the source to the target using Dijkstra's algorithm, and then augmenting the flow along that path until no more augmenting paths exist.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>A pointer to the source vertex. </td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the destination vertex.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The minimum cost of all path found from the source vertex to the destination vertex.</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -478,8 +565,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/luisdu/CLionProjects/feup-da-proj1/code/<a class="el" href="graph_8h_source.html">graph.h</a></li>
-<li>/home/luisdu/CLionProjects/feup-da-proj1/code/<a class="el" href="graph_8cpp.html">graph.cpp</a></li>
+<li>/home/luisdu/CLionProjects/feup-da-proj1/code/<a class="el" href="_graph_8h_source.html">Graph.h</a></li>
+<li>/home/luisdu/CLionProjects/feup-da-proj1/code/<a class="el" href="_graph_8cpp.html">Graph.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
