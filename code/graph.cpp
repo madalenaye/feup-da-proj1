@@ -24,15 +24,6 @@ Vertex * Graph::findVertex(const int &id) const {
     return vertexSet[id];
 }
 
-void Graph::testAndVisit(std::queue<Vertex *> &queue, Edge *e, Vertex *v, int value){
-    if (!v->isVisited() && value > 0) {
-        v->setVisited(true);
-        v->setPath(e);
-        queue.push(v);
-    }
-}
-
-
 bool Graph::findAugmentingPath(Vertex* src, Vertex* dest){
     for (Vertex*  v : vertexSet)
         v->setVisited(false);
@@ -73,6 +64,7 @@ void Graph::augmentFlowAlongPath(Vertex *src, Vertex *dest, int f){
     for (Vertex* v = dest; v != src;){
         Edge* e = v->getPath();
         Edge* reverse = e->getReverse();
+
         e->setResidualCapacity(e->getResidualCapacity()-f);
         reverse->setResidualCapacity(reverse->getResidualCapacity()+f);
 
@@ -105,7 +97,8 @@ int Graph::maxFlow(int source, int target){
     Vertex* src = findVertex(source);
     Vertex* dest = findVertex(target);
     if (src == nullptr || dest == nullptr || src == dest)
-        return 0 ;
+        return 0;
+
     int flow = 0;
 
     for (Vertex* vertex : vertexSet)
