@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(DA
         code/main.cpp code/Graph.cpp code/Supervisor.cpp
-        code/Menu.cpp code/Station.cpp code/VertexEdge.cpp)
+        code/Menu.cpp code/Station.cpp code/VertexEdge.cpp code/PriorityQueue.cpp)
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)

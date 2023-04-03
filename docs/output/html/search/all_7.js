@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['h_56',['H',['../class_mutable_priority_queue.html#a28cece6545bdc0df529e7878ad2c3ad4',1,'MutablePriorityQueue']]],
-  ['heapifydown_57',['heapifyDown',['../class_mutable_priority_queue.html#a699bfb6d976cabb01edead4c24284a08',1,'MutablePriorityQueue']]],
-  ['heapifyup_58',['heapifyUp',['../class_mutable_priority_queue.html#ae2518c7a1be2bd1e7c633d82dede5450',1,'MutablePriorityQueue']]]
+  ['heap_56',['Heap',['../class_priority_queue.html#a44c9b54fe3a997c6eef041e71a50236c',1,'PriorityQueue']]],
+  ['heapifydown_57',['heapifyDown',['../class_priority_queue.html#a8a6f02d1d683b4349ff1f809d100e923',1,'PriorityQueue']]],
+  ['heapifyup_58',['heapifyUp',['../class_priority_queue.html#a3a106104f70723e561b7f406a4bd7623',1,'PriorityQueue']]]
 ];

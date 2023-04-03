@@ -5,7 +5,7 @@
 #include <stack>
 
 #include "VertexEdge.h"
-#include "MutablePriorityQueue.h"
+#include "PriorityQueue.h"
 
 
 class Graph {

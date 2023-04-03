@@ -8,7 +8,5 @@ var searchData=
   ['menu_2ecpp_81',['Menu.cpp',['../_menu_8cpp.html',1,'']]],
   ['menu_2eh_82',['Menu.h',['../_menu_8h.html',1,'']]],
   ['mincost_83',['minCost',['../class_graph.html#a95e4fc836ea15984157cfcffaaa8371d',1,'Graph']]],
-  ['municipality_84',['municipality',['../class_station.html#a2a4bb78d0acf07ffce910f750c68892a',1,'Station']]],
-  ['mutablepriorityqueue_85',['MutablePriorityQueue',['../class_mutable_priority_queue.html',1,'MutablePriorityQueue&lt; T &gt;'],['../class_mutable_priority_queue.html#aba8ebedcbe659f2680bac229cfaca526',1,'MutablePriorityQueue::MutablePriorityQueue()']]],
-  ['mutablepriorityqueue_2eh_86',['MutablePriorityQueue.h',['../_mutable_priority_queue_8h.html',1,'']]]
+  ['municipality_84',['municipality',['../class_station.html#a2a4bb78d0acf07ffce910f750c68892a',1,'Station']]]
 ];

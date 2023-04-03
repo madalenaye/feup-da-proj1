@@ -6,7 +6,7 @@ var searchData=
   ['indegree_62',['indegree',['../class_vertex.html#a94ae99aae9b1a426feda5ecda70c598b',1,'Vertex']]],
   ['inf_63',['INF',['../_vertex_edge_8h.html#a12c2040f25d8e3a7b9e1c2024c618cb6',1,'VertexEdge.h']]],
   ['init_64',['init',['../class_menu.html#a342d2a526a850dbf2d1aecd830b91287',1,'Menu']]],
-  ['insert_65',['insert',['../class_mutable_priority_queue.html#a058fc182052af82e10cc3719e448b62d',1,'MutablePriorityQueue']]],
+  ['insert_65',['insert',['../class_priority_queue.html#a2898819bf7bffee37ff2db2cab8fb90a',1,'PriorityQueue']]],
   ['isline_66',['isLine',['../class_supervisor.html#aad0c8807374a4fc62977b98eb37ed7e8',1,'Supervisor']]],
   ['isprocessing_67',['isProcessing',['../class_vertex.html#a126e306f0534b99cd97aa864fdb243d4',1,'Vertex']]],
   ['isselected_68',['isSelected',['../class_edge.html#a52967cf488bb7185a512cd111420215d',1,'Edge']]],

@@ -201,7 +201,7 @@ bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
 
     src->setDist(0);
 
-    MutablePriorityQueue<Vertex> q;
+    PriorityQueue q;
     q.insert(src);
 
     while(!q.empty()){

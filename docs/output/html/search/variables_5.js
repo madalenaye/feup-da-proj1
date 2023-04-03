@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['h_274',['H',['../class_mutable_priority_queue.html#a28cece6545bdc0df529e7878ad2c3ad4',1,'MutablePriorityQueue']]]
+  ['heap_276',['Heap',['../class_priority_queue.html#a44c9b54fe3a997c6eef041e71a50236c',1,'PriorityQueue']]]
 ];
