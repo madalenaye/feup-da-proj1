@@ -211,12 +211,12 @@ void Menu::reliability(){
 
 void Menu::lineFailures() {
 
-    unordered_set<string> failureLines;
+    unordered_set<string> failedLines;
     string option;
 
     string line = validateLine();
     if (line == "0") return;
-    failureLines.insert(line);
+    failedLines.insert(line);
 
     while(true){
         cout << "\n Would you like to remove any other line?\n\n"
@@ -227,12 +227,12 @@ void Menu::lineFailures() {
         if (option == "1") {
             line = validateLine();
             if (line == "0") break;
-            while (!failureLines.insert(line).second){
+            while (!failedLines.insert(line).second){
                 cout << " This line has already been chosen, please choose a different line!\n";
                 line = validateLine();
                 if (line == "0") break;
             }
-            failureLines.insert(line);
+            failedLines.insert(line);
         }
         else if (option == "2")
             break;
@@ -244,12 +244,12 @@ void Menu::lineFailures() {
             cin.ignore(INT_MAX, '\n');
         }
     }
-    supervisor->createSubgraph(failureLines);
+    supervisor->createSubgraph(failedLines);
     subGraphOperations();
 }
 
 void Menu::segmentFailures(){
-    vector<pair<string,string>> failureSegments;
+    vector<pair<string,string>> failedSegments;
     string option;
     cin.ignore();
     string source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
@@ -263,7 +263,7 @@ void Menu::segmentFailures(){
     }
     if (target == "0") return;
 
-    failureSegments.emplace_back(source,target);
+    failedSegments.emplace_back(source,target);
 
     while(true){
         cout << "\n Would you like to remove any other segment?\n\n"
@@ -284,7 +284,7 @@ void Menu::segmentFailures(){
             }
             if (target == "0") break;
 
-            while (std::any_of(failureSegments.begin(), failureSegments.end(),
+            while (std::any_of(failedSegments.begin(), failedSegments.end(),
                                [&](pair<string,string>& segment){ return segment == std::make_pair(source, target); })) {
                 cout << " This segment has already been chosen, please choose a different segment!\n";
 
@@ -300,7 +300,7 @@ void Menu::segmentFailures(){
                 if (target == "0") break;
             }
             if (source == "0" || target == "0") break;
-            failureSegments.emplace_back(source,target);
+            failedSegments.emplace_back(source,target);
         }
         else if (option == "2")
             break;
@@ -312,18 +312,18 @@ void Menu::segmentFailures(){
             cin.ignore(INT_MAX, '\n');
         }
     }
-    supervisor->createSubgraph(failureSegments);
+    supervisor->createSubgraph(failedSegments);
     subGraphOperations();
 }
 
 void Menu::stationFailures(){
-    Station::StationH failureStations;
+    Station::StationH failedStations;
     string option;
     cin.ignore();
     string name = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
     if (name == "0") return;
     Station station = *supervisor->getStations().find(name);
-    failureStations.insert(station);
+    failedStations.insert(station);
 
     while(true){
         cout << "\n Would you like to remove any other station?\n\n"
@@ -336,13 +336,13 @@ void Menu::stationFailures(){
             name = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
             if (name == "0") break;
             station = *supervisor->getStations().find(name);
-            while (!failureStations.insert(station).second){
+            while (!failedStations.insert(station).second){
                 cout << " This station has already been chosen, please choose a different station!\n";
                 name = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
                 if (name == "0") break;
                 station = *supervisor->getStations().find(name);;
             }
-            failureStations.insert(station);
+            failedStations.insert(station);
         }
         else if (option == "2")
             break;
@@ -354,7 +354,7 @@ void Menu::stationFailures(){
             cin.ignore(INT_MAX, '\n');
         }
     }
-    supervisor->createSubgraph(failureStations);
+    supervisor->createSubgraph(failedStations);
     subGraphOperations();
 }
 

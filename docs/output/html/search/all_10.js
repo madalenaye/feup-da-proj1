@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['segmentfailure_103',['segmentFailure',['../class_supervisor.html#ae72b560bf9732552254bac52b7f4f26d',1,'Supervisor']]],
+  ['segmentfailure_103',['segmentFailure',['../class_supervisor.html#a675a5b90dfe15d88674eb4f4aca767e7',1,'Supervisor']]],
   ['segmentfailures_104',['segmentFailures',['../class_menu.html#a33cffe41290f5c6b0a6890afb8e712a9',1,'Menu']]],
   ['selected_105',['selected',['../class_edge.html#a3af6d278c4ddcb2589e1aa66e52f4efb',1,'Edge']]],
   ['service_106',['service',['../class_edge.html#a859073d36fecb5fa3de1d08733cc6d7b',1,'Edge']]],
@@ -22,7 +22,7 @@ var searchData=
   ['station_122',['Station',['../class_station.html',1,'']]],
   ['station_2ecpp_123',['Station.cpp',['../_station_8cpp.html',1,'']]],
   ['station_2eh_124',['Station.h',['../_station_8h.html',1,'']]],
-  ['stationfailure_125',['stationFailure',['../class_supervisor.html#a36e9ed7f8e16f5b7af28912743fd1a72',1,'Supervisor']]],
+  ['stationfailure_125',['stationFailure',['../class_supervisor.html#af88e49984b5420bbea8b100ca2ead3f9',1,'Supervisor']]],
   ['stationfailures_126',['stationFailures',['../class_menu.html#a88d16c24e46b162fc82b34a2cd834b08',1,'Menu']]],
   ['stationh_127',['StationH',['../class_station.html#ab8609b4b41ebc28a0a806fcb17506513',1,'Station']]],
   ['stationhash_128',['StationHash',['../struct_station_1_1_station_hash.html',1,'Station']]],

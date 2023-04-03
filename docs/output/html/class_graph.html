@@ -481,11 +481,11 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Calculates the minimum cost maximum flow from the source vertex to the destination vertex using the successive shortest path algorithm.</p>
+<p>This function calculates the minimum cost maximum flow from the source vertex to the destination vertex using the successive shortest path algorithm.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">source</td><td>The source vertex. </td></tr>
-    <tr><td class="paramname">target</td><td>The destination vertex. </td></tr>
+    <tr><td class="paramname">source</td><td>The identifier of the source vertex. </td></tr>
+    <tr><td class="paramname">target</td><td>The identifier of the target vertex. </td></tr>
   </table>
   </dd>
 </dl>
@@ -528,7 +528,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Calculates the cost of the path found from the source vertex to the destination vertex. </p>
-<p>This function implementsFord-Fulkerson algorithm to find the minimum cost maximum flow from the source vertex to the target vertex in the graph. The algorithm works by repeatedly finding the minimum cost augmenting path from the source to the target using Dijkstra's algorithm, and then augmenting the flow along that path until no more augmenting paths exist.</p>
+<p>This function implements Ford-Fulkerson algorithm to find the minimum cost maximum flow from the source vertex to the target vertex in the graph. The algorithm works by repeatedly finding the minimum cost augmenting path from the source to the target using Dijkstra's algorithm, and then augmenting the flow along that path until no more augmenting paths exist.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">src</td><td>A pointer to the source vertex. </td></tr>

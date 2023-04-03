@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['segmentfailure_240',['segmentFailure',['../class_supervisor.html#ae72b560bf9732552254bac52b7f4f26d',1,'Supervisor']]],
+  ['segmentfailure_240',['segmentFailure',['../class_supervisor.html#a675a5b90dfe15d88674eb4f4aca767e7',1,'Supervisor']]],
   ['segmentfailures_241',['segmentFailures',['../class_menu.html#a33cffe41290f5c6b0a6890afb8e712a9',1,'Menu']]],
   ['set_242',['set',['../class_mutable_priority_queue.html#afbe461c0a2ea2f16006ed7e1bf9c105d',1,'MutablePriorityQueue']]],
   ['setcost_243',['setCost',['../class_edge.html#a8099382d330c8b4c5bdd7d059605e2ca',1,'Edge']]],
@@ -16,7 +16,7 @@ var searchData=
   ['setstation_253',['setStation',['../class_vertex.html#aaba1686847ac27788b890d663b77acf6',1,'Vertex']]],
   ['setvisited_254',['setVisited',['../class_vertex.html#a15eeabbbb6d517af746ae137c6d5b595',1,'Vertex']]],
   ['station_255',['Station',['../class_station.html#a25fdb8db59e73ef7bf1e76beb114233e',1,'Station::Station(string name)'],['../class_station.html#a453b45185683f69ae6e73fd8c457886a',1,'Station::Station(string, string, string, string, string)']]],
-  ['stationfailure_256',['stationFailure',['../class_supervisor.html#a36e9ed7f8e16f5b7af28912743fd1a72',1,'Supervisor']]],
+  ['stationfailure_256',['stationFailure',['../class_supervisor.html#af88e49984b5420bbea8b100ca2ead3f9',1,'Supervisor']]],
   ['stationfailures_257',['stationFailures',['../class_menu.html#a88d16c24e46b162fc82b34a2cd834b08',1,'Menu']]],
   ['statistics_258',['statistics',['../class_menu.html#ac88bdc761de6e76c77bfb226c1fa6fbb',1,'Menu']]],
   ['subgraphoperations_259',['subGraphOperations',['../class_menu.html#a5a92ace9c6ee6f08a52677c2dfc266ed',1,'Menu']]],

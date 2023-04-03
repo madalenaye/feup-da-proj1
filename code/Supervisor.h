@@ -27,9 +27,9 @@ public:
     bool isStation(const string& station);
     bool isLine(const string& line);
 
-    void createSubgraph(const unordered_set<string>& failureLines);
-    void createSubgraph(const vector<pair<string, string>>& failureSegments);
-    void createSubgraph(const Station::StationH& failureStations);
+    void createSubgraph(const unordered_set<string>& failedLines);
+    void createSubgraph(const vector<pair<string, string>>& failedSegments);
+    void createSubgraph(const Station::StationH& failedStations);
 
 private:
 
@@ -43,9 +43,9 @@ private:
 
     //void removeUnusedStations();
 
-    bool segmentFailure(const vector<pair<string, string>>& failureSegments, const string& source, const string& target);
-    bool lineFailure(unordered_set<string> failureLines, const string &source, const string &target);
-    bool stationFailure(Station::StationH failureStations, const string &source, const string &target);
+    bool segmentFailure(const vector<pair<string, string>>& failedSegments, const string& source, const string& target);
+    bool lineFailure(unordered_set<string> failedLines, const string &source, const string &target);
+    bool stationFailure(Station::StationH failedStations, const string &source, const string &target);
 
     Station::StationH stations;
 

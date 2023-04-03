@@ -229,7 +229,7 @@ bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
 /**
  * @brief Calculates the cost of the path found from the source vertex to the destination vertex.
  *
- * This function implementsFord-Fulkerson algorithm to find the minimum cost maximum flow from the
+ * This function implements Ford-Fulkerson algorithm to find the minimum cost maximum flow from the
  * source vertex to the target vertex in the graph. The algorithm works by repeatedly finding the minimum cost
  * augmenting path from the source to the target using Dijkstra's algorithm, and then augmenting the flow
  * along that path until no more augmenting paths exist.
@@ -253,11 +253,11 @@ int Graph::pathCost(Vertex* src, Vertex* dest){
 }
 
 /**
- * Calculates the minimum cost maximum flow from the source vertex to the destination vertex using the
+ * This function calculates the minimum cost maximum flow from the source vertex to the destination vertex using the
  * successive shortest path algorithm.
  *
- * @param source The source vertex.
- * @param target The destination vertex.
+ * @param source The identifier of the source vertex.
+ * @param target The identifier of the target vertex.
  * @return The minimum cost of the flow from the source to the target, or 0 if there is no feasible flow.
  */
 int Graph::minCost(int source, int target) {

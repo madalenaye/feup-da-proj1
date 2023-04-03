@@ -93,12 +93,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae80406e6d10c212813b864867335f7bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad0c8807374a4fc62977b98eb37ed7e8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#aad0c8807374a4fc62977b98eb37ed7e8">isLine</a> (const string &amp;line)</td></tr>
 <tr class="separator:aad0c8807374a4fc62977b98eb37ed7e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02ebd8896b9d12cdd5da0e02b2e33e06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a02ebd8896b9d12cdd5da0e02b2e33e06">createSubgraph</a> (const unordered_set&lt; string &gt; &amp;failureLines)</td></tr>
-<tr class="separator:a02ebd8896b9d12cdd5da0e02b2e33e06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abca262358008ddb42920e7d2a46dcd0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#abca262358008ddb42920e7d2a46dcd0c">createSubgraph</a> (const vector&lt; pair&lt; string, string &gt;&gt; &amp;failureSegments)</td></tr>
-<tr class="separator:abca262358008ddb42920e7d2a46dcd0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a396b010ddfce0d7b69008ada14ac06d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a396b010ddfce0d7b69008ada14ac06d2">createSubgraph</a> (const <a class="el" href="class_station.html#ab8609b4b41ebc28a0a806fcb17506513">Station::StationH</a> &amp;failureStations)</td></tr>
-<tr class="separator:a396b010ddfce0d7b69008ada14ac06d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a430a53cf67225bc49c9ec9a0114bec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a4a430a53cf67225bc49c9ec9a0114bec">createSubgraph</a> (const unordered_set&lt; string &gt; &amp;failedLines)</td></tr>
+<tr class="separator:a4a430a53cf67225bc49c9ec9a0114bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35ef82cd29167eed7cf4f43bf70f7ece"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a35ef82cd29167eed7cf4f43bf70f7ece">createSubgraph</a> (const vector&lt; pair&lt; string, string &gt;&gt; &amp;failedSegments)</td></tr>
+<tr class="separator:a35ef82cd29167eed7cf4f43bf70f7ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab72efa9fcf0a02dbaceea14c217d8bd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#ab72efa9fcf0a02dbaceea14c217d8bd8">createSubgraph</a> (const <a class="el" href="class_station.html#ab8609b4b41ebc28a0a806fcb17506513">Station::StationH</a> &amp;failedStations)</td></tr>
+<tr class="separator:ab72efa9fcf0a02dbaceea14c217d8bd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -112,12 +112,12 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:adacd529a1c69b0b9ec392cf7c110f782"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab24e222fffaaffa57d6f0efd2fee7fa1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#ab24e222fffaaffa57d6f0efd2fee7fa1">makeVertex</a> (<a class="el" href="class_graph.html">Graph</a> &amp;_graph, unordered_map&lt; string, int &gt; &amp;ids, const string &amp;name, int &amp;id)</td></tr>
 <tr class="separator:ab24e222fffaaffa57d6f0efd2fee7fa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae72b560bf9732552254bac52b7f4f26d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#ae72b560bf9732552254bac52b7f4f26d">segmentFailure</a> (const vector&lt; pair&lt; string, string &gt;&gt; &amp;failureSegments, const string &amp;source, const string &amp;target)</td></tr>
-<tr class="separator:ae72b560bf9732552254bac52b7f4f26d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ed16b27187271367eee074228fcaf9e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a9ed16b27187271367eee074228fcaf9e">lineFailure</a> (unordered_set&lt; string &gt; failureLines, const string &amp;source, const string &amp;target)</td></tr>
-<tr class="separator:a9ed16b27187271367eee074228fcaf9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36e9ed7f8e16f5b7af28912743fd1a72"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a36e9ed7f8e16f5b7af28912743fd1a72">stationFailure</a> (<a class="el" href="class_station.html#ab8609b4b41ebc28a0a806fcb17506513">Station::StationH</a> failureStations, const string &amp;source, const string &amp;target)</td></tr>
-<tr class="separator:a36e9ed7f8e16f5b7af28912743fd1a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a675a5b90dfe15d88674eb4f4aca767e7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a675a5b90dfe15d88674eb4f4aca767e7">segmentFailure</a> (const vector&lt; pair&lt; string, string &gt;&gt; &amp;failedSegments, const string &amp;source, const string &amp;target)</td></tr>
+<tr class="separator:a675a5b90dfe15d88674eb4f4aca767e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6935c167c91b7db6f84b4915c3946249"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#a6935c167c91b7db6f84b4915c3946249">lineFailure</a> (unordered_set&lt; string &gt; failedLines, const string &amp;source, const string &amp;target)</td></tr>
+<tr class="separator:a6935c167c91b7db6f84b4915c3946249"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af88e49984b5420bbea8b100ca2ead3f9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_supervisor.html#af88e49984b5420bbea8b100ca2ead3f9">stationFailure</a> (<a class="el" href="class_station.html#ab8609b4b41ebc28a0a806fcb17506513">Station::StationH</a> failedStations, const string &amp;source, const string &amp;target)</td></tr>
+<tr class="separator:af88e49984b5420bbea8b100ca2ead3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -188,6 +188,15 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function extracts the next field from an istringstream object and checks if it needs quotes to be removed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iss</td><td>The istringstream object containing the input text </td></tr>
+    <tr><td class="paramname">field</td><td>The string field containing a quoted string to process.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(n), where n is the length of the string field </dd></dl>
 
 </div>
 </div>
@@ -213,6 +222,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function reads and processes the CSV file "network.csv", which contains information about the connections between the different stations. A graph of the railway network is created, where each station is represented as a vertex and each connection is represented as an edge.</p>
+<dl class="section user"><dt>Time complexity</dt><dd>O(n), where n is the number of lines in the CSV file </dd></dl>
 
 </div>
 </div>
@@ -238,11 +249,13 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function reads the stations data from the CSV file "stations.csv" and creates <a class="el" href="class_station.html">Station</a> objects and data structures for them, namely an unordered set of stations (stations), an unordered set of their main lines (lines), and an unordered map that contains the line names and their corresponding stations.</p>
+<dl class="section user"><dt>Time complexity</dt><dd>O(n), where n is the number of lines in the CSV file </dd></dl>
 
 </div>
 </div>
-<a id="a396b010ddfce0d7b69008ada14ac06d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a396b010ddfce0d7b69008ada14ac06d2">&#9670;&nbsp;</a></span>createSubgraph() <span class="overload">[1/3]</span></h2>
+<a id="ab72efa9fcf0a02dbaceea14c217d8bd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab72efa9fcf0a02dbaceea14c217d8bd8">&#9670;&nbsp;</a></span>createSubgraph() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -251,16 +264,24 @@ Private Attributes</h2></td></tr>
           <td class="memname">void Supervisor::createSubgraph </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="class_station.html#ab8609b4b41ebc28a0a806fcb17506513">Station::StationH</a> &amp;&#160;</td>
-          <td class="paramname"><em>failureStations</em></td><td>)</td>
+          <td class="paramname"><em>failedStations</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>This function creates a subgraph of the main graph based on a set of failure stations, which represents stations that are currently out of service due to repairs, services, disasters, or other reasons. The new graph excludes any stations that belong to the failed stations.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">failedStations</td><td>The set of stations to be excluded.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(n), where n is the number of lines in the CSV file </dd></dl>
 
 </div>
 </div>
-<a id="a02ebd8896b9d12cdd5da0e02b2e33e06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02ebd8896b9d12cdd5da0e02b2e33e06">&#9670;&nbsp;</a></span>createSubgraph() <span class="overload">[2/3]</span></h2>
+<a id="a4a430a53cf67225bc49c9ec9a0114bec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a430a53cf67225bc49c9ec9a0114bec">&#9670;&nbsp;</a></span>createSubgraph() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -269,16 +290,24 @@ Private Attributes</h2></td></tr>
           <td class="memname">void Supervisor::createSubgraph </td>
           <td>(</td>
           <td class="paramtype">const unordered_set&lt; string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>failureLines</em></td><td>)</td>
+          <td class="paramname"><em>failedLines</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>This function creates a subgraph of the main graph based on a set of failure lines, which represents transit lines that are currently out of service due to repairs, services, disasters, or other reasons. The new graph excludes any edges that belong to the failed lines.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">failedLines</td><td>The set of lines to be excluded.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(n), where n is the number of lines in the CSV file </dd></dl>
 
 </div>
 </div>
-<a id="abca262358008ddb42920e7d2a46dcd0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abca262358008ddb42920e7d2a46dcd0c">&#9670;&nbsp;</a></span>createSubgraph() <span class="overload">[3/3]</span></h2>
+<a id="a35ef82cd29167eed7cf4f43bf70f7ece"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35ef82cd29167eed7cf4f43bf70f7ece">&#9670;&nbsp;</a></span>createSubgraph() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -287,11 +316,19 @@ Private Attributes</h2></td></tr>
           <td class="memname">void Supervisor::createSubgraph </td>
           <td>(</td>
           <td class="paramtype">const vector&lt; pair&lt; string, string &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>failureSegments</em></td><td>)</td>
+          <td class="paramname"><em>failedSegments</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>This function creates a subgraph of the main graph based on a set of failure segments, which represents segments that are currently out of service due to repairs, services, disasters, or other reasons. The new graph excludes any edges that belong to the failed segments.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">failedStations</td><td>The set of segments to be excluded.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(n), where n is the number of lines in the CSV file </dd></dl>
 
 </div>
 </div>
@@ -395,6 +432,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>This function checks if a line is present in the lines unordered_set. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">line</td><td>The name of the line. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the line exists, false otherwise. </dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(1) </dd></dl>
 
 </div>
 </div>
@@ -413,11 +458,19 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>This function checks if a station is present in the stations unordered_set. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">station</td><td>The name of the station. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the station exists, false otherwise. </dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(1) </dd></dl>
 
 </div>
 </div>
-<a id="a9ed16b27187271367eee074228fcaf9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ed16b27187271367eee074228fcaf9e">&#9670;&nbsp;</a></span>lineFailure()</h2>
+<a id="a6935c167c91b7db6f84b4915c3946249"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6935c167c91b7db6f84b4915c3946249">&#9670;&nbsp;</a></span>lineFailure()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -429,7 +482,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">bool Supervisor::lineFailure </td>
           <td>(</td>
           <td class="paramtype">unordered_set&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>failureLines</em>, </td>
+          <td class="paramname"><em>failedLines</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -455,6 +508,17 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function checks if either the source or the target stations of a given edge are in the set of failed lines.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">failedLines</td><td>The set of lines to be excluded. </td></tr>
+    <tr><td class="paramname">source</td><td>The name of the source station. </td></tr>
+    <tr><td class="paramname">target</td><td>The name of the target station.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if source or target is in the set failedLines, false otherwise.</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(1) </dd></dl>
 
 </div>
 </div>
@@ -503,6 +567,18 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function creates a new vertex in the graph for the station with the given name, or returns the existing vertex ID if the station already exists in the graph.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_graph</td><td>The graph in which the vertex is to be created (main graph or subgraph). </td></tr>
+    <tr><td class="paramname">ids</td><td>The unordered map that contains the station names and their corresponding vertex IDs. </td></tr>
+    <tr><td class="paramname">name</td><td>the name of the station to create in the graph. </td></tr>
+    <tr><td class="paramname">id</td><td>the ID of the next vertex to be created in the graph</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the vertex ID of the newly created or existing vertex</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(log(n)), where n is the number of elements in the unordered map ids </dd></dl>
 
 </div>
 </div>
@@ -539,11 +615,21 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function removes quotes from a string field that contains a quoted string.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iss</td><td>The istringstream object that contains the field to process. </td></tr>
+    <tr><td class="paramname">field</td><td>The string field containing a quoted string to process.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a string containing the processed text with the quotes removed.</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(n), where n is the length of the string field </dd></dl>
 
 </div>
 </div>
-<a id="ae72b560bf9732552254bac52b7f4f26d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae72b560bf9732552254bac52b7f4f26d">&#9670;&nbsp;</a></span>segmentFailure()</h2>
+<a id="a675a5b90dfe15d88674eb4f4aca767e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a675a5b90dfe15d88674eb4f4aca767e7">&#9670;&nbsp;</a></span>segmentFailure()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -555,7 +641,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">bool Supervisor::segmentFailure </td>
           <td>(</td>
           <td class="paramtype">const vector&lt; pair&lt; string, string &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>failureSegments</em>, </td>
+          <td class="paramname"><em>failedSegments</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -581,11 +667,22 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function checks if a given edge is in the set of failed segments.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">failedSegments</td><td>The vector of segments to be excluded. </td></tr>
+    <tr><td class="paramname">source</td><td>The name of the source station. </td></tr>
+    <tr><td class="paramname">target</td><td>The name of the target station.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the edge is in failedSegments, false otherwise.</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(n), where n is the number of elements of the vector failedSegments </dd></dl>
 
 </div>
 </div>
-<a id="a36e9ed7f8e16f5b7af28912743fd1a72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36e9ed7f8e16f5b7af28912743fd1a72">&#9670;&nbsp;</a></span>stationFailure()</h2>
+<a id="af88e49984b5420bbea8b100ca2ead3f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af88e49984b5420bbea8b100ca2ead3f9">&#9670;&nbsp;</a></span>stationFailure()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -597,7 +694,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">bool Supervisor::stationFailure </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_station.html#ab8609b4b41ebc28a0a806fcb17506513">Station::StationH</a>&#160;</td>
-          <td class="paramname"><em>failureStations</em>, </td>
+          <td class="paramname"><em>failedStations</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -623,6 +720,17 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function checks if either the source or the target stations of a given edge are in the set of failed stations.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">failedStations</td><td>The set of stations to be excluded. </td></tr>
+    <tr><td class="paramname">source</td><td>The name of the source station. </td></tr>
+    <tr><td class="paramname">target</td><td>The name of the target station.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if source or target is in the set failedStations, false otherwise.</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(1) </dd></dl>
 
 </div>
 </div>
