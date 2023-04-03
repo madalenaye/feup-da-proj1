@@ -14,6 +14,12 @@ unordered_map<string, int> Supervisor::getId() const{
     return idStations;
 }
 
+unordered_map<string, Station::StationH> Supervisor::getMunicipalityStations() {
+    return municipalityStations;
+}
+unordered_map<string, Station::StationH> Supervisor::getDistrictStations() {
+    return districtStations;
+}
 unordered_map<string, int> Supervisor::getSubGraphStations() const{
     return subGraphStations;
 }
@@ -145,6 +151,8 @@ void Supervisor::createStations() {
         stations.insert(station);
         lines.insert(line);
         stationsPerLine[line].insert(station);
+        municipalityStations[municipality].insert(station);
+        districtStations[district].insert(station);
     }
     myFile.close();
 }
@@ -363,3 +371,27 @@ bool Supervisor::segmentFailure(const vector<pair<string,string>>& failedSegment
     return std::any_of(failedSegments.begin(), failedSegments.end(),
        [&](const pair<string,string>& pair) {return pair.first == source && pair.second == target;});
 }
+
+vector<pair<string, int>> Supervisor::topBudget(int type) {
+    vector<pair<string, int>> res;
+    unordered_map<string, Station::StationH> stations;
+    if (type == 1) stations = municipalityStations;
+    else stations = districtStations;
+
+    for (auto i : stations){
+        int maxFlow = -1;
+        for (auto station1 : i.second){
+            for (auto station2 : i.second){
+                int flow = graph.maxFlow(idStations[station1.getName()], idStations[station2.getName()]);
+                if (flow > maxFlow) maxFlow = flow;
+            }
+        }
+        res.emplace_back(i.first, maxFlow);
+    }
+    sort(res.begin(), res.end(), [](pair<string,int> a, pair<string, int> b){
+        return a.second > b.second;
+    });
+
+    return res;
+}
+

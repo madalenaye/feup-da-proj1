@@ -9,6 +9,8 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <list>
+
 
 #include "Graph.h"
 #include "Station.h"
@@ -21,6 +23,9 @@ public:
     Station::StationH getStations() const;
     unordered_map<string, int> getId() const;
     unordered_map<string, int> getSubGraphStations() const;
+    unordered_map<string, Station::StationH> getMunicipalityStations();
+    unordered_map<string, Station::StationH> getDistrictStations();
+
     Graph getGraph() const;
     Graph getSubGraph() const;
 
@@ -30,6 +35,7 @@ public:
     void createSubgraph(const unordered_set<string>& failedLines);
     void createSubgraph(const vector<pair<string, string>>& failedSegments);
     void createSubgraph(const Station::StationH& failedStations);
+    vector<pair<string, int>> topBudget(int type);
 
 private:
 
@@ -50,6 +56,9 @@ private:
     Station::StationH stations;
 
     unordered_map<string, int> idStations;
+    unordered_map<string, Station::StationH> municipalityStations;
+    unordered_map<string, Station::StationH> districtStations;
+
     unordered_map<string, int> subGraphStations;
 
     unordered_set<string> lines;

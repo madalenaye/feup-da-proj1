@@ -1,7 +1,19 @@
 #include "Menu.h"
 
 int main() {
-    Menu menu;
+    /*Menu menu;
     menu.init();
-    Menu::end();
+    Menu::end();*/
+
+    Supervisor* supervisor = new Supervisor();
+    vector<pair<string, int>> top = supervisor->topBudget(1);
+    for (auto i : top){
+        cout << i.first << " : " << i.second << " | ";
+    }
+    /*for (auto i : supervisor->getDistrictStations()){
+        cout << i.first << " : ";
+        for (auto j : i.second){
+            cout << j.getName() << " | ";
+        }
+    }*/
 }

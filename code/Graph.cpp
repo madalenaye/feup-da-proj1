@@ -170,8 +170,8 @@ int Graph::maxFlow(int source, int target){
     while (findAugmentingPath(src,dest)) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
-        cout << "Path nr. " << i++ << " : ";
-        printPath(src,dest);
+        //cout << "Path nr. " << i++ << " : ";
+        //printPath(src,dest);
         cout << endl;
         flow+=f;
     }
