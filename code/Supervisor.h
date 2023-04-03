@@ -18,25 +18,46 @@ class Supervisor{
 public:
     Supervisor();
 
+    Station::StationH getStations() const;
     unordered_map<string, int> getId() const;
+    unordered_map<string, int> getSubGraphStations() const;
     Graph getGraph() const;
-    bool isStation(string station);
+    Graph getSubGraph() const;
+
+    bool isStation(const string& station);
+    bool isLine(const string& line);
+
+    void createSubgraph(const unordered_set<string>& failureLines);
+    void createSubgraph(const vector<pair<string, string>>& failureSegments);
+    void createSubgraph(const Station::StationH& failureStations);
+
 private:
 
     void createStations();
     void createGraph();
-    Station::StationH stations;
-    unordered_map<string, int> idStations;
-    Graph graph;
-
-
-    string removeQuotes(istringstream &iss, string field);
 
     void checkField(istringstream &iss, string &field);
+    string removeQuotes(istringstream &iss, string field);
 
-    int makeVertex(string name, int &id);
+    int makeVertex(Graph &_graph, unordered_map<string, int> &ids, const string &name, int &id);
 
-    void removeUnusedStations();
+    //void removeUnusedStations();
+
+    bool segmentFailure(const vector<pair<string, string>>& failureSegments, const string& source, const string& target);
+    bool lineFailure(unordered_set<string> failureLines, const string &source, const string &target);
+    bool stationFailure(Station::StationH failureStations, const string &source, const string &target);
+
+    Station::StationH stations;
+
+    unordered_map<string, int> idStations;
+    unordered_map<string, int> subGraphStations;
+
+    unordered_set<string> lines;
+    unordered_map<string, Station::StationH> stationsPerLine;
+
+    Graph graph;
+    Graph subGraph;
+
 };
 
 
