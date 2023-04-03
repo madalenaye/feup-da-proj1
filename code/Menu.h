@@ -27,10 +27,7 @@ private:
 
     void costOptimization(bool subgraph, const string& srcStation, const string& destStation);
 
-    //validate
-
     int customTop(const string& message, int n);
-
 
     void reliability();
 
@@ -38,9 +35,10 @@ private:
     void segmentFailures();
     void stationFailures();
 
-    string validateLine();
-    string validateStation(bool dest);
     void subGraphOperations();
+
+    string validateLine();
+    string validateStation(string message);
 
     Supervisor* supervisor;
 };

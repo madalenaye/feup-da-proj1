@@ -11,7 +11,9 @@ void Menu::init() {
     string option;
     while(true) {
         cout << " What would you like to do today?\n\n"
-                " [1] Explore basic service metrics\n [2] Consult operation cost optimization\n [3] Analyse reliability and sensitivity to line failures\n"
+                " [1] Explore basic service metrics\n"
+                " [2] Consult operation cost optimization\n"
+                " [3] Analyse reliability and sensitivity to line failures\n"
                 " [4] Exit\n\n Option: ";
 
         cin >> option;
@@ -21,14 +23,18 @@ void Menu::init() {
         }
 
         else if (option == "2"){
-            string srcStation = validateStation(false);
-            string destStation = validateStation(true);
+            cin.ignore();
+            string source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
+            if (source == "0") return;
+            string target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
+            if (target == "0") return;
 
-            while (destStation == srcStation){
-                cout << "Please choose two different stations.\n";
-                destStation = validateStation(true);
+            while (source == target){
+                cout << " Please choose two different stations.\n";
+                target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
             }
-            costOptimization(false, srcStation, destStation);
+            if (target == "0") return;
+            costOptimization(false, source, target);
         }
 
         else if (option == "3"){
@@ -53,18 +59,23 @@ void Menu::basicService(){
         cout << "\n What details in specific?\n\n"
                 " [1] Maximum number of trains that can simultaneously travel between two specific stations\n"
                 " [2] Which pairs of stations require the most amount of trains\n"
-                " [3] Top-k municipalities or districts\n [4] Maximum number of trains that can simultaneously arrive at a given station\n\n "
+                " [3] Top-k municipalities or districts\n"
+                " [4] Maximum number of trains that can simultaneously arrive at a given station\n\n"
                 " Option: ";
 
         cin >> option;
         if (option == "1"){
-            string srcStation = validateStation(false);
-            string destStation = validateStation(true);
+            cin.ignore();
+            string srcStation = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
+            if (srcStation == "0") return;
+            string destStation = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
+            if (destStation == "0") return;
 
             while (destStation == srcStation){
-                cout << "Please choose two different stations.\n";
-                destStation = validateStation(true);
+                cout << " Please choose two different stations.\n";
+                destStation = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
             }
+            if (destStation == "0") return;
 
             maxFlow(false, srcStation,destStation);
             return;
@@ -78,8 +89,9 @@ void Menu::basicService(){
             return;
         }
         else if (option == "4"){
-            string destStation = validateStation(true);
-            t4(destStation); //....
+            cin.ignore();
+            string station = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
+            t4(station); //....
             return;
         }
         else if (option == "0"){
@@ -209,7 +221,7 @@ void Menu::lineFailures() {
     while(true){
         cout << "\n Would you like to remove any other line?\n\n"
                 " [1] Yes\n"
-                " [2] No\n\n "
+                " [2] No\n\n"
                 " Option: ";
         cin >> option;
         if (option == "1") {
@@ -239,17 +251,18 @@ void Menu::lineFailures() {
 void Menu::segmentFailures(){
     vector<pair<string,string>> failureSegments;
     string option;
-
-    string source = validateStation(false);
+    cin.ignore();
+    string source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
     if (source == "0") return;
-    string target = validateStation(true);
+    string target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
     if (target == "0") return;
 
     while (source == target){
-        cout << "Please choose two different stations.\n";
-        target = validateStation(true);
+        cout << " Please choose two different stations.\n";
+        target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
     }
     if (target == "0") return;
+
     failureSegments.emplace_back(source,target);
 
     while(true){
@@ -259,30 +272,34 @@ void Menu::segmentFailures(){
                 " Option: ";
         cin >> option;
         if (option == "1"){
-            source = validateStation(false);
+            cin.ignore();
+            source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
             if (source == "0") break;
-            target = validateStation(true);
+            target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
             if (target == "0") break;
+
             while (source == target){
-                cout << "Please choose two different stations.\n";
-                target = validateStation(true);
+                cout << " Please choose two different stations.\n";
+                target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
             }
             if (target == "0") break;
+
             while (std::any_of(failureSegments.begin(), failureSegments.end(),
                                [&](pair<string,string>& segment){ return segment == std::make_pair(source, target); })) {
                 cout << " This segment has already been chosen, please choose a different segment!\n";
-                source = validateStation(false);
+
+                source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
                 if (source == "0") break;
-                target = validateStation(true);
+                target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
                 if (target == "0") break;
 
-                while (source == target){
-                    cout << "Please choose two different stations.\n";
-                    target = validateStation(true);
+                while (source == target) {
+                    cout << " Please choose two different stations.\n";
+                    target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
                 }
                 if (target == "0") break;
             }
-
+            if (source == "0" || target == "0") break;
             failureSegments.emplace_back(source,target);
         }
         else if (option == "2")
@@ -302,8 +319,8 @@ void Menu::segmentFailures(){
 void Menu::stationFailures(){
     Station::StationH failureStations;
     string option;
-
-    string name = validateStation(false);
+    cin.ignore();
+    string name = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
     if (name == "0") return;
     Station station = *supervisor->getStations().find(name);
     failureStations.insert(station);
@@ -315,12 +332,13 @@ void Menu::stationFailures(){
                 " Option: ";
         cin >> option;
         if (option == "1"){
-            name = validateStation(false);
+            cin.ignore();
+            name = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
             if (name == "0") break;
             station = *supervisor->getStations().find(name);
             while (!failureStations.insert(station).second){
                 cout << " This station has already been chosen, please choose a different station!\n";
-                name = validateStation(false);
+                name = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
                 if (name == "0") break;
                 station = *supervisor->getStations().find(name);;
             }
@@ -351,27 +369,35 @@ void Menu::subGraphOperations(){
 
         cin >> option;
         if (option == "1"){
-            string srcStation = validateStation(false);
-            string destStation = validateStation(true);
+            cin.ignore();
+            string source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
+            if (source == "0") return;
+            string target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
+            if (target == "0") return;
 
-            while (destStation == srcStation){
-                cout << "Please choose two different stations.\n";
-                destStation = validateStation(true);
+            while (source == target){
+                cout << " Please choose two different stations.\n";
+                target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
             }
+            if (target == "0") return;
 
-            maxFlow(true,srcStation,destStation);
+            maxFlow(true,source,target);
             return;
         }
         else if (option == "2"){
-            string srcStation = validateStation(false);
-            string destStation = validateStation(true);
+            cin.ignore();
+            string source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
+            if (source == "0") return;
+            string target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
+            if (target == "0") return;
 
-            while (destStation == srcStation){
-                cout << "Please choose two different stations.\n";
-                destStation = validateStation(true);
+            while (source == target){
+                cout << " Please choose two different stations.\n";
+                target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
             }
+            if (target == "0") return;
 
-            costOptimization(true,srcStation,destStation);
+            costOptimization(true,source,target);
             return;
         }
         else if (option == "3"){
@@ -405,16 +431,12 @@ string Menu::validateLine() {
     return line;
 }
 
-string Menu::validateStation(bool dest){
+string Menu::validateStation(string message){
 
     string station;
 
-    if (dest)
-        cout << " Insert the name of the target station (ex: Porto Campanhã): ";
-    else{
-        cin.ignore();
-        cout << " Insert the name of the source station (ex: Porto Campanhã): ";
-    }
+    cout << message;
+
     getline(cin,station,'\n');
 
     while(!supervisor->isStation(station)) {
