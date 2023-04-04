@@ -172,7 +172,7 @@ int Graph::maxFlow(int source, int target){
         augmentFlowAlongPath(src, dest, f);
         //cout << "Path nr. " << i++ << " : ";
         //printPath(src,dest);
-        cout << endl;
+        //cout << endl;
         flow+=f;
     }
     return flow;
@@ -287,3 +287,67 @@ int Graph::minCost(int source, int target) {
     return cost;
 
 }
+
+void Graph::dfsConnected(Vertex *v, list<Vertex*> &comp, string district) {
+    v->setVisited(true);
+    comp.push_back(v);
+    for (auto e : v->getAdj()){
+        auto w = e->getDest();
+        if (!w->isVisited() && w->getStation().getDistrict() == district){
+            dfsConnected(w, comp, district);
+        }
+    }
+}
+
+list<list<Vertex*>> Graph::connectedStations(string district) {
+    list<list<Vertex*>> connected;
+    for (auto v : vertexSet) v->setVisited(false);
+    for (auto v : vertexSet){
+        if (!v->isVisited() && v->getStation().getDistrict() == district){
+            list<Vertex*> components;
+            dfsConnected(v, components, district);
+            connected.push_back(components);
+        }
+    }
+    return connected;
+}
+
+int Graph::kruskal(list<Vertex*> vertices) {
+
+    int totalCost = -1;
+    if (vertices.empty()) return totalCost;
+
+    UFDS ufds(vertices.size());{
+        int id = 0;
+        for (auto v : vertices){
+            v->setId(id++);
+        }
+    }
+    std::vector<Edge*> allEdges;
+    unsigned int selectedEdges = 0;
+    for (auto v : vertices){
+        for (auto e : v->getAdj()){
+            e->setSelected(false);
+            if (e->getOrig()->getId() < e->getDest()->getId()){
+                allEdges.push_back(e);
+            }
+        }
+    }
+    std::sort(allEdges.begin(), allEdges.end(), [](Edge* a, Edge* b){
+        return a->getCost() > b->getCost();
+    });
+    for (auto edge: allEdges){
+        auto origin = edge->getOrig();
+        auto dest = edge->getDest();
+        if (!ufds.isSameSet(origin->getId(), dest->getId())){
+            ufds.linkSets(origin->getId(), dest->getId());
+            edge->setSelected(true);
+            edge->getReverse()->setSelected(true);
+            selectedEdges++;
+            totalCost += edge->getCost();
+            if (selectedEdges == vertices.size() - 1) break;
+        }
+    }
+    return totalCost;
+}
+

@@ -35,6 +35,7 @@ public:
     void createSubgraph(const unordered_set<string>& failedLines);
     void createSubgraph(const vector<pair<string, string>>& failedSegments);
     void createSubgraph(const Station::StationH& failedStations);
+    void createDistrictSubgraph(string district);
     vector<pair<string, int>> topBudget(int type);
 
 private:

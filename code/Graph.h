@@ -3,10 +3,11 @@
 
 #include <algorithm>
 #include <stack>
+#include <list>
 
 #include "VertexEdge.h"
 #include "PriorityQueue.h"
-
+#include "UFDS.h"
 
 class Graph {
 public:
@@ -30,6 +31,9 @@ public:
     std::vector<Vertex *> getVertexSet() const;
     int minCost(int source, int target);
     int maxFlow(int source, int target);
+    list<list<Vertex*>> connectedStations(string district);
+    void dfsConnected(Vertex* v, list<Vertex*>& comp, string district);
+    int kruskal(list<Vertex*> vertices);
 
 private:
     std::vector<Vertex *> vertexSet;    // vertex set
