@@ -17,6 +17,9 @@ unordered_map<string, int> Supervisor::getId() const{
 unordered_map<string, int> Supervisor::getSubGraphStations() const{
     return subGraphStations;
 }
+Graph Supervisor::getSuperSourceGraph() const {
+    return superSourceGraph;
+}
 
 Graph Supervisor::getGraph() const {
     return graph;
@@ -180,11 +183,37 @@ void Supervisor::createGraph() {
 
         graph.addEdge(idA, idB, capacity, service);
     }
+    inFile.close();
+}
+void Supervisor::createSuperSourceGraph() {
+    this->superSourceGraph=Graph();
+    superSourceGraphStations.clear();
+    ifstream inFile;
+    string source, target, service, line, x;
+    int capacity, idA, idB, id=0;
+    inFile.open("../data/network.csv");
+    getline(inFile, line);
+
+    while(getline(inFile, line)) {
+
+        istringstream is(line);
+
+        checkField(is, source);
+        checkField(is,target);
+        checkField(is, x); capacity = stoi(x);
+        checkField(is, service);
+
+        if (service.back() == '\r') service.pop_back();
+
+        idA = makeVertex(superSourceGraph,superSourceGraphStations,source, id);
+        idB = makeVertex(superSourceGraph,superSourceGraphStations,target, id);
+
+        superSourceGraph.addEdge(idA, idB, capacity, service);
+    }
 
     inFile.close();
-    graph.addVertex(510,Station("Source")); // não consegui de outra maneira por enquanto, depois vejo isso
+    superSourceGraph.addVertex(id,Station("Source"));
 }
-
 
 /**
  * This function creates a subgraph of the main graph based on a set of failure lines, which represents transit lines

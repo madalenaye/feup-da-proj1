@@ -144,18 +144,19 @@ void Menu::t2() {
 }
 void Menu::t24(const string& destStation){
     int dest = supervisor->getId()[destStation];
+    supervisor->createSuperSourceGraph();
     vector<int> sources;
-    for (int i = 0;i < supervisor->getGraph().getVertexSet().size();i++){
+    for (int i = 0;i < supervisor->getSuperSourceGraph().getVertexSet().size();i++){
         if (i== dest) continue;
-        if (supervisor->getGraph().getVertexSet()[i]->getAdj().size()==1){
-            sources.push_back(supervisor->getGraph().getVertexSet()[i]->getId());
+        if (supervisor->getSuperSourceGraph().getVertexSet()[i]->getAdj().size()==1){
+            sources.push_back(supervisor->getSuperSourceGraph().getVertexSet()[i]->getId());
         }
     }
     for(auto i:sources){
-        supervisor->getGraph().addEdge(510,i,INT_MAX,"");
+        supervisor->getSuperSourceGraph().addEdge(supervisor->getSuperSourceGraph().getVertexSet()[supervisor->getSuperSourceGraph().getVertexSet().size()-1]->getId(),i,INT_MAX,"");
     }
 
-    cout << supervisor->getGraph().maxFlow(510,dest)*2 << endl;
+    cout << supervisor->getSuperSourceGraph().maxFlow(supervisor->getSuperSourceGraph().getVertexSet()[supervisor->getSuperSourceGraph().getVertexSet().size()-1]->getId(),dest)*2 << endl;
 }
 //versão Luís
 /*void Menu::t4(const string& destStation){

@@ -29,7 +29,7 @@ Vertex * Graph::findVertex(const int &id) const {
  * @brief Finds the shortest augmenting path from the source to the target using a BFS.
  *
  * This function finds the shortest augmenting path from the source vertex to the target vertex
- * in the graph using a breadth-first search algorithm.
+ * in the graph using a breadth-fir1st search algorithm.
  *
  * @param src A pointer to the source vertex.
  * @param dest A pointer to the target vertex.
@@ -286,17 +286,6 @@ int Graph::minCost(int source, int target) {
     }
     return cost;
 
-}
-
-int Graph::t24(int target){
-    int min=INF;
-    vector<int> minAdj;
-    for (Vertex * vertex:vertexSet){
-        if (vertex->getAdj().size()==1 && target != vertex->getId()){
-
-        }
-    }
-    return maxFlow(999, findVertex(target)->getId());
 }
 
 

@@ -23,6 +23,7 @@ public:
     unordered_map<string, int> getSubGraphStations() const;
     Graph getGraph() const;
     Graph getSubGraph() const;
+    Graph getSuperSourceGraph() const;
 
     bool isStation(const string& station);
     bool isLine(const string& line);
@@ -30,6 +31,7 @@ public:
     void createSubgraph(const unordered_set<string>& failedLines);
     void createSubgraph(const vector<pair<string, string>>& failedSegments);
     void createSubgraph(const Station::StationH& failedStations);
+    void createSuperSourceGraph();
 
 private:
 
@@ -51,12 +53,14 @@ private:
 
     unordered_map<string, int> idStations;
     unordered_map<string, int> subGraphStations;
+    unordered_map<string, int> superSourceGraphStations;
 
     unordered_set<string> lines;
     unordered_map<string, Station::StationH> stationsPerLine;
 
     Graph graph;
     Graph subGraph;
+    Graph superSourceGraph;
 
 };
 
