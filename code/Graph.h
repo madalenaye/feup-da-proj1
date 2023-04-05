@@ -25,25 +25,30 @@ public:
      * destination vertices and the edge weight (w).
      * Returns true if successful, and false if the source or destination vertex does not exist.
      */
-    void addEdge(const int &source, const int &dest, int capacity, string service);
+    void addEdge(const int &source, const int &dest, int capacity, const string& service) const;
 
     std::vector<Vertex *> getVertexSet() const;
     int minCost(int source, int target);
     int maxFlow(int source, int target);
-    list<list<Vertex*>> connectedStations(string district);
-    void dfsConnected(Vertex* v, list<Vertex*>& comp, string district);
-    int kruskal(list<Vertex*> vertices);
+
+    unsigned int maxConnectedDistrict(const string& district);
+    unsigned int maxConnectedMunicipality(const string& municipality);
+
 
 private:
-    std::vector<Vertex *> vertexSet;    // vertex set
+    std::vector<Vertex *> vertexSet;
     bool findAugmentingPath(Vertex *src, Vertex *dest);
 
     bool findMinCostAugmentingPath(Vertex* src, Vertex* dest);
 
-    int findMinResidualAlongPath(Vertex *src, Vertex *dest);
+    static int findMinResidualAlongPath(Vertex *src, Vertex *dest);
 
-    void augmentFlowAlongPath(Vertex *src, Vertex *dest, int flow);
+    static void augmentFlowAlongPath(Vertex *src, Vertex *dest, int flow);
 
-    int pathCost(Vertex *src, Vertex *dest);
+    static int pathCost(Vertex *src, Vertex *dest);
+
+    void dfsConnectedDistrict(Vertex* v, list<int>& comp, const string& district);
+
+    void dfsConnectedMunicipality(Vertex* v, list<int>& comp, const string& municipality);
 };
 #endif //DA_GRAPH_H

@@ -14,12 +14,7 @@ unordered_map<string, int> Supervisor::getId() const{
     return idStations;
 }
 
-unordered_map<string, Station::StationH> Supervisor::getMunicipalityStations() {
-    return municipalityStations;
-}
-unordered_map<string, Station::StationH> Supervisor::getDistrictStations() {
-    return districtStations;
-}
+
 unordered_map<string, int> Supervisor::getSubGraphStations() const{
     return subGraphStations;
 }
@@ -372,31 +367,8 @@ bool Supervisor::segmentFailure(const vector<pair<string,string>>& failedSegment
        [&](const pair<string,string>& pair) {return pair.first == source && pair.second == target;});
 }
 
-vector<pair<string, int>> Supervisor::topBudget(int type) {
-    vector<pair<string, int>> res;
-    unordered_map<string, Station::StationH> stations;
-    if (type == 1) stations = municipalityStations;
-    else stations = districtStations;
 
-    for (auto i : stations){
-        int maxFlow = -1;
-        for (auto station1 : i.second){
-            for (auto station2 : i.second){
-                int flow = graph.maxFlow(idStations[station1.getName()], idStations[station2.getName()]);
-                if (flow > maxFlow) maxFlow = flow;
-            }
-        }
-        res.emplace_back(i.first, maxFlow);
-    }
-    sort(res.begin(), res.end(), [](pair<string,int> a, pair<string, int> b){
-        return a.second > b.second;
-    });
-
-    return res;
-}
-
-
-void Supervisor::createSuperGraph(Station::StationH targetStations) {
+void Supervisor::createSuperGraph(const Station::StationH& targetStations) {
     superGraph = Graph();
     superGraphStations.clear();
     ifstream inFile;
@@ -511,25 +483,6 @@ int Supervisor::maxStationFlow(int target){
     return superGraph.maxFlow(superGraphStations["Super-Source"], target);
 }
 
-vector<pair<string,int>> Supervisor::transportNeeds(bool type){
-    auto _stations = type ?  districtStations:municipalityStations;
-
-    vector<pair<string, int>> res;
-
-    for (auto pair : _stations){
-        createSuperGraph(pair.second);
-
-        int maxFlow = superGraph.maxFlow(superGraphStations["Super-Source"],superGraphStations["Super-Sink"]);
-        res.emplace_back(pair.first,maxFlow);
-    }
-
-    sort(res.begin(), res.end(), [](pair<string,int> a, pair<string, int> b){
-        return a.second > b.second;
-    });
-
-    return res;
-}
-
 vector<pair<string,int>> Supervisor::flowDifference(){
     vector<pair<string,int>> res;
     int initial, final, difference;
@@ -540,8 +493,45 @@ vector<pair<string,int>> Supervisor::flowDifference(){
         difference = initial - final;
         res.emplace_back(vertex->getStation().getName(), difference);
     }
-    sort(res.begin(), res.end(), [](pair<string,int> a, pair<string, int> b){
+    sort(res.begin(), res.end(), [](const pair<string,int>& a, const pair<string, int>& b){
         return a.second > b.second;
     });
+    return res;
+}
+
+vector<pair<string,int>> Supervisor::transportNeeds(bool type){
+    auto _stations = type ?  municipalityStations:districtStations;
+
+    vector<pair<string, int>> res;
+
+    for (const auto& pair : _stations){
+        createSuperGraph(pair.second);
+
+        int maxFlow = superGraph.maxFlow(superGraphStations["Super-Source"],superGraphStations["Super-Sink"]);
+        res.emplace_back(pair.first,maxFlow);
+    }
+
+    sort(res.begin(), res.end(), [](const pair<string,int>& a, const pair<string, int>& b){
+        return a.second > b.second;
+    });
+
+    return res;
+}
+
+vector<pair<string, int>> Supervisor::maxConnectedStations(int type) {
+
+    vector<pair<string, int>> res;
+    if (type) {
+        for (const auto& municipality: municipalityStations) {
+            res.emplace_back(municipality.first, graph.maxConnectedMunicipality(municipality.first));
+        }
+    }
+    else{
+        for (const auto& district: districtStations) {
+            res.emplace_back(district.first, graph.maxConnectedDistrict(district.first));
+        }
+    }
+    sort(res.begin(), res.end(), [](const pair<string, int>& a, const pair<string, int>& b){
+        return a.second > b.second; });
     return res;
 }

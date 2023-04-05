@@ -25,7 +25,10 @@ void Menu::init() {
         else if (option == "2"){
             cin.ignore();
             string source, target;
-            validatePath(source,target);
+            if((validatePath(source,target) == "0")) {
+                cout << "\n";
+                continue;
+            }
             costOptimization(false, source, target);
         }
 
@@ -59,21 +62,24 @@ void Menu::basicService(){
         if (option == "1"){
             cin.ignore();
             string source, target;
-            validatePath(source,target);
+            if((validatePath(source,target) == "0")) {
+                continue;
+            }
             maxFlow(false, source,target);
             return;
         }
         else if (option == "2"){
             t2();
-            return;
         }
         else if (option == "3"){
             statistics();
-            return;
         }
         else if (option == "4"){
             cin.ignore();
-            string station = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
+            string station = validateStation("\n Insert the name of the station (ex: Rio Tinto): ");
+            if (station == "0") {
+                continue;
+            }
             maxStationFlow(station);
             return;
         }
@@ -82,13 +88,14 @@ void Menu::basicService(){
             return;
         }
         else{
-            cout << "\n Invalid input, try again. \n\n";
+            cout << "\n Invalid input, try again. \n";
             cin.clear();
             cin.ignore(INT_MAX, '\n');
         }
     }
 }
 
+//2.1
 void Menu::maxFlow(bool subgraph, const string& srcStation, const string& destStation) {
 
     int src, dest;
@@ -99,10 +106,13 @@ void Menu::maxFlow(bool subgraph, const string& srcStation, const string& destSt
     dest = idStations[destStation];
     int maxFlow = graph.maxFlow(src,dest);
 
-    cout << " Maximum number of trains between " << srcStation << " and " << destStation << " : " << maxFlow * 2 << "\n";
+    cout << "\n Maximum number of trains between " << "\033[1m\033[36m" << srcStation << "\033[0m"
+    << " and " << "\033[1m\033[36m" << destStation << "\033[0m" << ": "
+    << "\033[1m\033[42m" << " " << maxFlow * 2 << " " << "\033[0m" << "\n\n";
 
 }
 
+//standby
 void Menu::t2() {
     list<pair<string, string>> pairs;
     int max = 0;
@@ -125,11 +135,7 @@ void Menu::t2() {
 
 }
 
-void Menu::maxStationFlow(const string& station){
-    int maxFlow = supervisor->maxStationFlow(supervisor->getId()[station]);
-    cout << " Maximum number of trains that can simultaneously arrive at " << station << " : " << maxFlow * 2 << "\n";
-}
-
+//2.3
 void Menu::statistics(){
     string option;
     while(true) {
@@ -139,67 +145,77 @@ void Menu::statistics(){
                 " Option: ";
         cin >> option;
         if (option == "1") {
-            transportNeeds(0);
-        } else if (option == "2") {
             transportNeeds(1);
-            return;
+        } else if (option == "2") {
+            transportNeeds(0);
         } else if (option == "0") {
-            cout << "\n";
             return;
         } else {
-            cout << "\n Invalid input, try again. \n\n";
+            cout << "\n Invalid input, try again. \n";
             cin.clear();
             cin.ignore(INT_MAX, '\n');
         }
     }
 }
-
 void Menu::transportNeeds(int type){
     string option;
     while(true) {
-        cout << "\n What would you like to know?\n\n"
-                " [1] Transport needs inside a municipality/district\n"
-                " [2] Transport needs with other municipalities/districts\n\n"
+        cout << "\n What would you like to know?\n\n";
+        if (type){
+            cout << " [1] Transport needs inside a municipality\n"
+                " [2] Transport needs with other municipalities\n\n"
                 " Option: ";
+        }
+        else {
+            cout << " [1] Transport needs inside a district\n"
+                    " [2] Transport needs with other districts\n\n"
+                    " Option: ";
+        }
         cin >> option;
         if (option == "1") {
-            //****
-        } else if (option == "2") {
-            auto tops = supervisor->transportNeeds(type);
+            auto result = supervisor->maxConnectedStations(type);
             int choice = showTop(), top;
             if (choice == 1) top = 10;
-            else if (choice == 2) top = 20;
-            else if (choice == 3) top = customTop("\n Selecione um valor para o top: ", tops.size());
+            else if (choice == 2) top = 15;
+            else if (choice == 3) top = customTop("\n Selecione um valor para o top: ", result.size());
             else continue;
 
             for (int i = 0; i < top; i++)
-                cout << " " << i+1 << ". " << tops[i].first << " | Maximum flow: " << tops[i].second << '\n';
+                cout << "\n\033[1m\033[36m " << i+1 << ".\033[0m "<< result[i].first << " | Max nº of connected stations: "
+                     << "\033[1m\033[32m" << result[i].second << "\033[0m \n";
+
+        } else if (option == "2") {
+            auto result = supervisor->transportNeeds(type);
+            int choice = showTop(), top;
+            if (choice == 1) top = 10;
+            else if (choice == 2) top = 15;
+            else if (choice == 3) top = customTop("\n Selecione um valor para o top: ", result.size());
+            else continue;
+
+            for (int i = 0; i < top; i++)
+                cout << "\n\033[1m\033[32m " << i+1 << ".\033[0m "<< result[i].first << " | Maximum flow: "
+                << "\033[1m\033[35m" << result[i].second << "\033[0m \n";
 
         } else if (option == "0") {
-            cout << "\n";
             return;
         } else {
-            cout << "\n Invalid input, try again. \n\n";
+            cout << "\n Invalid input, try again. \n";
             cin.clear();
             cin.ignore(INT_MAX, '\n');
         }
     }
 }
 
-int Menu::showTop(){
-    cout << "\n Deseja consultar:\n\n "
-            "[1] Top 10\n [2] Top 20\n [3] Outro\n\n Opção: ";
-    int option;
-    cin >> option;
-    while (cin.fail() || option < 0  || option > 4){
-        cout << " Input inválido\n Tente novamente: ";
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
-        cin >> option;
-    }
-    return option;
+//2.4
+void Menu::maxStationFlow(const string& station){
+    int maxFlow = supervisor->maxStationFlow(supervisor->getId()[station]);
+    cout << "\n Maximum number of trains that can \033[1m\033[36msimultaneously\033[0m arrive at "
+    << "\033[1m\033[43m " << station << " \033[0m" << " : "
+    << "\033[1m\033[35m" << maxFlow * 2 << "\033[0m \n" << "\n";
+    return;
 }
 
+//4.2
 void Menu::costOptimization(bool subgraph, const string& srcStation, const string& destStation){
 
     int src, dest;
@@ -210,10 +226,13 @@ void Menu::costOptimization(bool subgraph, const string& srcStation, const strin
     dest = idStations[destStation];
 
     int cost = graph.minCost(src,dest);
-    cout << " Minimum cost for the maximum amount of trains between " << srcStation << " and " << destStation << " : " << cost << "\n";
+    cout << "\n\033[1m\033[36m Minimum\033[0m cost for the \033[1m\033[34mmaximum\033[0m amount of trains between "
+            "\033[1m\033[45m " << srcStation << " \033[0m and \033[1m\033[43m " << destStation << " \033[0m : "
+            << "\033[1m\033[36m" << cost << "\033[0m\n\n";
 
 }
 
+//4.3
 void Menu::reliability(){
     string option;
     while(true) {
@@ -226,21 +245,19 @@ void Menu::reliability(){
         cin >> option;
         if (option == "1") {
             lineFailures();
-            return;
         }
         else if (option == "2") {
             segmentFailures();
-            return;
         }
         else if (option == "3"){
             stationFailures();
-            return;
         }
         else if (option == "0"){
+            cout << "\n";
             return;
         }
         else{
-            cout << "\n Invalid input, try again. \n\n";
+            cout << "\n Invalid input, try again. \n";
             cin.clear();
             cin.ignore(INT_MAX, '\n');
         }
@@ -287,19 +304,20 @@ void Menu::lineFailures() {
 }
 
 void Menu::segmentFailures(){
+
     vector<pair<string,string>> failedSegments;
     string option;
 
     cin.ignore();
     string source, target;
-    validatePath(source,target);
+    if ((validatePath(source,target)) == "0") return;
 
     failedSegments.emplace_back(source,target);
 
     while(true){
         cout << "\n Would you like to remove any other segment?\n\n"
                 " [1] Yes\n"
-                " [2] No\n\n "
+                " [2] No\n\n"
                 " Option: ";
         cin >> option;
         if (option == "1"){
@@ -332,7 +350,7 @@ void Menu::stationFailures(){
     Station::StationH failedStations;
     string option;
     cin.ignore();
-    string name = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
+    string name = validateStation("\n Insert the name of the station (ex: Rio Tinto): ");
     if (name == "0") return;
     Station station = *supervisor->getStations().find(name);
     failedStations.insert(station);
@@ -340,7 +358,7 @@ void Menu::stationFailures(){
     while(true){
         cout << "\n Would you like to remove any other station?\n\n"
                 " [1] Yes\n"
-                " [2] No\n\n "
+                " [2] No\n\n"
                 " Option: ";
         cin >> option;
         if (option == "1"){
@@ -352,7 +370,7 @@ void Menu::stationFailures(){
                 cout << " This station has already been chosen, please choose a different station!\n";
                 name = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
                 if (name == "0") break;
-                station = *supervisor->getStations().find(name);;
+                station = *supervisor->getStations().find(name);
             }
             failedStations.insert(station);
         }
@@ -376,7 +394,7 @@ void Menu::subGraphOperations(){
         cout << "\n What type of information would you like to see?\n\n"
                 " [1] Maximum number of trains that can simultaneously travel between two specific stations\n"
                 " [2] Minimum cost for the maximum flow between two specific stations\n"
-                " [3] Top-k most affected stations\n\n "
+                " [3] Top-k most affected stations\n\n"
                 " Option: ";
 
         cin >> option;
@@ -414,10 +432,12 @@ void Menu::mostAffectedStations(){
     vector<pair<string,int>> difference = supervisor->flowDifference();
 }
 
+
+//validate
 string Menu::validateLine() {
     string line;
 
-    cout << " Insert the name of the line you would like to remove (ex: Linha do Minho): ";
+    cout << "\n Insert the name of the line you would like to remove (ex: Linha do Minho): ";
     cin.ignore();
     getline(cin,line,'\n');
 
@@ -442,17 +462,45 @@ string Menu::validateStation(const string& message){
     while(!supervisor->isStation(station)) {
         if (station == "0") return "0";
         else cout << " That station does not exist in our database " << '\n';
-        cout << " Insert the name of a valid station (ex: Porto Campanhã): ";
+        cout << " Insert the name of a valid station (ex: Lisboa Oriente): ";
         cin.clear();
         getline(cin,station,'\n');
     }
     return station;
 }
 
+string Menu::validatePath(string& source, string& target){
+    source = validateStation("\n Insert the name of the source station (ex: Porto Campanhã): ");
+    if (source == "0") return "0";
+    target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
+    if (target == "0") return "0";
+
+    while (source == target){
+        cout << " Please choose two different stations.\n";
+        target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
+    }
+    if (target == "0") return "0";
+
+    return "";
+}
+//top-k
+int Menu::showTop(){
+    cout << "\n What do you wish to check:\n\n "
+            "[1] Top 10\n [2] Top 15\n [3] Other\n\n Option: ";
+    int option;
+    cin >> option;
+    while (cin.fail() || option < 0  || option > 4){
+        cout << " Invalid input\n Try again: ";
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        cin >> option;
+    }
+    return option;
+}
 int Menu::customTop(const string& message, int n) {
     cout << message;
     int option; cin >> option;
-    while (cin.fail() || option < 0 || option >= n){
+    while (cin.fail() || option < 0 || option > n){
         cout << " Choose a number between 1 and " << n << "\n Try again: ";
         cin.clear();
         cin.ignore(INT_MAX, '\n');
@@ -461,20 +509,8 @@ int Menu::customTop(const string& message, int n) {
     return option;
 }
 
-void Menu::validatePath(string& source, string& target){
 
-    source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
-    if (source == "0") return;
-    target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-    if (target == "0") return;
-
-    while (source == target){
-        cout << " Please choose two different stations.\n";
-        target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-    }
-    if (target == "0") return;
-}
-
+//end
 void Menu::end() {
     printf("\n");
     printf("\033[46m===========================================================\033[0m\n");

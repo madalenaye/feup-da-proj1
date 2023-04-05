@@ -1,12 +1,14 @@
 #include "Graph.h"
 
+#include <utility>
+
 void Graph::addVertex(const int &id, Station station) {
-    Vertex* v = new Vertex(id);
-    v->setStation(station);
+    auto* v = new Vertex(id);
+    v->setStation(std::move(station));
     vertexSet.push_back(v);
 }
 
-void Graph::addEdge(const int &source, const int &dest, int capacity, string service) {
+void Graph::addEdge(const int &source, const int &dest, int capacity, const string& service) const {
     auto v1 = findVertex(source);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
@@ -117,26 +119,6 @@ void Graph::augmentFlowAlongPath(Vertex *src, Vertex *dest, int flow){
     }
 }
 
-void printPath(Vertex* src,Vertex* dest){
-    stack<Vertex*> r;
-    for (Vertex* v = dest; v != src;){
-        r.push(v);
-        Edge* e = v->getPath();
-        if (e->getDest() == v){
-            v = e->getOrig();
-        }
-
-        else{
-            v = e->getDest();
-        }
-    }
-    cout << src->getStation().getName() << " - ";
-    while (!r.empty()){
-        cout << r.top()->getStation().getName() << " - ";
-        r.pop();
-    }
-    cout << endl;
-}
 /**
  * @brief Finds the maximum flow from the source vertex to the target vertex using the Edmonds-Karp algorithm.
  *
@@ -165,14 +147,10 @@ int Graph::maxFlow(int source, int target){
         for (Edge* edge : vertex->getAdj())
             edge->setResidualCapacity(edge->getCapacity());
 
-    int i = 1;
 
     while (findAugmentingPath(src,dest)) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
-        /*cout << "Path nr. " << i++ << " : ";
-        printPath(src,dest);
-        cout << endl;*/
         flow+=f;
     }
     return flow;
@@ -273,14 +251,11 @@ int Graph::minCost(int source, int target) {
         for (Edge* edge : vertex->getAdj())
             edge->setResidualCapacity(edge->getCapacity());
 
-    int i = 1;
+
 
     while (findMinCostAugmentingPath(src,dest)) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
-        cout << "Path nr. " << i++ << " : ";
-        printPath(src,dest);
-        cout << endl;
         flow += f;
         cost += pathCost(src,dest);
     }
@@ -288,26 +263,52 @@ int Graph::minCost(int source, int target) {
 
 }
 
-void Graph::dfsConnected(Vertex *v, list<Vertex*> &comp, string district) {
+void Graph::dfsConnectedDistrict(Vertex *v, list<int> &comp, const string& district) {
     v->setVisited(true);
-    comp.push_back(v);
+    comp.push_back(v->getId());
     for (auto e : v->getAdj()){
         auto w = e->getDest();
         if (!w->isVisited() && w->getStation().getDistrict() == district){
-            dfsConnected(w, comp, district);
+            dfsConnectedDistrict(w, comp, district);
         }
     }
 }
 
-list<list<Vertex*>> Graph::connectedStations(string district) {
-    list<list<Vertex*>> connected;
+void Graph::dfsConnectedMunicipality(Vertex *v, list<int> &comp, const string& municipality) {
+    v->setVisited(true);
+    comp.push_back(v->getId());
+    for (auto e : v->getAdj()){
+        auto w = e->getDest();
+        if (!w->isVisited() && w->getStation().getMunicipality() == municipality){
+            dfsConnectedMunicipality(w, comp, municipality);
+        }
+    }
+}
+
+unsigned int Graph::maxConnectedDistrict(const std::string& district) {
+    unsigned int maxSize = 0;
     for (auto v : vertexSet) v->setVisited(false);
     for (auto v : vertexSet){
         if (!v->isVisited() && v->getStation().getDistrict() == district){
-            list<Vertex*> components;
-            dfsConnected(v, components, district);
-            connected.push_back(components);
+            list<int> components;
+            dfsConnectedDistrict(v, components, district);
+            unsigned int size = components.size();
+            if (size > maxSize) maxSize = size;
         }
     }
-    return connected;
+    return maxSize;
+}
+
+unsigned int Graph::maxConnectedMunicipality(const std::string& municipality) {
+    unsigned int maxSize = 0;
+    for (auto v : vertexSet) v->setVisited(false);
+    for (auto v : vertexSet){
+        if (!v->isVisited() && v->getStation().getMunicipality() == municipality){
+            list<int> components;
+            dfsConnectedMunicipality(v, components, municipality);
+            unsigned int size = components.size();
+            if (size > maxSize) maxSize = size;
+        }
+    }
+    return maxSize;
 }
