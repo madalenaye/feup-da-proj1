@@ -36,9 +36,17 @@ public:
     void createSubgraph(const vector<pair<string, string>>& failedSegments);
     void createSubgraph(const Station::StationH& failedStations);
     void createDistrictSubgraph(string district);
+
+    void createSuperSourceGraph(Station::StationH targetStations);
+
     vector<pair<string, int>> topBudget(int type);
 
     vector<pair<string, int>> transportNeeds(bool type);
+
+    int maxStationFlow(int target);
+
+
+    vector<pair<string, int>> flowDifference();
 
 private:
 
@@ -72,11 +80,14 @@ private:
     Graph subGraph;
     Graph superGraph;
 
-    void createSuperSourceGraph(Station::StationH targetStations);
-
     void createSuperSource(int id, Station::StationH targetStations);
 
     void createSuperSink(int id, Station::StationH targetStations);
+
+    void createSuperSourceGraph(int target);
+
+    void createSuperGraph(Station::StationH targetStations);
+
 };
 
 

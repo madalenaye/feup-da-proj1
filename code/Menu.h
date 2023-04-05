@@ -37,7 +37,7 @@ private:
     void subGraphOperations();
 
     string validateLine();
-    string validateStation(string message);
+    string validateStation(const string& message);
 
     Supervisor* supervisor;
 
@@ -48,5 +48,11 @@ private:
     void transportNeeds(int type);
 
     int showTop();
+
+    void validatePath(string &source, string &target);
+
+    void maxStationFlow(const string& station);
+
+    void mostAffectedStations();
 };
 #endif //DA_MENU_H

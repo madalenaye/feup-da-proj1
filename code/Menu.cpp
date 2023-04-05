@@ -24,28 +24,19 @@ void Menu::init() {
 
         else if (option == "2"){
             cin.ignore();
-            string source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
-            if (source == "0") return;
-            string target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-            if (target == "0") return;
-
-            while (source == target){
-                cout << " Please choose two different stations.\n";
-                target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-            }
-            if (target == "0") return;
+            string source, target;
+            validatePath(source,target);
             costOptimization(false, source, target);
         }
 
         else if (option == "3"){
             reliability();
         }
-        else if (option == "4")
-
+        else if (option == "4") {
             return;
+        }
         else if (option == "0")
             cout << "\n You can't go back any further!\n\n";
-
         else{
             cout << "\n Invalid input, try again. \n\n";
             cin.clear();
@@ -67,22 +58,13 @@ void Menu::basicService(){
         cin >> option;
         if (option == "1"){
             cin.ignore();
-            string srcStation = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
-            if (srcStation == "0") return;
-            string destStation = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-            if (destStation == "0") return;
-
-            while (destStation == srcStation){
-                cout << " Please choose two different stations.\n";
-                destStation = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-            }
-            if (destStation == "0") return;
-
-            maxFlow(false, srcStation,destStation);
+            string source, target;
+            validatePath(source,target);
+            maxFlow(false, source,target);
             return;
         }
         else if (option == "2"){
-            t2(); //....
+            t2();
             return;
         }
         else if (option == "3"){
@@ -92,7 +74,7 @@ void Menu::basicService(){
         else if (option == "4"){
             cin.ignore();
             string station = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
-            //t24(station); //....
+            maxStationFlow(station);
             return;
         }
         else if (option == "0"){
@@ -117,7 +99,7 @@ void Menu::maxFlow(bool subgraph, const string& srcStation, const string& destSt
     dest = idStations[destStation];
     int maxFlow = graph.maxFlow(src,dest);
 
-    cout << "Maximum number of trains between " << srcStation << " and " << destStation << " : " << maxFlow << "\n";
+    cout << " Maximum number of trains between " << srcStation << " and " << destStation << " : " << maxFlow * 2 << "\n";
 
 }
 
@@ -142,12 +124,11 @@ void Menu::t2() {
     }
 
 }
-/*
-void Menu::t24(const string& destStation){
-    int dest = supervisor->getId()[destStation];
-    supervisor->createSuperSource(dest);
-    cout << supervisor->getSubGraph().maxFlow(510,dest)*2 << endl;
-}*/
+
+void Menu::maxStationFlow(const string& station){
+    int maxFlow = supervisor->maxStationFlow(supervisor->getId()[station]);
+    cout << " Maximum number of trains that can simultaneously arrive at " << station << " : " << maxFlow * 2 << "\n";
+}
 
 void Menu::statistics(){
     string option;
@@ -219,27 +200,6 @@ int Menu::showTop(){
     return option;
 }
 
-//versão Luís
-/*void Menu::t4(const string& destStation){
-    list<pair<string, string>> pairs;
-    int dest = supervisor->getId()[destStation];
-    int max = 0;
-    for (int i = 0; i < supervisor->getGraph().getVertexSet().size(); i++){
-        if (i == dest) continue;
-        int flow = supervisor->getGraph().maxFlow(i, dest);
-        if (max < flow) {
-        pairs.clear();
-        max = flow;
-        }
-        if (max == flow)
-        pairs.emplace_back(supervisor->getGraph().getVertexSet()[i]->getStation().getName(),destStation);
-    }
-    cout << "Max: " << max << "\n"; //....
-    for (const auto& pair: pairs){
-        cout << pair.first <<" - " << pair.second << "\n";
-    }
-}
-*/
 void Menu::costOptimization(bool subgraph, const string& srcStation, const string& destStation){
 
     int src, dest;
@@ -329,17 +289,10 @@ void Menu::lineFailures() {
 void Menu::segmentFailures(){
     vector<pair<string,string>> failedSegments;
     string option;
-    cin.ignore();
-    string source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
-    if (source == "0") return;
-    string target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-    if (target == "0") return;
 
-    while (source == target){
-        cout << " Please choose two different stations.\n";
-        target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-    }
-    if (target == "0") return;
+    cin.ignore();
+    string source, target;
+    validatePath(source,target);
 
     failedSegments.emplace_back(source,target);
 
@@ -351,31 +304,12 @@ void Menu::segmentFailures(){
         cin >> option;
         if (option == "1"){
             cin.ignore();
-            source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
-            if (source == "0") break;
-            target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-            if (target == "0") break;
-
-            while (source == target){
-                cout << " Please choose two different stations.\n";
-                target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-            }
-            if (target == "0") break;
+            validatePath(source,target);
 
             while (std::any_of(failedSegments.begin(), failedSegments.end(),
                                [&](pair<string,string>& segment){ return segment == std::make_pair(source, target); })) {
                 cout << " This segment has already been chosen, please choose a different segment!\n";
-
-                source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
-                if (source == "0") break;
-                target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-                if (target == "0") break;
-
-                while (source == target) {
-                    cout << " Please choose two different stations.\n";
-                    target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-                }
-                if (target == "0") break;
+                validatePath(source,target);
             }
             if (source == "0" || target == "0") break;
             failedSegments.emplace_back(source,target);
@@ -448,38 +382,22 @@ void Menu::subGraphOperations(){
         cin >> option;
         if (option == "1"){
             cin.ignore();
-            string source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
-            if (source == "0") return;
-            string target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-            if (target == "0") return;
-
-            while (source == target){
-                cout << " Please choose two different stations.\n";
-                target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-            }
-            if (target == "0") return;
+            string source, target;
+            validatePath(source,target);
 
             maxFlow(true,source,target);
             return;
         }
         else if (option == "2"){
             cin.ignore();
-            string source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
-            if (source == "0") return;
-            string target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-            if (target == "0") return;
-
-            while (source == target){
-                cout << " Please choose two different stations.\n";
-                target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
-            }
-            if (target == "0") return;
+            string source, target;
+            validatePath(source,target);
 
             costOptimization(true,source,target);
             return;
         }
         else if (option == "3"){
-            //to be implemented...
+            mostAffectedStations();
             return;
         }
         else if (option == "0")
@@ -490,6 +408,10 @@ void Menu::subGraphOperations(){
             cin.ignore(INT_MAX, '\n');
         }
     }
+}
+
+void Menu::mostAffectedStations(){
+    vector<pair<string,int>> difference = supervisor->flowDifference();
 }
 
 string Menu::validateLine() {
@@ -509,7 +431,7 @@ string Menu::validateLine() {
     return line;
 }
 
-string Menu::validateStation(string message){
+string Menu::validateStation(const string& message){
 
     string station;
 
@@ -537,6 +459,20 @@ int Menu::customTop(const string& message, int n) {
         cin >> option;
     }
     return option;
+}
+
+void Menu::validatePath(string& source, string& target){
+
+    source = validateStation(" Insert the name of the source station (ex: Porto Campanhã): ");
+    if (source == "0") return;
+    target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
+    if (target == "0") return;
+
+    while (source == target){
+        cout << " Please choose two different stations.\n";
+        target = validateStation(" Insert the name of the target station (ex: Lisboa Oriente): ");
+    }
+    if (target == "0") return;
 }
 
 void Menu::end() {
