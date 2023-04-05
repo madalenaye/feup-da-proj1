@@ -396,3 +396,87 @@ vector<pair<string, int>> Supervisor::topBudget(int type) {
 }
 
 
+void Supervisor::createSuperSourceGraph(Station::StationH targetStations) {
+    superGraph = Graph();
+    superGraphStations.clear();
+    ifstream inFile;
+    string source, target, service, line, x;
+    int capacity, idA, idB, id=0;
+    inFile.open("../data/network.csv");
+    getline(inFile, line);
+
+    while(getline(inFile, line)) {
+
+        istringstream is(line);
+
+        checkField(is, source);
+        checkField(is,target);
+        checkField(is, x); capacity = stoi(x);
+        checkField(is, service);
+
+        if (service.back() == '\r') service.pop_back();
+
+        idA = makeVertex(superGraph,superGraphStations,source, id);
+        idB = makeVertex(superGraph,superGraphStations,target, id);
+
+        superGraph.addEdge(idA, idB, capacity, service);
+    }
+
+    inFile.close();
+
+    createSuperSource(id, targetStations);
+    createSuperSink(id+1, targetStations);
+
+}
+void Supervisor::createSuperSource(int id, Station::StationH targetStations){
+
+    vector<int> sources;
+    for (auto v: graph.getVertexSet()){
+        if (targetStations.find(v->getStation()) != targetStations.end()) continue;
+
+        if (v->getAdj().size()==1){
+            sources.push_back(v->getId());
+        }
+    }
+
+    superGraph.addVertex(id, Station("Super-Source"));
+    superGraphStations["Super-Source"] = id;
+    for(auto i:sources)
+        superGraph.addEdge(id,i,INF,"");
+
+}
+
+void Supervisor::createSuperSink(int id, Station::StationH targetStations){
+
+    vector<int> targets;
+    for (auto v: graph.getVertexSet()){
+        if (targetStations.find(v->getStation()) != targetStations.end())
+            targets.push_back(v->getId());
+
+    }
+    superGraphStations["Super-Sink"] = id;
+    superGraph.addVertex(id, Station("Super-Sink"));
+    for(auto i:targets)
+        superGraph.addEdge(i,id,INF,"");
+
+}
+
+
+vector<pair<string,int>> Supervisor::transportNeeds(bool type){
+    auto _stations = type ?  districtStations:municipalityStations;
+
+    vector<pair<string, int>> res;
+
+    for (auto pair : _stations){
+        createSuperSourceGraph(pair.second);
+
+        int maxFlow = superGraph.maxFlow(superGraphStations["Super-Source"],superGraphStations["Super-Sink"]);
+        res.emplace_back(pair.first,maxFlow);
+    }
+
+    sort(res.begin(), res.end(), [](pair<string,int> a, pair<string, int> b){
+        return a.second > b.second;
+    });
+
+    return res;
+}

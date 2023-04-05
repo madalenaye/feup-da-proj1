@@ -1,11 +1,11 @@
 #include "Menu.h"
 
 int main() {
-    /*Menu menu;
+    Menu menu;
     menu.init();
-    Menu::end();*/
+    Menu::end();
 
-    Supervisor* supervisor = new Supervisor();
+    //Supervisor* supervisor = new Supervisor();
     /*vector<pair<string, int>> top = supervisor->topBudget(2);
     for (auto i : top){
         cout << i.first << " : " << i.second << " | ";
@@ -16,8 +16,5 @@ int main() {
             cout << j.getName() << " | ";
         }
     }*/
-    list<list<Vertex*>> a = supervisor->getGraph().connectedStations("FARO");
-    for (auto i : a){
-        cout << supervisor->getGraph().kruskal(i) << endl;
-    }
+
 }

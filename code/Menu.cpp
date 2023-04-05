@@ -41,6 +41,7 @@ void Menu::init() {
             reliability();
         }
         else if (option == "4")
+
             return;
         else if (option == "0")
             cout << "\n You can't go back any further!\n\n";
@@ -85,13 +86,13 @@ void Menu::basicService(){
             return;
         }
         else if (option == "3"){
-//            statistics();
+            statistics();
             return;
         }
         else if (option == "4"){
             cin.ignore();
             string station = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
-            t4(station); //....
+            //t24(station); //....
             return;
         }
         else if (option == "0"){
@@ -133,16 +134,93 @@ void Menu::t2() {
             }
             if (max == flow)
                 pairs.emplace_back(supervisor->getGraph().getVertexSet()[i]->getStation().getName(),supervisor->getGraph().getVertexSet()[j]->getStation().getName());
-            }
         }
+    }
     cout << "Max: " << max << "\n"; //....
     for (const auto& pair: pairs){
         cout << pair.first <<" - " << pair.second << "\n";
     }
 
 }
+/*
+void Menu::t24(const string& destStation){
+    int dest = supervisor->getId()[destStation];
+    supervisor->createSuperSource(dest);
+    cout << supervisor->getSubGraph().maxFlow(510,dest)*2 << endl;
+}*/
 
-void Menu::t4(const string& destStation){
+void Menu::statistics(){
+    string option;
+    while(true) {
+        cout << "\n Municipalities or districts?\n\n"
+                " [1] Municipalities\n"
+                " [2] Districts\n\n"
+                " Option: ";
+        cin >> option;
+        if (option == "1") {
+            transportNeeds(0);
+        } else if (option == "2") {
+            transportNeeds(1);
+            return;
+        } else if (option == "0") {
+            cout << "\n";
+            return;
+        } else {
+            cout << "\n Invalid input, try again. \n\n";
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+        }
+    }
+}
+
+void Menu::transportNeeds(int type){
+    string option;
+    while(true) {
+        cout << "\n What would you like to know?\n\n"
+                " [1] Transport needs inside a municipality/district\n"
+                " [2] Transport needs with other municipalities/districts\n\n"
+                " Option: ";
+        cin >> option;
+        if (option == "1") {
+            //****
+        } else if (option == "2") {
+            auto tops = supervisor->transportNeeds(type);
+            int choice = showTop(), top;
+            if (choice == 1) top = 10;
+            else if (choice == 2) top = 20;
+            else if (choice == 3) top = customTop("\n Selecione um valor para o top: ", tops.size());
+            else continue;
+
+            for (int i = 0; i < top; i++)
+                cout << " " << i+1 << ". " << tops[i].first << " | Maximum flow: " << tops[i].second << '\n';
+
+        } else if (option == "0") {
+            cout << "\n";
+            return;
+        } else {
+            cout << "\n Invalid input, try again. \n\n";
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+        }
+    }
+}
+
+int Menu::showTop(){
+    cout << "\n Deseja consultar:\n\n "
+            "[1] Top 10\n [2] Top 20\n [3] Outro\n\n Opção: ";
+    int option;
+    cin >> option;
+    while (cin.fail() || option < 0  || option > 4){
+        cout << " Input inválido\n Tente novamente: ";
+        cin.clear();
+        cin.ignore(INT_MAX, '\n');
+        cin >> option;
+    }
+    return option;
+}
+
+//versão Luís
+/*void Menu::t4(const string& destStation){
     list<pair<string, string>> pairs;
     int dest = supervisor->getId()[destStation];
     int max = 0;
@@ -161,7 +239,7 @@ void Menu::t4(const string& destStation){
         cout << pair.first <<" - " << pair.second << "\n";
     }
 }
-
+*/
 void Menu::costOptimization(bool subgraph, const string& srcStation, const string& destStation){
 
     int src, dest;
@@ -452,7 +530,7 @@ string Menu::validateStation(string message){
 int Menu::customTop(const string& message, int n) {
     cout << message;
     int option; cin >> option;
-    while (cin.fail() || option < 0 || option > n){
+    while (cin.fail() || option < 0 || option >= n){
         cout << " Choose a number between 1 and " << n << "\n Try again: ";
         cin.clear();
         cin.ignore(INT_MAX, '\n');

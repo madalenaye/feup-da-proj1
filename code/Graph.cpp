@@ -170,9 +170,9 @@ int Graph::maxFlow(int source, int target){
     while (findAugmentingPath(src,dest)) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
-        //cout << "Path nr. " << i++ << " : ";
-        //printPath(src,dest);
-        //cout << endl;
+        /*cout << "Path nr. " << i++ << " : ";
+        printPath(src,dest);
+        cout << endl;*/
         flow+=f;
     }
     return flow;
@@ -311,43 +311,3 @@ list<list<Vertex*>> Graph::connectedStations(string district) {
     }
     return connected;
 }
-
-int Graph::kruskal(list<Vertex*> vertices) {
-
-    int totalCost = -1;
-    if (vertices.empty()) return totalCost;
-
-    UFDS ufds(vertices.size());{
-        int id = 0;
-        for (auto v : vertices){
-            v->setId(id++);
-        }
-    }
-    std::vector<Edge*> allEdges;
-    unsigned int selectedEdges = 0;
-    for (auto v : vertices){
-        for (auto e : v->getAdj()){
-            e->setSelected(false);
-            if (e->getOrig()->getId() < e->getDest()->getId()){
-                allEdges.push_back(e);
-            }
-        }
-    }
-    std::sort(allEdges.begin(), allEdges.end(), [](Edge* a, Edge* b){
-        return a->getCost() > b->getCost();
-    });
-    for (auto edge: allEdges){
-        auto origin = edge->getOrig();
-        auto dest = edge->getDest();
-        if (!ufds.isSameSet(origin->getId(), dest->getId())){
-            ufds.linkSets(origin->getId(), dest->getId());
-            edge->setSelected(true);
-            edge->getReverse()->setSelected(true);
-            selectedEdges++;
-            totalCost += edge->getCost();
-            if (selectedEdges == vertices.size() - 1) break;
-        }
-    }
-    return totalCost;
-}
-

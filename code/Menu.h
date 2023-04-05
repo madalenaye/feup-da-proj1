@@ -40,5 +40,13 @@ private:
     string validateStation(string message);
 
     Supervisor* supervisor;
+
+    void transportNeeds(string);
+
+    void choose();
+
+    void transportNeeds(int type);
+
+    int showTop();
 };
 #endif //DA_MENU_H

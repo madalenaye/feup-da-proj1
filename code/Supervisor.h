@@ -38,6 +38,8 @@ public:
     void createDistrictSubgraph(string district);
     vector<pair<string, int>> topBudget(int type);
 
+    vector<pair<string, int>> transportNeeds(bool type);
+
 private:
 
     void createStations();
@@ -61,13 +63,20 @@ private:
     unordered_map<string, Station::StationH> districtStations;
 
     unordered_map<string, int> subGraphStations;
+    unordered_map<string, int> superGraphStations;
 
     unordered_set<string> lines;
     unordered_map<string, Station::StationH> stationsPerLine;
 
     Graph graph;
     Graph subGraph;
+    Graph superGraph;
 
+    void createSuperSourceGraph(Station::StationH targetStations);
+
+    void createSuperSource(int id, Station::StationH targetStations);
+
+    void createSuperSink(int id, Station::StationH targetStations);
 };
 
 
