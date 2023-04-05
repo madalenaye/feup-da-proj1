@@ -10,23 +10,25 @@
 
 class Menu{
 public:
+
     Menu();
     void init();
     static void end();
 
 private:
+
     void basicService();
 
     void maxFlow(bool subgraph, const string &srcStation, const string &destStation);
-    //T2
-    void t2(); //T2.2
 
-    void statistics(); //T2.3
-    void t4(const string& destStation); //T2.4
+    void t2();
+
+    void statistics();
+    void transportNeeds(int type);
+
+    void maxStationFlow(const string& station);
 
     void costOptimization(bool subgraph, const string& srcStation, const string& destStation);
-
-    int customTop(const string& message, int n);
 
     void reliability();
 
@@ -35,24 +37,16 @@ private:
     void stationFailures();
 
     void subGraphOperations();
+    void mostAffectedStations();
+
+    static int customTop(const string& message, int n);
+    static int showTop();
 
     string validateLine();
     string validateStation(const string& message);
+    string validatePath(string &source, string &target);
 
     Supervisor* supervisor;
 
-    void transportNeeds(string);
-
-    void choose();
-
-    void transportNeeds(int type);
-
-    int showTop();
-
-    void validatePath(string &source, string &target);
-
-    void maxStationFlow(const string& station);
-
-    void mostAffectedStations();
 };
 #endif //DA_MENU_H
