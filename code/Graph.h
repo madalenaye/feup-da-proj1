@@ -30,7 +30,6 @@ public:
     std::vector<Vertex *> getVertexSet() const;
     int minCost(int source, int target);
     int maxFlow(int source, int target);
-
 private:
     std::vector<Vertex *> vertexSet;    // vertex set
     bool findAugmentingPath(Vertex *src, Vertex *dest);
@@ -42,5 +41,9 @@ private:
     void augmentFlowAlongPath(Vertex *src, Vertex *dest, int flow);
 
     int pathCost(Vertex *src, Vertex *dest);
+
+
+
+
 };
 #endif //DA_GRAPH_H

@@ -41,6 +41,7 @@ void Menu::init() {
             reliability();
         }
         else if (option == "4")
+
             return;
         else if (option == "0")
             cout << "\n You can't go back any further!\n\n";
@@ -91,7 +92,7 @@ void Menu::basicService(){
         else if (option == "4"){
             cin.ignore();
             string station = validateStation(" Insert the name of the station (ex: Rio Tinto): ");
-            t4(station); //....
+            t24(station); //....
             return;
         }
         else if (option == "0"){
@@ -141,8 +142,23 @@ void Menu::t2() {
     }
 
 }
+void Menu::t24(const string& destStation){
+    int dest = supervisor->getId()[destStation];
+    vector<int> sources;
+    for (int i = 0;i < supervisor->getGraph().getVertexSet().size();i++){
+        if (i== dest) continue;
+        if (supervisor->getGraph().getVertexSet()[i]->getAdj().size()==1){
+            sources.push_back(supervisor->getGraph().getVertexSet()[i]->getId());
+        }
+    }
+    for(auto i:sources){
+        supervisor->getGraph().addEdge(510,i,INT_MAX,"");
+    }
 
-void Menu::t4(const string& destStation){
+    cout << supervisor->getGraph().maxFlow(510,dest)*2 << endl;
+}
+//versão Luís
+/*void Menu::t4(const string& destStation){
     list<pair<string, string>> pairs;
     int dest = supervisor->getId()[destStation];
     int max = 0;
@@ -161,7 +177,7 @@ void Menu::t4(const string& destStation){
         cout << pair.first <<" - " << pair.second << "\n";
     }
 }
-
+*/
 void Menu::costOptimization(bool subgraph, const string& srcStation, const string& destStation){
 
     int src, dest;

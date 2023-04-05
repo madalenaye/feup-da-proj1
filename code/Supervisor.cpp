@@ -182,6 +182,7 @@ void Supervisor::createGraph() {
     }
 
     inFile.close();
+    graph.addVertex(510,Station("Source")); // não consegui de outra maneira por enquanto, depois vejo isso
 }
 
 

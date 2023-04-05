@@ -20,7 +20,7 @@ private:
     void maxFlow(bool subgraph, const string &srcStation, const string &destStation);
     //T2
     void t2(); //T2.2
-
+    void t24(const string& destStation);
     void statistics(); //T2.3
     void t4(const string& destStation); //T2.4
 
