@@ -10,12 +10,12 @@ Station::StationH Supervisor::getStations() const{
     return stations;
 }
 
-std::unordered_map<std::string, int> Supervisor::getId() const{
+unordered_map<string, int> Supervisor::getId() const{
     return idStations;
 }
 
 
-std::unordered_map<std::string, int> Supervisor::getSubGraphStations() const{
+unordered_map<string, int> Supervisor::getSubGraphStations() const{
     return subGraphStations;
 }
 
@@ -34,7 +34,7 @@ Graph Supervisor::getSubGraph() const{
  * @par Time complexity
  * O(1)
  */
-bool Supervisor::isStation(const std::string& station){
+bool Supervisor::isStation(const string& station){
     return stations.find(station) != stations.end();
 }
 
@@ -45,7 +45,7 @@ bool Supervisor::isStation(const std::string& station){
  * @par Time complexity
  * O(1)
  */
-bool Supervisor::isLine(const std::string& line){
+bool Supervisor::isLine(const string& line){
     return lines.find(line) != lines.end();
 }
 
@@ -63,7 +63,7 @@ bool Supervisor::isLine(const std::string& line){
  * @par Time complexity
  * O(log(n)), where n is the number of elements in the unordered map ids
  */
-int Supervisor::makeVertex(Graph& _graph, std::unordered_map<std::string, int>& ids, const std::string& name, int &id) {
+int Supervisor::makeVertex(Graph& _graph, unordered_map<string, int>& ids, const string& name, int &id) {
     auto it = ids.find(name);
     int stationId;
     if (it == ids.end()) {
@@ -87,8 +87,8 @@ int Supervisor::makeVertex(Graph& _graph, std::unordered_map<std::string, int>& 
  * @par Time complexity
  * O(n), where n is the length of the string field
  */
-std::string Supervisor::removeQuotes(std::istringstream& iss, std::string field){
-    std::string s = field.substr(1);
+string Supervisor::removeQuotes(istringstream& iss, string field){
+    string s = field.substr(1);
 
     while (!iss.eof() && s.back() != '\"') {
         getline(iss, field, ',');
@@ -107,7 +107,7 @@ std::string Supervisor::removeQuotes(std::istringstream& iss, std::string field)
  * @par Time complexity
  * O(n), where n is the length of the string field
  */
-void Supervisor::checkField(std::istringstream& iss, std::string& field){
+void Supervisor::checkField(istringstream& iss, string& field){
     getline(iss,field,',');
     if (field[0] == '\"')
         field = removeQuotes(iss, field);
@@ -123,15 +123,15 @@ void Supervisor::checkField(std::istringstream& iss, std::string& field){
  */
 void Supervisor::createStations() {
 
-    std::ifstream myFile;
-    std::string currentLine, name, district, municipality, township, line;
+    ifstream myFile;
+    string currentLine, name, district, municipality, township, line;
 
     myFile.open("../data/stations2.csv");
 
     getline(myFile, currentLine);
 
     while (getline(myFile,currentLine)){
-        std::istringstream iss(currentLine);
+        istringstream iss(currentLine);
 
         checkField(iss,name);
         checkField(iss,district);
@@ -161,15 +161,15 @@ void Supervisor::createStations() {
  * O(n), where n is the number of lines in the CSV file
  */
 void Supervisor::createGraph() {
-    std::ifstream inFile;
-    std::string source, target, service, line, x;
+    ifstream inFile;
+    string source, target, service, line, x;
     int capacity, idA, idB, id=0;
     inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
 
-        std::istringstream is(line);
+        istringstream is(line);
 
         checkField(is, source);
         checkField(is,target);
@@ -198,20 +198,20 @@ void Supervisor::createGraph() {
  * @par Time complexity
  * O(n), where n is the number of lines in the CSV file
  */
-void Supervisor::createSubgraph(const std::unordered_set<std::string>& failedLines) {
+void Supervisor::createSubgraph(const unordered_set<string>& failedLines) {
 
     this->subGraph = Graph();
     subGraphStations.clear();
 
-    std::ifstream inFile;
-    std::string source, target, service, line, x;
+    ifstream inFile;
+    string source, target, service, line, x;
     int capacity, idA, idB, id=0;
     inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
 
-        std::istringstream is(line);
+        istringstream is(line);
 
         checkField(is, source);
         checkField(is,target);
@@ -245,15 +245,15 @@ void Supervisor::createSubgraph(const Station::StationH& failedStations) {
     this->subGraph = Graph();
     subGraphStations.clear();
 
-    std::ifstream inFile;
-    std::string source, target, service, line, x;
+    ifstream inFile;
+    string source, target, service, line, x;
     int capacity, idA, idB, id=0;
     inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
 
-        std::istringstream is(line);
+        istringstream is(line);
 
         checkField(is, source);
         checkField(is,target);
@@ -282,20 +282,20 @@ void Supervisor::createSubgraph(const Station::StationH& failedStations) {
  * @par Time complexity
  * O(n), where n is the number of lines in the CSV file
  */
-void Supervisor::createSubgraph(const std::vector<std::pair<std::string,std::string>>& failedSegments) {
+void Supervisor::createSubgraph(const vector<pair<string,string>>& failedSegments) {
 
     this->subGraph = Graph();
     subGraphStations.clear();
 
-    std::ifstream inFile;
-    std::string source, target, service, line, x;
+    ifstream inFile;
+    string source, target, service, line, x;
     int capacity, idA, idB, id=0;
     inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
 
-        std::istringstream is(line);
+        istringstream is(line);
 
         checkField(is, source);
         checkField(is,target);
@@ -327,7 +327,7 @@ void Supervisor::createSubgraph(const std::vector<std::pair<std::string,std::str
  * @par Time complexity
  * O(1)
  */
-bool Supervisor::stationFailure(Station::StationH failedStations, const std::string& source, const std::string& target){
+bool Supervisor::stationFailure(Station::StationH failedStations, const string& source, const string& target){
     return (failedStations.find(source) != failedStations.end() || failedStations.find(target) != failedStations.end());
 }
 
@@ -344,7 +344,8 @@ bool Supervisor::stationFailure(Station::StationH failedStations, const std::str
  * @par Time complexity
  * O(1)
  */
-bool Supervisor::lineFailure(std::unordered_set<std::string> failedLines, const std::string& source, const std::string& target){
+bool Supervisor::lineFailure(unordered_set<string> failedLines, const string& source, const string& target){
+    if (source == "Super-Source" || target == "Super-Source") return false;
     Station src = *stations.find(source);
     Station dest = *stations.find(target);
     return (failedLines.find(src.getLine()) != failedLines.end() && failedLines.find(dest.getLine()) != failedLines.end());
@@ -362,24 +363,24 @@ bool Supervisor::lineFailure(std::unordered_set<std::string> failedLines, const 
  * @par Time complexity
  * O(n), where n is the number of elements of the vector failedSegments
  */
-bool Supervisor::segmentFailure(const std::vector<std::pair<std::string,std::string>>& failedSegments, const std::string& source, const std::string& target){
+bool Supervisor::segmentFailure(const vector<pair<string,string>>& failedSegments, const string& source, const string& target){
     return std::any_of(failedSegments.begin(), failedSegments.end(),
-       [&](const std::pair<std::string,std::string>& pair) {return pair.first == source && pair.second == target;});
+       [&](const pair<string,string>& pair) {return pair.first == source && pair.second == target;});
 }
 
 
 void Supervisor::createSuperGraph(const Station::StationH& targetStations) {
     superGraph = Graph();
     superGraphStations.clear();
-    std::ifstream inFile;
-    std::string source, target, service, line, x;
+    ifstream inFile;
+    string source, target, service, line, x;
     int capacity, idA, idB, id=0;
     inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
 
-        std::istringstream is(line);
+        istringstream is(line);
 
         checkField(is, source);
         checkField(is,target);
@@ -402,7 +403,7 @@ void Supervisor::createSuperGraph(const Station::StationH& targetStations) {
 }
 void Supervisor::createSuperSource(int id, Station::StationH targetStations){
 
-    std::vector<int> sources;
+    vector<int> sources;
     for (auto v: graph.getVertexSet()){
         if (targetStations.find(v->getStation()) != targetStations.end()) continue;
 
@@ -420,7 +421,7 @@ void Supervisor::createSuperSource(int id, Station::StationH targetStations){
 
 void Supervisor::createSuperSink(int id, Station::StationH targetStations){
 
-    std::vector<int> targets;
+    vector<int> targets;
     for (auto v: graph.getVertexSet()){
         if (targetStations.find(v->getStation()) != targetStations.end())
             targets.push_back(v->getId());
@@ -436,15 +437,15 @@ void Supervisor::createSuperSink(int id, Station::StationH targetStations){
 void Supervisor::createSuperSourceGraph(int dest) {
     superGraph = Graph();
     superGraphStations.clear();
-    std::ifstream inFile;
-    std::string source, target, service, line, x;
+    ifstream inFile;
+    string source, target, service, line, x;
     int capacity, idA, idB, id=0;
     inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
 
-        std::istringstream is(line);
+        istringstream is(line);
 
         checkField(is, source);
         checkField(is,target);
@@ -460,11 +461,12 @@ void Supervisor::createSuperSourceGraph(int dest) {
     }
 
     inFile.close();
-    std::vector<int> sources;
+
+    vector<int> sources;
     for (auto v: superGraph.getVertexSet()){
         if (v->getId() == dest) continue;
 
-        if (v->getStation().getName() == "A" || v->getStation().getName() == "B" ){
+        if (v->getStation().getName() == "A" || v->getStation().getName() == "B"){
             sources.push_back(v->getId());
         }
     }
@@ -482,43 +484,48 @@ int Supervisor::maxStationFlow(int target){
     return superGraph.maxFlow(superGraphStations["Super-Source"], target);
 }
 
-int Supervisor::finalStationFlow(int target){
-    std::unordered_set<std::string> failedLines;
-    failedLines.insert("Linha do Minho");
+int Supervisor::finalStationFlow(unordered_set<string> failedLines, int dest){
     for (auto &v: superGraph.getVertexSet()) {
-        if (v->getStation().getName() == "Super-Source") continue;
+        // auto x = v->getStation().getName();
         for (auto &e: v->getAdj()) {
-            if (e->getDest()->getStation().getName() == "Super-Source") continue;
+            auto x = e->getOrig()->getStation().getName();
+            auto y = e->getDest()->getStation().getName();
+            if (e->getDest()->getStation().getName() == "Super-Source") {
+                cout << "h";
+            }
             if (lineFailure(failedLines, e->getOrig()->getStation().getName(), e->getDest()->getStation().getName())) {
                 auto z = e->getDest()->getId();
                 v->removeEdge(z);
             }
         }
     }
-    return superGraph.maxFlow(superGraphStations["Super-Source"], target);
+    return superGraph.maxFlow(superGraphStations["Super-Source"], dest);
 }
 
-std::vector<std::pair<std::string,int>> Supervisor::flowDifference(){
-    std::vector<std::pair<std::string,int>> res;
+
+vector<pair<string,int>> Supervisor::flowDifference(){
+    vector<pair<string,int>> res;
     int initial, final, difference;
-    std::string stationName;
+    unordered_set<string> lines;
+    lines.insert("Linha do Minho");
+    string stationName;
     for (auto vertex: subGraph.getVertexSet()){
         auto x = vertex->getStation().getName();
         initial = maxStationFlow(vertex->getId());
-        final = finalStationFlow(vertex->getId());
+        final = finalStationFlow(lines, vertex->getId());
         difference = initial - final;
         res.emplace_back(vertex->getStation().getName(), difference);
     }
-    sort(res.begin(), res.end(), [](const std::pair<std::string,int>& a, const std::pair<std::string, int>& b){
+    sort(res.begin(), res.end(), [](const pair<string,int>& a, const pair<string, int>& b){
         return a.second > b.second;
     });
     return res;
 }
 
-std::vector<std::pair<std::string,int>> Supervisor::transportNeeds(bool type){
+vector<pair<string,int>> Supervisor::transportNeeds(bool type){
     auto _stations = type ?  municipalityStations:districtStations;
 
-    std::vector<std::pair<std::string, int>> res;
+    vector<pair<string, int>> res;
 
     for (const auto& pair : _stations){
         createSuperGraph(pair.second);
@@ -527,16 +534,16 @@ std::vector<std::pair<std::string,int>> Supervisor::transportNeeds(bool type){
         res.emplace_back(pair.first,maxFlow);
     }
 
-    sort(res.begin(), res.end(), [](const std::pair<std::string,int>& a, const std::pair<std::string, int>& b){
+    sort(res.begin(), res.end(), [](const pair<string,int>& a, const pair<string, int>& b){
         return a.second > b.second;
     });
 
     return res;
 }
 
-std::vector<std::pair<std::string, int>> Supervisor::maxConnectedStations(int type) {
+vector<pair<string, int>> Supervisor::maxConnectedStations(int type) {
 
-    std::vector<std::pair<std::string, int>> res;
+    vector<pair<string, int>> res;
     if (type) {
         for (const auto& municipality: municipalityStations) {
             res.emplace_back(municipality.first, graph.maxConnectedMunicipality(municipality.first));
@@ -547,7 +554,7 @@ std::vector<std::pair<std::string, int>> Supervisor::maxConnectedStations(int ty
             res.emplace_back(district.first, graph.maxConnectedDistrict(district.first));
         }
     }
-    sort(res.begin(), res.end(), [](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b){
+    sort(res.begin(), res.end(), [](const pair<string, int>& a, const pair<string, int>& b){
         return a.second > b.second; });
     return res;
 }

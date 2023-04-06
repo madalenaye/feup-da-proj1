@@ -1,16 +1,6 @@
 Station_A,Station_B,Capacity,Service
-Porto Campanhã,Viana do Castelo,2,STANDARD
-Viana do Castelo,Ermidas-Sado,2,STANDARD
-Ermidas-Sado,Faro,2,STANDARD
-Faro,Funcheira,100,STANDARD
-Funcheira,Lisboa Oriente,2,STANDARD
-Lisboa Oriente,Nine,2,STANDARD
-Nine,Pinhal Novo,2,STANDARD
-Pinhal Novo,Pombal,100,STANDARD
-Pombal,Tunes,2,STANDARD
-Tunes,Vila Nova de Gaia-Devesas,2,STANDARD
-Vila Nova de Gaia-Devesas,São Pedro da Torre,2,STANDARD
-São Pedro da Torre,Silva,8,STANDARD
-Porto Campanhã,Faro,4,STANDARD
-Funcheira,Pinhal Novo,8,STANDARD
-Pombal,São Pedro da Torre,2,STANDARD
+A,C,10,A
+A,D,6,A
+B,D,4,A
+C,E,14,A
+D,E,16,A

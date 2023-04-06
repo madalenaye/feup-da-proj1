@@ -56,6 +56,7 @@ bool Graph::findAugmentingPath(Vertex* src, Vertex* dest){
 
         for (Edge* e: v->getAdj()) {
             Vertex* w = e->getDest();
+            if (w->getStation().getName() == "Super-Source") continue;
             int residual = e->getResidualCapacity();
             if (!w->isVisited() && residual > 0) {
                 w->setVisited(true);

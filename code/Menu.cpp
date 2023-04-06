@@ -212,7 +212,6 @@ void Menu::maxStationFlow(const std::string& station){
     std::cout << "\n Maximum number of trains that can \033[1m\033[36msimultaneously\033[0m arrive at "
     << "\033[1m\033[43m " << station << " \033[0m" << " : "
     << "\033[1m\033[35m" << maxFlow * 2 << "\033[0m \n" << "\n";
-    return;
 }
 
 //4.2
@@ -430,6 +429,15 @@ void Menu::subGraphOperations(){
 
 void Menu::mostAffectedStations(){
     std::vector<std::pair<std::string,int>> difference = supervisor->flowDifference();
+    int choice = showTop(), top;
+    if (choice == 1) top = 10;
+    else if (choice == 2) top = 15;
+    else if (choice == 3) top = customTop("\n Selecione um valor para o top: ", difference.size());
+    else return;
+
+    for (int i = 0; i < top; i++)
+        std::cout << "\n\033[1m\033[32m " << i+1 << ".\033[0m "<< difference[i].first << " | Flow loss: "
+             << "\033[1m\033[35m" << difference[i].second << "\033[0m \n";
 }
 
 

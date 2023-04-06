@@ -79,6 +79,7 @@ private:
     Graph subGraph;
     Graph superGraph;
 
+    int finalStationFlow(int target);
 };
 
 
