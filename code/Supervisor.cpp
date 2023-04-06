@@ -127,8 +127,8 @@ void Supervisor::createStations() {
     std::ifstream myFile;
     std::string currentLine, name, district, municipality, township, line;
 
-   // myFile.open("../data/stations.csv");
-    myFile.open("../data/stations2.csv");
+   myFile.open("../data/stations.csv");
+   // myFile.open("../data/stations2.csv");
     getline(myFile, currentLine);
 
     while (getline(myFile,currentLine)){
@@ -167,8 +167,8 @@ Graph Supervisor::originalGraph() {
     std::ifstream inFile;
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
-    //inFile.open("../data/network.csv");
-    inFile.open("../data/network2.csv");
+    inFile.open("../data/network.csv");
+    //inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -210,8 +210,8 @@ Graph Supervisor::subgraph(const std::unordered_set<std::string>& failedLines){
     std::ifstream inFile;
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
-    //inFile.open("../data/network.csv");
-    inFile.open("../data/network2.csv");
+    inFile.open("../data/network.csv");
+    //inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -243,8 +243,8 @@ Graph Supervisor::subgraph(const std::vector<std::pair<std::string, std::string>
     std::ifstream inFile;
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
-    //inFile.open("../data/network.csv");
-    inFile.open("../data/network2.csv");
+    inFile.open("../data/network.csv");
+    //inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -278,8 +278,8 @@ Graph Supervisor::subgraph(const Station::StationH& failedStations){
     std::ifstream inFile;
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
-    //inFile.open("../data/network.csv");
-    inFile.open("../data/network2.csv");
+    inFile.open("../data/network.csv");
+    //inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -364,8 +364,8 @@ void Supervisor::createSuperSource(int id, Station::StationH targetStations){
     for (auto v: graph.getVertexSet()){
         if (targetStations.find(v->getStation()) != targetStations.end()) continue;
 
-        //if (v->getAdj().size()==1){
-        if (v->getStation().getName() == "A" || v->getStation().getName() == "B" ) {
+        if (v->getAdj().size()==1){
+        //if (v->getStation().getName() == "A" || v->getStation().getName() == "B" ) {
             sources.push_back(v->getId());
         }
     }
@@ -477,7 +477,7 @@ void Supervisor::createSuperGraph(bool type, const Graph& _graph, const Station:
     superGraphStations = type ? idStations : subGraphStations;
     int id = superGraphStations.size();
     createSuperSource(id,targetStations);
-    createSuperSink(id,targetStations);
+    createSuperSink(id+1,targetStations);
 }
 
 void Supervisor::createSuperSourceGraph(bool type, const Graph& _graph, int target){
@@ -487,8 +487,8 @@ void Supervisor::createSuperSourceGraph(bool type, const Graph& _graph, int targ
     for (auto v: superGraph.getVertexSet()){
         if (v->getId() == target) continue;
 
-        //if (v->getAdj().size() == 1){
-        if (v->getStation().getName() == "A" || v->getStation().getName() == "B" ) {
+        if (v->getAdj().size() == 1){
+        //if (v->getStation().getName() == "A" || v->getStation().getName() == "B" ) {
                 sources.push_back(v->getId());
             }
     }

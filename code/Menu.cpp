@@ -1,3 +1,5 @@
+#include <thread>
+#include <mutex>
 #include "Menu.h"
 
 Menu::Menu() {
@@ -118,8 +120,27 @@ void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::stri
 
 }
 
+// Define a function to be run by each thread
+void computeMaxFlow(Supervisor* supervisor, int start, int end, int& max, std::list<std::pair<std::string, std::string>>& pairs) {
+    for (int i = start; i < end; i++) {
+        for (int j = i+1; j < supervisor->getGraph().getVertexSet().size(); j++){
+            int flow = supervisor->getGraph().maxFlow(i, j);
+            //std::lock_guard<std::mutex> lock(mtx);
+            if (max < flow) {
+                // Use a mutex to ensure that only one thread modifies the pairs and max variables at a time
+                pairs.clear();
+                max = flow;
+            }
+            if (max == flow) {
+                pairs.emplace_back(supervisor->getGraph().getVertexSet()[i]->getStation().getName(),supervisor->getGraph().getVertexSet()[j]->getStation().getName());
+            }
+        }
+    }
+}
+
 //standby
 void Menu::t2() {
+/*
     std::list<std::pair<std::string, std::string>> pairs;
     int max = 0;
 
@@ -134,6 +155,30 @@ void Menu::t2() {
                 pairs.emplace_back(supervisor->getGraph().getVertexSet()[i]->getStation().getName(),supervisor->getGraph().getVertexSet()[j]->getStation().getName());
         }
     }
+    std::cout << "Max: " << max << "\n"; //....
+    for (const auto& pair: pairs){
+        std::cout << pair.first <<" - " << pair.second << "\n";
+    }*/
+
+    std::list<std::pair<std::string, std::string>> pairs;
+    int max = 0;
+    const int num_threads = 4;
+    std::vector<std::thread> threads;
+
+
+
+// Divide the work across multiple threads
+    for (int i = 0; i < num_threads; i++) {
+        int start = (i * supervisor->getGraph().getVertexSet().size()) / num_threads;
+        int end = ((i+1) * supervisor->getGraph().getVertexSet().size()) / num_threads;
+        threads.push_back(std::thread(computeMaxFlow, std::ref(supervisor),start, end,std::ref(max),std::ref(pairs)));
+    }
+
+// Wait for all threads to finish
+    for (auto& thread : threads) {
+        thread.join();
+    }
+
     std::cout << "Max: " << max << "\n"; //....
     for (const auto& pair: pairs){
         std::cout << pair.first <<" - " << pair.second << "\n";
@@ -307,7 +352,7 @@ void Menu::lineFailures() {
     }
     Graph subGraph = supervisor->subgraph(failedLines);
     supervisor->setSubGraph(subGraph);
-    subGraphOperations( );
+    subGraphOperations();
 }
 
 void Menu::segmentFailures(){
