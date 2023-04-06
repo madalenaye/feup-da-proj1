@@ -25,14 +25,14 @@ public:
      * destination vertices and the edge weight (w).
      * Returns true if successful, and false if the source or destination vertex does not exist.
      */
-    void addEdge(const int &source, const int &dest, int capacity, const string& service) const;
+    void addEdge(const int &source, const int &dest, int capacity, const std::string& service) const;
 
     std::vector<Vertex *> getVertexSet() const;
     int minCost(int source, int target);
     int maxFlow(int source, int target);
 
-    unsigned int maxConnectedDistrict(const string& district);
-    unsigned int maxConnectedMunicipality(const string& municipality);
+    unsigned int maxConnectedDistrict(const std::string& district);
+    unsigned int maxConnectedMunicipality(const std::string& municipality);
 
 
 private:
@@ -47,8 +47,8 @@ private:
 
     static int pathCost(Vertex *src, Vertex *dest);
 
-    void dfsConnectedDistrict(Vertex* v, list<int>& comp, const string& district);
+    void dfsConnectedDistrict(Vertex* v, std::list<int>& comp, const std::string& district);
 
-    void dfsConnectedMunicipality(Vertex* v, list<int>& comp, const string& municipality);
+    void dfsConnectedMunicipality(Vertex* v, std::list<int>& comp, const std::string& municipality);
 };
 #endif //DA_GRAPH_H

@@ -1,10 +1,10 @@
 #include "Station.h"
 
-Station::Station(string name) {
+Station::Station(std::string name) {
     this->name = name;
 }
 
-Station::Station(string name,string district,string municipality,string township,string line) {
+Station::Station(std::string name,std::string district,std::string municipality,std::string township,std::string line) {
     this->name = name;
     this->district = district;
     this->municipality = municipality;
@@ -12,18 +12,18 @@ Station::Station(string name,string district,string municipality,string township
     this->line = line;
 }
 
-string Station::getName() const {
+std::string Station::getName() const {
     return this->name;
 }
-string Station::getDistrict() const {
+std::string Station::getDistrict() const {
     return this->district;
 }
-string Station::getLine() const {
+std::string Station::getLine() const {
     return this->line;
 }
-string Station::getTownship() const {
+std::string Station::getTownship() const {
     return this->township;
 }
-string Station::getMunicipality() const {
+std::string Station::getMunicipality() const {
     return this->municipality;
 }

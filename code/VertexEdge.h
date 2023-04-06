@@ -9,7 +9,7 @@
 
 #include "Station.h"
 
-using namespace std;
+
 
 class Edge;
 
@@ -38,7 +38,7 @@ public:
     void setIndegree(unsigned int indegree);
     void setDist(int dist);
     void setPath(Edge *path);
-    Edge * addEdge(Vertex *dest, int capacity, string service);
+    Edge * addEdge(Vertex *dest, int capacity, std::string service);
     bool removeEdge(int destID);
     void removeOutgoingEdges();
 
@@ -69,12 +69,12 @@ private:
 
 class Edge {
 public:
-    Edge(Vertex *orig, Vertex *dest, int capacity, string service);
+    Edge(Vertex *orig, Vertex *dest, int capacity, std::string service);
 
     Vertex * getDest() const;
     int getCapacity() const;
     int getResidualCapacity() const;
-    string getService() const;
+    std::string getService() const;
     bool isSelected() const;
     Vertex * getOrig() const;
     Edge *getReverse() const;
@@ -88,7 +88,7 @@ private:
     Vertex * dest; // destination vertex
     int capacity; // edge weight, can also be used for capacity
     int residualCapacity;
-    string service;
+    std::string service;
     // auxiliary fields
     bool selected = false;
     int cost;

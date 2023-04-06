@@ -5,20 +5,19 @@
 #include <unordered_map>
 #include <unordered_set>
 
-using namespace std;
 
 class Station{
 public:
-    Station(string name);
-    Station(string, string, string, string, string);
-    string getName() const;
-    string getDistrict() const;
-    string getMunicipality() const;
-    string getTownship() const;
-    string getLine() const;
+    Station(std::string name);
+    Station(std::string, std::string, std::string, std::string, std::string);
+    std::string getName() const;
+    std::string getDistrict() const;
+    std::string getMunicipality() const;
+    std::string getTownship() const;
+    std::string getLine() const;
     struct StationHash{
         int operator()(const Station& station) const{
-            string c=station.getName();
+            std::string c=station.getName();
             int v=0;
             for(char i:c){
                 v=37*v+i;
@@ -29,13 +28,13 @@ public:
                 return station1.getName()==station2.getName();
         }
     };
-    typedef unordered_set<Station,Station::StationHash,Station::StationHash> StationH;
+    typedef std::unordered_set<Station,Station::StationHash,Station::StationHash> StationH;
 private:
-    string name;
-    string district;
-    string municipality;
-    string township;
-    string line;
+    std::string name;
+    std::string district;
+    std::string municipality;
+    std::string township;
+    std::string line;
 };
 
 #endif //DA_STATION_H

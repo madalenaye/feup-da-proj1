@@ -8,7 +8,7 @@ void Graph::addVertex(const int &id, Station station) {
     vertexSet.push_back(v);
 }
 
-void Graph::addEdge(const int &source, const int &dest, int capacity, const string& service) const {
+void Graph::addEdge(const int &source, const int &dest, int capacity, const std::string& service) const {
     auto v1 = findVertex(source);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
@@ -19,7 +19,7 @@ void Graph::addEdge(const int &source, const int &dest, int capacity, const stri
     e2->setReverse(e1);
 }
 
-vector<Vertex *> Graph::getVertexSet() const {
+std::vector<Vertex *> Graph::getVertexSet() const {
     return vertexSet;
 }
 
@@ -263,7 +263,7 @@ int Graph::minCost(int source, int target) {
 
 }
 
-void Graph::dfsConnectedDistrict(Vertex *v, list<int> &comp, const string& district) {
+void Graph::dfsConnectedDistrict(Vertex *v, std::list<int> &comp, const std::string& district) {
     v->setVisited(true);
     comp.push_back(v->getId());
     for (auto e : v->getAdj()){
@@ -274,7 +274,7 @@ void Graph::dfsConnectedDistrict(Vertex *v, list<int> &comp, const string& distr
     }
 }
 
-void Graph::dfsConnectedMunicipality(Vertex *v, list<int> &comp, const string& municipality) {
+void Graph::dfsConnectedMunicipality(Vertex *v, std::list<int> &comp, const std::string& municipality) {
     v->setVisited(true);
     comp.push_back(v->getId());
     for (auto e : v->getAdj()){
@@ -290,7 +290,7 @@ unsigned int Graph::maxConnectedDistrict(const std::string& district) {
     for (auto v : vertexSet) v->setVisited(false);
     for (auto v : vertexSet){
         if (!v->isVisited() && v->getStation().getDistrict() == district){
-            list<int> components;
+            std::list<int> components;
             dfsConnectedDistrict(v, components, district);
             unsigned int size = components.size();
             if (size > maxSize) maxSize = size;
@@ -304,7 +304,7 @@ unsigned int Graph::maxConnectedMunicipality(const std::string& municipality) {
     for (auto v : vertexSet) v->setVisited(false);
     for (auto v : vertexSet){
         if (!v->isVisited() && v->getStation().getMunicipality() == municipality){
-            list<int> components;
+            std::list<int> components;
             dfsConnectedMunicipality(v, components, municipality);
             unsigned int size = components.size();
             if (size > maxSize) maxSize = size;
