@@ -8,7 +8,7 @@ Station Vertex::getStation() const {
 
 Vertex::Vertex(int id): id(id) {}
 
-Edge * Vertex::addEdge(Vertex *d, int capacity, string service) {
+Edge * Vertex::addEdge(Vertex *d, int capacity, std::string service) {
     auto newEdge = new Edge(this, d, capacity, service);
     adj.push_back(newEdge);
     d->incoming.push_back(newEdge);
@@ -39,7 +39,7 @@ int Vertex::getId() const {
     return this->id;
 }
 
-vector<Edge*> Vertex::getAdj() const {
+std::vector<Edge*> Vertex::getAdj() const {
     return this->adj;
 }
 
@@ -63,7 +63,7 @@ Edge *Vertex::getPath() const {
     return this->path;
 }
 
-vector<Edge *> Vertex::getIncoming() const {
+std::vector<Edge *> Vertex::getIncoming() const {
     return this->incoming;
 }
 
@@ -97,7 +97,7 @@ void Vertex::setStation(Station station) {
 
 /********************** Edge  ****************************/
 
-Edge::Edge(Vertex *orig, Vertex *dest, int capacity, string service): orig(orig), dest(dest), capacity(capacity), service(service) {
+Edge::Edge(Vertex *orig, Vertex *dest, int capacity, std::string service): orig(orig), dest(dest), capacity(capacity), service(service) {
     if (service == "STANDARD")
         cost = 2;
     else
@@ -127,7 +127,7 @@ int Edge::getCapacity() const {
     return this->capacity;
 }
 
-string Edge::getService() const{
+std::string Edge::getService() const{
     return this->service;
 }
 

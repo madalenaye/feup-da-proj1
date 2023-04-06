@@ -19,16 +19,16 @@ private:
 
     void basicService();
 
-    void maxFlow(bool subgraph, const string &srcStation, const string &destStation);
+    void maxFlow(bool subgraph, const std::string &srcStation, const std::string &destStation);
 
     void t2();
 
     void statistics();
     void transportNeeds(int type);
 
-    void maxStationFlow(const string& station);
+    void maxStationFlow(const std::string& station);
 
-    void costOptimization(bool subgraph, const string& srcStation, const string& destStation);
+    void costOptimization(bool subgraph, const std::string& srcStation, const std::string& destStation);
 
     void reliability();
 
@@ -39,12 +39,12 @@ private:
     void subGraphOperations();
     void mostAffectedStations();
 
-    static int customTop(const string& message, int n);
+    static int customTop(const std::string& message, unsigned int n);
     static int showTop();
 
-    string validateLine();
-    string validateStation(const string& message);
-    string validatePath(string &source, string &target);
+    std::string validateLine();
+    std::string validateStation(const std::string& message);
+    std::string validatePath(std::string &source, std::string &target);
 
     Supervisor* supervisor;
 
