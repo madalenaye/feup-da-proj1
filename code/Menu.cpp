@@ -98,13 +98,19 @@ void Menu::basicService(){
 //2.1
 void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::string& destStation) {
 
-    int src, dest;
+    int src, dest, maxFlow;
     Graph graph = subgraph ? supervisor->getSubGraph() : supervisor->getGraph();
     std::unordered_map<std::string,int> idStations = subgraph ? supervisor->getSubGraphStations() : supervisor->getId();
 
-    src = idStations[srcStation];
-    dest = idStations[destStation];
-    int maxFlow = graph.maxFlow(src,dest);
+    if (idStations.count(srcStation) && idStations.count(destStation)) {
+        src = idStations[srcStation];
+        dest = idStations[destStation];
+        maxFlow = graph.maxFlow(src,dest);
+    } else {
+        maxFlow = 0;
+    }
+
+
 
     std::cout << "\n Maximum number of trains between " << "\033[1m\033[36m" << srcStation << "\033[0m"
     << " and " << "\033[1m\033[36m" << destStation << "\033[0m" << ": "
@@ -209,7 +215,7 @@ void Menu::transportNeeds(int type){
 //2.4
 void Menu::maxStationFlow(const std::string& station){
 
-    int maxFlow = supervisor->maxStationFlow(true,supervisor->originalGraph(),supervisor->getId()[station]);
+    int maxFlow = supervisor->maxStationFlow(station);
     std::cout << "\n Maximum number of trains that can \033[1m\033[36msimultaneously\033[0m arrive at "
     << "\033[1m\033[43m " << station << " \033[0m" << " : "
     << "\033[1m\033[35m" << maxFlow * 2 << "\033[0m \n" << "\n";

@@ -46,7 +46,9 @@ public:
 
     std::vector<std::pair<std::string, int>> transportNeeds(bool graphType, const Graph& graph, bool type);
 
-    int maxStationFlow(bool type, const Graph &_graph, int target);
+    int finalStationFlow(const Graph &_graph, int target);
+
+    int maxStationFlow(std::string station);
 
 private:
 
@@ -54,8 +56,6 @@ private:
 
     void createSuperSource(int id, Station::StationH targetStations);
     void createSuperSink(int id, Station::StationH targetStations);
-    void createSuperSourceGraph(int target);
-    void createSuperGraph(const Station::StationH& targetStations);
 
     void createSuperGraph(bool type, const Graph& graph, const Station::StationH& targetStations);
 
@@ -71,6 +71,7 @@ private:
     bool lineFailure(std::unordered_set<std::string> failedLines, const std::string &source, const std::string &target);
     static bool stationFailure(Station::StationH failedStations, const std::string &source, const std::string &target);
 
+    void stationsFlow();
 
     Station::StationH stations;
     std::unordered_map<std::string, int> idStations;
@@ -83,6 +84,8 @@ private:
 
     std::unordered_set<std::string> lines;
     std::unordered_map<std::string, Station::StationH> stationsPerLine;
+
+    std::unordered_map<std::string, int> stationFlow;
 
     Graph graph;
     Graph subGraph;
