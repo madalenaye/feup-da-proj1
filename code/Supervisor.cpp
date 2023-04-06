@@ -2,7 +2,7 @@
 
 Supervisor::Supervisor() {
     createStations();
-    createGraph();
+    graph = originalGraph();
 }
 
 
@@ -126,7 +126,7 @@ void Supervisor::createStations() {
     std::ifstream myFile;
     std::string currentLine, name, district, municipality, township, line;
 
-    myFile.open("../data/stations2.csv");
+    myFile.open("../data/stations.csv");
 
     getline(myFile, currentLine);
 
@@ -160,11 +160,13 @@ void Supervisor::createStations() {
  * @par Time complexity
  * O(n), where n is the number of lines in the CSV file
  */
-void Supervisor::createGraph() {
+Graph Supervisor::originalGraph() {
+    Graph _graph;
+    idStations.clear();
     std::ifstream inFile;
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
-    inFile.open("../data/network2.csv");
+    inFile.open("../data/network.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -178,13 +180,14 @@ void Supervisor::createGraph() {
 
         if (service.back() == '\r') service.pop_back();
 
-        idA = makeVertex(graph,idStations,source, id);
-        idB = makeVertex(graph,idStations,target, id);
+        idA = makeVertex(_graph,idStations,source, id);
+        idB = makeVertex(_graph,idStations,target, id);
 
-        graph.addEdge(idA, idB, capacity, service);
+        _graph.addEdge(idA, idB, capacity, service);
     }
 
     inFile.close();
+    return _graph;
 }
 
 
@@ -198,15 +201,14 @@ void Supervisor::createGraph() {
  * @par Time complexity
  * O(n), where n is the number of lines in the CSV file
  */
-void Supervisor::createSubgraph(const std::unordered_set<std::string>& failedLines) {
+Graph Supervisor::subgraph(const std::unordered_set<std::string>& failedLines){
 
-    this->subGraph = Graph();
+    Graph _subGraph;
     subGraphStations.clear();
-
     std::ifstream inFile;
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
-    inFile.open("../data/network2.csv");
+    inFile.open("../data/network.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -222,75 +224,23 @@ void Supervisor::createSubgraph(const std::unordered_set<std::string>& failedLin
         if (service.back() == '\r') service.pop_back();
 
         if (!lineFailure(failedLines,source,target)) {
-            idA = makeVertex(subGraph,subGraphStations, source, id);
-            idB = makeVertex(subGraph,subGraphStations,target, id);
-            subGraph.addEdge(idA, idB, capacity, service);
+            idA = makeVertex(_subGraph,subGraphStations, source, id);
+            idB = makeVertex(_subGraph,subGraphStations,target, id);
+            _subGraph.addEdge(idA, idB, capacity, service);
         }
     }
     inFile.close();
+    return _subGraph;
 }
 
-/**
- * This function creates a subgraph of the main graph based on a set of failure stations, which represents stations
- * that are currently out of service due to repairs, services, disasters, or other reasons. The new graph excludes any
- * stations that belong to the failed stations.
- *
- * @param failedStations The set of stations to be excluded.
- *
- * @par Time complexity
- * O(n), where n is the number of lines in the CSV file
- */
-void Supervisor::createSubgraph(const Station::StationH& failedStations) {
+Graph Supervisor::subgraph(const std::vector<std::pair<std::string, std::string>>& failedSegments){
 
-    this->subGraph = Graph();
+    Graph _subGraph;
     subGraphStations.clear();
-
     std::ifstream inFile;
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
-    inFile.open("../data/network2.csv");
-    getline(inFile, line);
-
-    while(getline(inFile, line)) {
-
-        std::istringstream is(line);
-
-        checkField(is, source);
-        checkField(is,target);
-
-        checkField(is, x); capacity = stoi(x);
-        checkField(is, service);
-
-        if (service.back() == '\r') service.pop_back();
-
-        if (!stationFailure(failedStations,source,target)){
-            idA = makeVertex(subGraph,subGraphStations, source, id);
-            idB = makeVertex(subGraph,subGraphStations,target, id);
-            subGraph.addEdge(idA, idB, capacity, service);
-        }
-    }
-    inFile.close();
-}
-
-/**
- * This function creates a subgraph of the main graph based on a set of failure segments, which represents segments
- * that are currently out of service due to repairs, services, disasters, or other reasons. The new graph excludes any
- * edges that belong to the failed segments.
- *
- * @param failedStations The set of segments to be excluded.
- *
- * @par Time complexity
- * O(n), where n is the number of lines in the CSV file
- */
-void Supervisor::createSubgraph(const std::vector<std::pair<std::string,std::string>>& failedSegments) {
-
-    this->subGraph = Graph();
-    subGraphStations.clear();
-
-    std::ifstream inFile;
-    std::string source, target, service, line, x;
-    int capacity, idA, idB, id=0;
-    inFile.open("../data/network2.csv");
+    inFile.open("../data/network.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -306,12 +256,47 @@ void Supervisor::createSubgraph(const std::vector<std::pair<std::string,std::str
         if (service.back() == '\r') service.pop_back();
 
         if (!segmentFailure(failedSegments,source,target)) {
-            idA = makeVertex(subGraph,subGraphStations, source, id);
-            idB = makeVertex(subGraph,subGraphStations,target, id);
-            subGraph.addEdge(idA, idB, capacity, service);
+            idA = makeVertex(_subGraph,subGraphStations, source, id);
+            idB = makeVertex(_subGraph,subGraphStations,target, id);
+            _subGraph.addEdge(idA, idB, capacity, service);
         }
     }
     inFile.close();
+    return _subGraph;
+}
+
+
+
+Graph Supervisor::subgraph(const Station::StationH& failedStations){
+
+    Graph _subGraph;
+    superGraphStations.clear();
+    std::ifstream inFile;
+    std::string source, target, service, line, x;
+    int capacity, idA, idB, id=0;
+    inFile.open("../data/network.csv");
+    getline(inFile, line);
+
+    while(getline(inFile, line)) {
+
+        std::istringstream is(line);
+
+        checkField(is, source);
+        checkField(is,target);
+
+        checkField(is, x); capacity = stoi(x);
+        checkField(is, service);
+
+        if (service.back() == '\r') service.pop_back();
+
+        if (!stationFailure(failedStations,source,target)) {
+            idA = makeVertex(_subGraph,superGraphStations, source, id);
+            idB = makeVertex(_subGraph,superGraphStations,target, id);
+            _subGraph.addEdge(idA, idB, capacity, service);
+        }
+    }
+    inFile.close();
+    return _subGraph;
 }
 
 /**
@@ -374,7 +359,7 @@ void Supervisor::createSuperGraph(const Station::StationH& targetStations) {
     std::ifstream inFile;
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
-    inFile.open("../data/network2.csv");
+    inFile.open("../data/network.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -439,7 +424,7 @@ void Supervisor::createSuperSourceGraph(int dest) {
     std::ifstream inFile;
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
-    inFile.open("../data/network2.csv");
+    inFile.open("../data/network.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -477,35 +462,19 @@ void Supervisor::createSuperSourceGraph(int dest) {
 
 }
 
-int Supervisor::maxStationFlow(int target){
-    createSuperSourceGraph(target);
+int Supervisor::maxStationFlow(bool type,const Graph& _graph, int target){
+    createSuperSourceGraph(type,_graph,target);
     return superGraph.maxFlow(superGraphStations["Super-Source"], target);
 }
 
-int Supervisor::finalStationFlow(int target){
-    std::unordered_set<std::string> failedLines;
-    failedLines.insert("Linha do Minho");
-    for (auto &v: superGraph.getVertexSet()) {
-        if (v->getStation().getName() == "Super-Source") continue;
-        for (auto &e: v->getAdj()) {
-            if (e->getDest()->getStation().getName() == "Super-Source") continue;
-            if (lineFailure(failedLines, e->getOrig()->getStation().getName(), e->getDest()->getStation().getName())) {
-                auto z = e->getDest()->getId();
-                v->removeEdge(z);
-            }
-        }
-    }
-    return superGraph.maxFlow(superGraphStations["Super-Source"], target);
-}
-
-std::vector<std::pair<std::string,int>> Supervisor::flowDifference(){
+std::vector<std::pair<std::string,int>> Supervisor::flowDifference(const Graph& _subGraph){
     std::vector<std::pair<std::string,int>> res;
     int initial, final, difference;
     std::string stationName;
     for (auto vertex: subGraph.getVertexSet()){
         auto x = vertex->getStation().getName();
-        initial = maxStationFlow(vertex->getId());
-        final = finalStationFlow(vertex->getId());
+        initial = maxStationFlow(true,originalGraph(),vertex->getId());
+        final = maxStationFlow(false,_subGraph,vertex->getId());
         difference = initial - final;
         res.emplace_back(vertex->getStation().getName(), difference);
     }
@@ -515,13 +484,13 @@ std::vector<std::pair<std::string,int>> Supervisor::flowDifference(){
     return res;
 }
 
-std::vector<std::pair<std::string,int>> Supervisor::transportNeeds(bool type){
-    auto _stations = type ?  municipalityStations:districtStations;
+std::vector<std::pair<std::string,int>> Supervisor::transportNeeds(bool graphType, const Graph& _graph, bool type){
+    auto _stations = type ? municipalityStations : districtStations;
 
     std::vector<std::pair<std::string, int>> res;
 
     for (const auto& pair : _stations){
-        createSuperGraph(pair.second);
+        createSuperGraph(graphType,_graph,pair.second);
 
         int maxFlow = superGraph.maxFlow(superGraphStations["Super-Source"],superGraphStations["Super-Sink"]);
         res.emplace_back(pair.first,maxFlow);
@@ -550,4 +519,37 @@ std::vector<std::pair<std::string, int>> Supervisor::maxConnectedStations(int ty
     sort(res.begin(), res.end(), [](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b){
         return a.second > b.second; });
     return res;
+}
+
+void Supervisor::setSubGraph(const Graph& subgraph) {
+    this->subGraph = subgraph;
+}
+
+
+void Supervisor::createSuperGraph(bool type, const Graph& _graph, const Station::StationH& targetStations){
+    superGraph = _graph;
+    superGraphStations = type ? idStations : subGraphStations;
+    int id = superGraphStations.size();
+    createSuperSource(id,targetStations);
+    createSuperSink(id,targetStations);
+}
+
+void Supervisor::createSuperSourceGraph(bool type, const Graph& _graph, int target){
+    superGraph = _graph;
+    superGraphStations = type ? idStations : subGraphStations;
+    std::vector<int> sources;
+    for (auto v: superGraph.getVertexSet()){
+        if (v->getId() == target) continue;
+
+        if (v->getAdj().size() == 1){
+            sources.push_back(v->getId());
+        }
+    }
+    int id = superGraphStations.size();
+    superGraph.addVertex(id, Station("Super-Source"));
+    superGraphStations["Super-Source"] = id;
+
+    for(auto i:sources)
+        superGraph.addEdge(id,i,INF,"");
+
 }

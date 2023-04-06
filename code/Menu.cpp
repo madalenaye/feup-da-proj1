@@ -185,7 +185,7 @@ void Menu::transportNeeds(int type){
                      << "\033[1m\033[32m" << result[i].second << "\033[0m \n";
 
         } else if (option == "2") {
-            auto result = supervisor->transportNeeds(type);
+            auto result = supervisor->transportNeeds(true, supervisor->originalGraph(), type);
             int choice = showTop(), top;
             if (choice == 1) top = 10;
             else if (choice == 2) top = 15;
@@ -208,7 +208,8 @@ void Menu::transportNeeds(int type){
 
 //2.4
 void Menu::maxStationFlow(const std::string& station){
-    int maxFlow = supervisor->maxStationFlow(supervisor->getId()[station]);
+
+    int maxFlow = supervisor->maxStationFlow(true,supervisor->originalGraph(),supervisor->getId()[station]);
     std::cout << "\n Maximum number of trains that can \033[1m\033[36msimultaneously\033[0m arrive at "
     << "\033[1m\033[43m " << station << " \033[0m" << " : "
     << "\033[1m\033[35m" << maxFlow * 2 << "\033[0m \n" << "\n";
@@ -298,8 +299,9 @@ void Menu::lineFailures() {
             std::cin.ignore(INT_MAX, '\n');
         }
     }
-    supervisor->createSubgraph(failedLines);
-    subGraphOperations();
+    Graph subGraph = supervisor->subgraph(failedLines);
+    supervisor->setSubGraph(subGraph);
+    subGraphOperations( );
 }
 
 void Menu::segmentFailures(){
@@ -341,7 +343,8 @@ void Menu::segmentFailures(){
             std::cin.ignore(INT_MAX, '\n');
         }
     }
-    supervisor->createSubgraph(failedSegments);
+    Graph subGraph = supervisor->subgraph(failedSegments);
+    supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
 
@@ -383,10 +386,11 @@ void Menu::stationFailures(){
             std::cin.ignore(INT_MAX, '\n');
         }
     }
-    supervisor->createSubgraph(failedStations);
+
+    Graph subGraph = supervisor->subgraph(failedStations);
+    supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
-
 void Menu::subGraphOperations(){
     std::string option;
     while(true){
@@ -428,7 +432,7 @@ void Menu::subGraphOperations(){
 }
 
 void Menu::mostAffectedStations(){
-    std::vector<std::pair<std::string,int>> difference = supervisor->flowDifference();
+    std::vector<std::pair<std::string,int>> difference = supervisor->flowDifference(supervisor->getSubGraph());
     int choice = showTop(), top;
     if (choice == 1) top = 10;
     else if (choice == 2) top = 15;
@@ -523,4 +527,5 @@ void Menu::end() {
     printf("\n");
     printf("\033[46m===========================================================\033[0m\n");
 }
+
 

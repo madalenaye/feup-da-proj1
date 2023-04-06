@@ -32,26 +32,34 @@ public:
     bool isStation(const std::string& station);
     bool isLine(const std::string& line);
 
-    void createSubgraph(const std::unordered_set<std::string>& failedLines);
-    void createSubgraph(const std::vector<std::pair<std::string, std::string>>& failedSegments);
-    void createSubgraph(const Station::StationH& failedStations);
+    Graph originalGraph();
 
+    Graph subgraph(const std::unordered_set<std::string>& failedLines);
+    Graph subgraph(const std::vector<std::pair<std::string, std::string>>& failedSegments);
+    Graph subgraph(const Station::StationH& failedStations);
 
-    std::vector<std::pair<std::string, int>> transportNeeds(bool type);
+    void setSubGraph(const Graph& subgraph);
+
     std::vector<std::pair<std::string, int>> maxConnectedStations(int type);
 
-    int maxStationFlow(int target);
+    std::vector<std::pair<std::string, int>> flowDifference(const Graph &_subGraph);
 
-    std::vector<std::pair<std::string, int>> flowDifference();
+    std::vector<std::pair<std::string, int>> transportNeeds(bool graphType, const Graph& graph, bool type);
+
+    int maxStationFlow(bool type, const Graph &_graph, int target);
 
 private:
 
     void createStations();
-    void createGraph();
+
     void createSuperSource(int id, Station::StationH targetStations);
     void createSuperSink(int id, Station::StationH targetStations);
     void createSuperSourceGraph(int target);
     void createSuperGraph(const Station::StationH& targetStations);
+
+    void createSuperGraph(bool type, const Graph& graph, const Station::StationH& targetStations);
+
+    void createSuperSourceGraph(bool type, const Graph& graph, int target);
 
 
     static void checkField(std::istringstream &iss, std::string &field);
@@ -62,6 +70,7 @@ private:
     static bool segmentFailure(const std::vector<std::pair<std::string, std::string>>& failedSegments, const std::string& source, const std::string& target);
     bool lineFailure(std::unordered_set<std::string> failedLines, const std::string &source, const std::string &target);
     static bool stationFailure(Station::StationH failedStations, const std::string &source, const std::string &target);
+
 
     Station::StationH stations;
     std::unordered_map<std::string, int> idStations;
@@ -79,7 +88,7 @@ private:
     Graph subGraph;
     Graph superGraph;
 
-    int finalStationFlow(int target);
+
 };
 
 
