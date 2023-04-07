@@ -17,6 +17,8 @@ class Edge;
 
 class Vertex {
 public:
+    Vertex(int id);
+
     bool operator<(Vertex& vertex) const;
 
     int getId() const;
@@ -42,7 +44,7 @@ private:
     bool visited = false;
     int dist = 0;
     Edge *path = nullptr;
-    Station station;
+    Station station = Station("");
 };
 
 /********************** Edge  ****************************/
