@@ -48,5 +48,8 @@ private:
 
     Supervisor* supervisor;
 
+    void subGraphOperations(std::unordered_set<std::string> set);
+
+    void mostAffectedStations(Graph subGraph);
 };
 #endif //DA_MENU_H

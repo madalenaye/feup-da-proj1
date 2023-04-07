@@ -1,3 +1,5 @@
+#include <thread>
+#include <mutex>
 #include "Menu.h"
 
 Menu::Menu() {
@@ -98,22 +100,47 @@ void Menu::basicService(){
 //2.1
 void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::string& destStation) {
 
-    int src, dest;
+    int src, dest, maxFlow;
     Graph graph = subgraph ? supervisor->getSubGraph() : supervisor->getGraph();
     std::unordered_map<std::string,int> idStations = subgraph ? supervisor->getSubGraphStations() : supervisor->getId();
 
-    src = idStations[srcStation];
-    dest = idStations[destStation];
-    int maxFlow = graph.maxFlow(src,dest);
+    if (idStations.count(srcStation) && idStations.count(destStation)) {
+        src = idStations[srcStation];
+        dest = idStations[destStation];
+        maxFlow = graph.maxFlow(src,dest);
+    } else {
+        maxFlow = 0;
+    }
+
+
 
     std::cout << "\n Maximum number of trains between " << "\033[1m\033[36m" << srcStation << "\033[0m"
     << " and " << "\033[1m\033[36m" << destStation << "\033[0m" << ": "
     << "\033[1m\033[42m" << " " << maxFlow * 2 << " " << "\033[0m" << "\n\n";
 
 }
-
+/*
+// Define a function to be run by each thread
+void computeMaxFlow(Supervisor* supervisor, int start, int end, int& max, std::list<std::pair<std::string, std::string>>& pairs) {
+    for (int i = start; i < end; i++) {
+        for (int j = i+1; j < supervisor->getGraph().getVertexSet().size(); j++){
+            int flow = supervisor->getGraph().maxFlow(i, j);
+            //std::lock_guard<std::mutex> lock(mtx);
+            if (max < flow) {
+                // Use a mutex to ensure that only one thread modifies the pairs and max variables at a time
+                pairs.clear();
+                max = flow;
+            }
+            if (max == flow) {
+                pairs.emplace_back(supervisor->getGraph().getVertexSet()[i]->getStation().getName(),supervisor->getGraph().getVertexSet()[j]->getStation().getName());
+            }
+        }
+    }
+}
+*/
 //standby
 void Menu::t2() {
+
     std::list<std::pair<std::string, std::string>> pairs;
     int max = 0;
 
@@ -132,7 +159,31 @@ void Menu::t2() {
     for (const auto& pair: pairs){
         std::cout << pair.first <<" - " << pair.second << "\n";
     }
+/*
+    std::list<std::pair<std::string, std::string>> pairs;
+    int max = 0;
+    const int num_threads = 4;
+    std::vector<std::thread> threads;
 
+
+
+// Divide the work across multiple threads
+    for (int i = 0; i < num_threads; i++) {
+        int start = (i * supervisor->getGraph().getVertexSet().size()) / num_threads;
+        int end = ((i+1) * supervisor->getGraph().getVertexSet().size()) / num_threads;
+        threads.push_back(std::thread(computeMaxFlow, std::ref(supervisor),start, end,std::ref(max),std::ref(pairs)));
+    }
+
+// Wait for all threads to finish
+    for (auto& thread : threads) {
+        thread.join();
+    }
+
+    std::cout << "Max: " << max << "\n"; //....
+    for (const auto& pair: pairs){
+        std::cout << pair.first <<" - " << pair.second << "\n";
+    }
+*/
 }
 
 //2.3
@@ -185,7 +236,7 @@ void Menu::transportNeeds(int type){
                      << "\033[1m\033[32m" << result[i].second << "\033[0m \n";
 
         } else if (option == "2") {
-            auto result = supervisor->transportNeeds(type);
+            auto result = supervisor->transportNeeds(true, supervisor->originalGraph(), type);
             int choice = showTop(), top;
             if (choice == 1) top = 10;
             else if (choice == 2) top = 15;
@@ -208,11 +259,11 @@ void Menu::transportNeeds(int type){
 
 //2.4
 void Menu::maxStationFlow(const std::string& station){
-    int maxFlow = supervisor->maxStationFlow(supervisor->getId()[station]);
+
+    int maxFlow = supervisor->maxStationFlow(station);
     std::cout << "\n Maximum number of trains that can \033[1m\033[36msimultaneously\033[0m arrive at "
     << "\033[1m\033[43m " << station << " \033[0m" << " : "
     << "\033[1m\033[35m" << maxFlow * 2 << "\033[0m \n" << "\n";
-    return;
 }
 
 //4.2
@@ -299,7 +350,8 @@ void Menu::lineFailures() {
             std::cin.ignore(INT_MAX, '\n');
         }
     }
-    supervisor->createSubgraph(failedLines);
+    Graph subGraph = supervisor->subgraph(failedLines);
+    supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
 
@@ -342,7 +394,8 @@ void Menu::segmentFailures(){
             std::cin.ignore(INT_MAX, '\n');
         }
     }
-    supervisor->createSubgraph(failedSegments);
+    Graph subGraph = supervisor->subgraph(failedSegments);
+    supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
 
@@ -384,10 +437,11 @@ void Menu::stationFailures(){
             std::cin.ignore(INT_MAX, '\n');
         }
     }
-    supervisor->createSubgraph(failedStations);
+
+    Graph subGraph = supervisor->subgraph(failedStations);
+    supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
-
 void Menu::subGraphOperations(){
     std::string option;
     while(true){
@@ -429,7 +483,16 @@ void Menu::subGraphOperations(){
 }
 
 void Menu::mostAffectedStations(){
-    std::vector<std::pair<std::string,int>> difference = supervisor->flowDifference();
+    std::vector<std::pair<std::string,int>> difference = supervisor->flowDifference(supervisor->getSubGraph());
+    int choice = showTop(), top;
+    if (choice == 1) top = 10;
+    else if (choice == 2) top = 15;
+    else if (choice == 3) top = customTop("\n Selecione um valor para o top: ", difference.size());
+    else return;
+
+    for (int i = 0; i < top; i++)
+        std::cout << "\n\033[1m\033[32m " << i+1 << ".\033[0m "<< difference[i].first << " | Flow loss: "
+             << "\033[1m\033[35m" << difference[i].second << "\033[0m \n";
 }
 
 
@@ -515,4 +578,5 @@ void Menu::end() {
     printf("\n");
     printf("\033[46m===========================================================\033[0m\n");
 }
+
 

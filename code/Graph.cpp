@@ -13,6 +13,9 @@ void Graph::addEdge(const int &source, const int &dest, int capacity, const std:
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return;
+    for (auto e: v1->getAdj())
+        if (e->getDest()->getId() == dest)
+            return;
     auto e1 = v1->addEdge(v2, capacity/2, service);
     auto e2 = v2->addEdge(v1, capacity/2, service);
     e1->setReverse(e2);
@@ -56,6 +59,7 @@ bool Graph::findAugmentingPath(Vertex* src, Vertex* dest){
 
         for (Edge* e: v->getAdj()) {
             Vertex* w = e->getDest();
+            if (w->getStation().getName() == "Super-Source") continue;
             int residual = e->getResidualCapacity();
             if (!w->isVisited() && residual > 0) {
                 w->setVisited(true);
