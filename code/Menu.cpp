@@ -119,7 +119,7 @@ void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::stri
     << "\033[1m\033[42m" << " " << maxFlow * 2 << " " << "\033[0m" << "\n\n";
 
 }
-
+/*
 // Define a function to be run by each thread
 void computeMaxFlow(Supervisor* supervisor, int start, int end, int& max, std::list<std::pair<std::string, std::string>>& pairs) {
     for (int i = start; i < end; i++) {
@@ -137,10 +137,10 @@ void computeMaxFlow(Supervisor* supervisor, int start, int end, int& max, std::l
         }
     }
 }
-
+*/
 //standby
 void Menu::t2() {
-/*
+
     std::list<std::pair<std::string, std::string>> pairs;
     int max = 0;
 
@@ -158,8 +158,8 @@ void Menu::t2() {
     std::cout << "Max: " << max << "\n"; //....
     for (const auto& pair: pairs){
         std::cout << pair.first <<" - " << pair.second << "\n";
-    }*/
-
+    }
+/*
     std::list<std::pair<std::string, std::string>> pairs;
     int max = 0;
     const int num_threads = 4;
@@ -183,7 +183,7 @@ void Menu::t2() {
     for (const auto& pair: pairs){
         std::cout << pair.first <<" - " << pair.second << "\n";
     }
-
+*/
 }
 
 //2.3
