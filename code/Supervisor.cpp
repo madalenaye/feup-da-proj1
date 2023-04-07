@@ -400,12 +400,11 @@ void Supervisor::stationsFlow(){
         flow = superGraph.maxFlow(superGraphStations["Super-Source"], v->getId());
         stationFlow[v->getStation().getName()] = flow;
     }
-};
-
-int Supervisor::maxStationFlow(std::string station){
-    return stationFlow[station];
 }
 
+int Supervisor::maxStationFlow(const std::string& station){
+    return stationFlow[station];
+}
 
 int Supervisor::finalStationFlow(const Graph &_graph, int target){
     createSuperSourceGraph(false,_graph,target);

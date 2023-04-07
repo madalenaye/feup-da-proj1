@@ -4,11 +4,12 @@
 #include <iostream>
 #include <climits>
 #include <list>
+#include <atomic>
+#include <thread>
 
 #include "Supervisor.h"
-#include "Station.h"
 
-class Menu{
+class Menu {
 public:
 
     Menu();
@@ -16,6 +17,8 @@ public:
     static void end();
 
 private:
+
+    Supervisor* supervisor;
 
     void basicService();
 
@@ -46,10 +49,5 @@ private:
     std::string validateStation(const std::string& message);
     std::string validatePath(std::string &source, std::string &target);
 
-    Supervisor* supervisor;
-
-    void subGraphOperations(std::unordered_set<std::string> set);
-
-    void mostAffectedStations(Graph subGraph);
 };
 #endif //DA_MENU_H

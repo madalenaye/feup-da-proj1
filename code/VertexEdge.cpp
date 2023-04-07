@@ -2,8 +2,8 @@
 
 /************************* Vertex  **************************/
 
-
 Vertex::Vertex(int id): id(id) {}
+
 Edge * Vertex::addEdge(Vertex *d, int capacity, const std::string& service) {
     auto newEdge = new Edge(this, d, capacity, service);
     adj.push_back(newEdge);
@@ -60,7 +60,7 @@ void Vertex::setStation(Station station) {
 Edge::Edge(Vertex *orig, Vertex *dest, int capacity, const std::string& service): orig(orig), dest(dest), capacity(capacity), service(service) {
     if (service == "STANDARD")
         cost = 2;
-    else if (service == "ALFA")
+    else if (service == "ALFA PENDULAR")
         cost = 4;
 }
 

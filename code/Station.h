@@ -5,11 +5,10 @@
 #include <unordered_map>
 #include <unordered_set>
 
-
 class Station{
 public:
-    Station(std::string name);
-    Station(std::string, std::string, std::string, std::string, std::string);
+    Station(const std::string& name);
+    Station(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&);
     std::string getName() const;
     std::string getDistrict() const;
     std::string getMunicipality() const;

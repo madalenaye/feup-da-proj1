@@ -9,8 +9,6 @@
 
 #include "Station.h"
 
-
-
 class Edge;
 
 #define INF std::numeric_limits<int>::max()

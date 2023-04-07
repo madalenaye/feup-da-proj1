@@ -1,7 +1,5 @@
 #include "Graph.h"
 
-#include <utility>
-
 void Graph::addVertex(const int &id, Station station) {
     auto* v = new Vertex(id);
     v->setStation(std::move(station));
@@ -13,9 +11,6 @@ void Graph::addEdge(const int &source, const int &dest, int capacity, const std:
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return;
-    for (auto e: v1->getAdj())
-        if (e->getDest()->getId() == dest)
-            return;
     auto e1 = v1->addEdge(v2, capacity/2, service);
     auto e2 = v2->addEdge(v1, capacity/2, service);
     e1->setReverse(e2);
@@ -291,28 +286,34 @@ void Graph::dfsConnectedMunicipality(Vertex *v, std::list<int> &comp, const std:
 
 unsigned int Graph::maxConnectedDistrict(const std::string& district) {
     unsigned int maxSize = 0;
-    for (auto v : vertexSet) v->setVisited(false);
-    for (auto v : vertexSet){
+
+    for (auto v : vertexSet)
+        v->setVisited(false);
+
+    for (auto v : vertexSet)
         if (!v->isVisited() && v->getStation().getDistrict() == district){
             std::list<int> components;
             dfsConnectedDistrict(v, components, district);
             unsigned int size = components.size();
             if (size > maxSize) maxSize = size;
         }
-    }
+
     return maxSize;
 }
 
 unsigned int Graph::maxConnectedMunicipality(const std::string& municipality) {
     unsigned int maxSize = 0;
-    for (auto v : vertexSet) v->setVisited(false);
-    for (auto v : vertexSet){
+
+    for (auto v : vertexSet)
+        v->setVisited(false);
+
+    for (auto v : vertexSet)
         if (!v->isVisited() && v->getStation().getMunicipality() == municipality){
             std::list<int> components;
             dfsConnectedMunicipality(v, components, municipality);
             unsigned int size = components.size();
             if (size > maxSize) maxSize = size;
         }
-    }
+
     return maxSize;
 }

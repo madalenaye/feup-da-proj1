@@ -1,7 +1,5 @@
-
 #ifndef DA_SUPERVISOR_H
 #define DA_SUPERVISOR_H
-
 
 #include <fstream>
 #include <istream>
@@ -11,10 +9,7 @@
 #include <unordered_map>
 #include <list>
 
-
 #include "Graph.h"
-#include "Station.h"
-
 
 class Supervisor{
 public:
@@ -42,25 +37,26 @@ public:
 
     std::vector<std::pair<std::string, int>> maxConnectedStations(int type);
 
-    std::vector<std::pair<std::string, int>> flowDifference(const Graph &_subGraph);
+    std::vector<std::pair<std::string, int>> flowDifference(const Graph& _subGraph);
 
     std::vector<std::pair<std::string, int>> transportNeeds(bool graphType, const Graph& graph, bool type);
 
-    int finalStationFlow(const Graph &_graph, int target);
+    int finalStationFlow(const Graph& _graph, int target);
 
-    int maxStationFlow(std::string station);
+    int maxStationFlow(const std::string& station);
 
 private:
 
     void createStations();
+    void stationsFlow();
 
+    //graph variants
     void createSuperSource(int id, Station::StationH targetStations);
     void createSuperSink(int id, Station::StationH targetStations);
 
     void createSuperGraph(bool type, const Graph& graph, const Station::StationH& targetStations);
 
     void createSuperSourceGraph(bool type, const Graph& graph, int target);
-
 
     static void checkField(std::istringstream &iss, std::string &field);
     static std::string removeQuotes(std::istringstream &iss, std::string field);
@@ -70,8 +66,6 @@ private:
     static bool segmentFailure(const std::vector<std::pair<std::string, std::string>>& failedSegments, const std::string& source, const std::string& target);
     bool lineFailure(std::unordered_set<std::string> failedLines, const std::string &source, const std::string &target);
     static bool stationFailure(Station::StationH failedStations, const std::string &source, const std::string &target);
-
-    void stationsFlow();
 
     Station::StationH stations;
     std::unordered_map<std::string, int> idStations;
@@ -90,9 +84,6 @@ private:
     Graph graph;
     Graph subGraph;
     Graph superGraph;
-
-
 };
-
 
 #endif //DA_SUPERVISOR_H

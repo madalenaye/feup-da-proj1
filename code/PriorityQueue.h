@@ -1,5 +1,5 @@
-#ifndef PRIORITYQUEUE
-#define PRIORITYQUEUE
+#ifndef DA_PRIORITYQUEUE_H
+#define DA_PRIORITYQUEUE_H
 
 #include <vector>
 #include "VertexEdge.h"
@@ -20,4 +20,4 @@ public:
 #define parent(i) ((i) / 2)
 #define leftChild(i) ((i) * 2)
 
-#endif
+#endif //DA_PRIORITYQUEUE_H

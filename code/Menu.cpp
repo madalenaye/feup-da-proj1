@@ -1,12 +1,10 @@
-#include <thread>
-#include <mutex>
 #include "Menu.h"
-#include <atomic>
+
 Menu::Menu() {
+    supervisor = new Supervisor();
     printf("\n");
     printf("\033[44m===========================================================\033[0m\t\t");
     std::cout << "\n\n" << " Welcome!\n (Press [0] whenever you wish to go back)\n\n";
-    supervisor = new Supervisor();
 }
 
 void Menu::init() {
@@ -64,14 +62,13 @@ void Menu::basicService(){
         if (option == "1"){
             std::cin.ignore();
             std::string source, target;
-            if((validatePath(source,target) == "0")) {
-                continue;
-            }
+            if (validatePath(source,target) == "0") continue;
             maxFlow(false, source,target);
             return;
         }
         else if (option == "2"){
             t2();
+            return;
         }
         else if (option == "3"){
             statistics();
@@ -108,18 +105,14 @@ void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::stri
         src = idStations[srcStation];
         dest = idStations[destStation];
         maxFlow = graph.maxFlow(src,dest);
-    } else {
+    } else
         maxFlow = 0;
-    }
-
-
 
     std::cout << "\n Maximum number of trains between " << "\033[1m\033[36m" << srcStation << "\033[0m"
     << " and " << "\033[1m\033[36m" << destStation << "\033[0m" << ": "
     << "\033[1m\033[42m" << " " << maxFlow * 2 << " " << "\033[0m" << "\n\n";
 
 }
-std::mutex mtx;
 
 void maxFlowWorker(int start, int end, Graph graph, std::atomic<int>& maxFlow, std::atomic_flag& spinLock, std::atomic<std::list<std::pair<int,int>>*>& pairs) {
     int localMax = 0;
@@ -137,28 +130,23 @@ void maxFlowWorker(int start, int end, Graph graph, std::atomic<int>& maxFlow, s
         }
     }
 
-    // Critical section
-    while (spinLock.test_and_set(std::memory_order_acquire)) {}
+    while (spinLock.test_and_set(std::memory_order_acquire));
     if (localMax > maxFlow) {
         maxFlow = localMax;
         *pairs = localPairs;
-    } else if (localMax == maxFlow) {
+    } else if (localMax == maxFlow)
         (*pairs).insert((*pairs).end(), localPairs.begin(), localPairs.end());
-    }
     spinLock.clear(std::memory_order_release);
 }
 
-
-
-
-//standby
+//2.2
 void Menu::t2() {
-
 
     std::atomic<std::list<std::pair<int, int>> *> pairs(new std::list<std::pair<int, int>>());
     std::atomic<int> maxFlow(0);
     std::atomic_flag spinLock = ATOMIC_FLAG_INIT;
     std::vector<std::thread> workers;
+
     int num_vertices = supervisor->getGraph().getVertexSet().size();
     int num_threads = 50;
     int chunk_size = num_vertices / num_threads;
@@ -166,21 +154,22 @@ void Menu::t2() {
     for (int i = 0; i < num_threads; i++) {
         int start = i * chunk_size;
         int end = (i + 1) * chunk_size;
-        workers.emplace_back(maxFlowWorker, start, end, supervisor->originalGraph(), std::ref(maxFlow),
-                             std::ref(spinLock), std::ref(pairs));
+        workers.emplace_back(maxFlowWorker, start, end, supervisor->originalGraph(), std::ref(maxFlow), std::ref(spinLock), std::ref(pairs));
     }
 
-    for (auto &worker: workers) {
+    for (auto &worker: workers)
         worker.join();
-    }
 
-    std::cout << "\n Max: " << maxFlow << "\n"; //....
+    std::cout << "\n The maximum possible flow between two stations: " << maxFlow * 2 << "\n\n";
+
     std::string srcStation, targetStation;
+
     for (const auto &pair: *pairs) {
         srcStation = supervisor->getGraph().findVertex(pair.first)->getStation().getName();
         targetStation = supervisor->getGraph().findVertex(pair.second)->getStation().getName();
-        std::cout << " " << srcStation << " - " << targetStation << "\n";
+        std::cout << " " << srcStation << " - " << targetStation << '\n';
     }
+    std::cout << '\n';
 }
 //2.3
 void Menu::statistics(){
@@ -204,6 +193,7 @@ void Menu::statistics(){
         }
     }
 }
+
 void Menu::transportNeeds(int type){
     std::string option;
     while(true) {
@@ -241,7 +231,7 @@ void Menu::transportNeeds(int type){
 
             for (int i = 0; i < top; i++)
                 std::cout << "\n\033[1m\033[32m " << i+1 << ".\033[0m "<< result[i].first << " | Maximum flow: "
-                << "\033[1m\033[35m" << result[i].second << "\033[0m \n";
+                << "\033[1m\033[35m" << result[i].second * 2 << "\033[0m \n";
 
         } else if (option == "0") {
             return;
@@ -262,7 +252,7 @@ void Menu::maxStationFlow(const std::string& station){
     << "\033[1m\033[35m" << maxFlow * 2 << "\033[0m \n" << "\n";
 }
 
-//4.2
+//3.1
 void Menu::costOptimization(bool subgraph, const std::string& srcStation, const std::string& destStation){
 
     int src, dest;
@@ -276,10 +266,9 @@ void Menu::costOptimization(bool subgraph, const std::string& srcStation, const 
     std::cout << "\n\033[1m\033[36m Minimum\033[0m cost for the \033[1m\033[34mmaximum\033[0m amount of trains between "
             "\033[1m\033[45m " << srcStation << " \033[0m and \033[1m\033[43m " << destStation << " \033[0m : "
             << "\033[1m\033[36m" << cost << "\033[0m\n\n";
-
 }
 
-//4.3
+//4.1
 void Menu::reliability(){
     std::string option;
     while(true) {
@@ -292,12 +281,15 @@ void Menu::reliability(){
         std::cin >> option;
         if (option == "1") {
             lineFailures();
+            return;
         }
         else if (option == "2") {
             segmentFailures();
+            return;
         }
         else if (option == "3"){
             stationFailures();
+            return;
         }
         else if (option == "0"){
             std::cout << "\n";
@@ -390,6 +382,7 @@ void Menu::segmentFailures(){
             std::cin.ignore(INT_MAX, '\n');
         }
     }
+
     Graph subGraph = supervisor->subgraph(failedSegments);
     supervisor->setSubGraph(subGraph);
     subGraphOperations();
@@ -438,6 +431,7 @@ void Menu::stationFailures(){
     supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
+
 void Menu::subGraphOperations(){
     std::string option;
     while(true){
@@ -478,6 +472,7 @@ void Menu::subGraphOperations(){
     }
 }
 
+//4.2
 void Menu::mostAffectedStations(){
     std::vector<std::pair<std::string,int>> difference = supervisor->flowDifference(supervisor->getSubGraph());
     int choice = showTop(), top;
@@ -488,9 +483,9 @@ void Menu::mostAffectedStations(){
 
     for (int i = 0; i < top; i++)
         std::cout << "\n\033[1m\033[32m " << i+1 << ".\033[0m "<< difference[i].first << " | Flow loss: "
-             << "\033[1m\033[35m" << difference[i].second << "\033[0m \n";
+             << "\033[1m\033[35m" << difference[i].second * 2 << "\033[0m \n";
+    std::cout << '\n';
 }
-
 
 //validate
 std::string Menu::validateLine() {
@@ -568,11 +563,8 @@ int Menu::customTop(const std::string& message, unsigned int n) {
     return option;
 }
 
-
 //end
 void Menu::end() {
     printf("\n");
     printf("\033[46m===========================================================\033[0m\n");
 }
-
-

@@ -1,10 +1,10 @@
 #include "Station.h"
 
-Station::Station(std::string name) {
+Station::Station(const std::string& name) {
     this->name = name;
 }
 
-Station::Station(std::string name,std::string district,std::string municipality,std::string township,std::string line) {
+Station::Station(const std::string& name,const std::string& district,const std::string& municipality,const std::string& township,const std::string& line) {
     this->name = name;
     this->district = district;
     this->municipality = municipality;

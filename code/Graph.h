@@ -37,6 +37,7 @@ public:
 
 private:
     std::vector<Vertex *> vertexSet;
+
     bool findAugmentingPath(Vertex *src, Vertex *dest);
 
     bool findMinCostAugmentingPath(Vertex* src, Vertex* dest);
