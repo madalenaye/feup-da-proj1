@@ -1,7 +1,7 @@
 #include <thread>
 #include <mutex>
 #include "Menu.h"
-
+#include <atomic>
 Menu::Menu() {
     printf("\n");
     printf("\033[44m===========================================================\033[0m\t\t");
@@ -119,73 +119,69 @@ void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::stri
     << "\033[1m\033[42m" << " " << maxFlow * 2 << " " << "\033[0m" << "\n\n";
 
 }
-/*
-// Define a function to be run by each thread
-void computeMaxFlow(Supervisor* supervisor, int start, int end, int& max, std::list<std::pair<std::string, std::string>>& pairs) {
+std::mutex mtx;
+
+void maxFlowWorker(int start, int end, Graph graph, std::atomic<int>& maxFlow, std::atomic_flag& spinLock, std::atomic<std::list<std::pair<int,int>>*>& pairs) {
+    int localMax = 0;
+    std::list<std::pair<int,int>> localPairs;
     for (int i = start; i < end; i++) {
-        for (int j = i+1; j < supervisor->getGraph().getVertexSet().size(); j++){
-            int flow = supervisor->getGraph().maxFlow(i, j);
-            //std::lock_guard<std::mutex> lock(mtx);
-            if (max < flow) {
-                // Use a mutex to ensure that only one thread modifies the pairs and max variables at a time
-                pairs.clear();
-                max = flow;
-            }
-            if (max == flow) {
-                pairs.emplace_back(supervisor->getGraph().getVertexSet()[i]->getStation().getName(),supervisor->getGraph().getVertexSet()[j]->getStation().getName());
+        for (int j = i + 1; j < graph.getVertexSet().size(); j++) {
+            int flow = graph.maxFlow(i, j);
+            if (flow > localMax) {
+                localMax = flow;
+                localPairs.clear();
+                localPairs.emplace_back(i, j);
+            } else if (flow == localMax) {
+                localPairs.emplace_back(i, j);
             }
         }
     }
+
+    // Critical section
+    while (spinLock.test_and_set(std::memory_order_acquire)) {}
+    if (localMax > maxFlow) {
+        maxFlow = localMax;
+        *pairs = localPairs;
+    } else if (localMax == maxFlow) {
+        (*pairs).insert((*pairs).end(), localPairs.begin(), localPairs.end());
+    }
+    spinLock.clear(std::memory_order_release);
 }
-*/
+
+
+
+
 //standby
 void Menu::t2() {
 
-    std::list<std::pair<std::string, std::string>> pairs;
-    int max = 0;
 
-    for (int i = 0; i < supervisor->getGraph().getVertexSet().size(); i++){
-        for (int j = i+1; j < supervisor->getGraph().getVertexSet().size(); j++){
-            int flow = supervisor->getGraph().maxFlow(i, j);
-            if (max < flow) {
-                pairs.clear();
-                max = flow;
-            }
-            if (max == flow)
-                pairs.emplace_back(supervisor->getGraph().getVertexSet()[i]->getStation().getName(),supervisor->getGraph().getVertexSet()[j]->getStation().getName());
-        }
-    }
-    std::cout << "Max: " << max << "\n"; //....
-    for (const auto& pair: pairs){
-        std::cout << pair.first <<" - " << pair.second << "\n";
-    }
-/*
-    std::list<std::pair<std::string, std::string>> pairs;
-    int max = 0;
-    const int num_threads = 4;
-    std::vector<std::thread> threads;
+    std::atomic<std::list<std::pair<int, int>> *> pairs(new std::list<std::pair<int, int>>());
+    std::atomic<int> maxFlow(0);
+    std::atomic_flag spinLock = ATOMIC_FLAG_INIT;
+    std::vector<std::thread> workers;
+    int num_vertices = supervisor->getGraph().getVertexSet().size();
+    int num_threads = 50;
+    int chunk_size = num_vertices / num_threads;
 
-
-
-// Divide the work across multiple threads
     for (int i = 0; i < num_threads; i++) {
-        int start = (i * supervisor->getGraph().getVertexSet().size()) / num_threads;
-        int end = ((i+1) * supervisor->getGraph().getVertexSet().size()) / num_threads;
-        threads.push_back(std::thread(computeMaxFlow, std::ref(supervisor),start, end,std::ref(max),std::ref(pairs)));
+        int start = i * chunk_size;
+        int end = (i + 1) * chunk_size;
+        workers.emplace_back(maxFlowWorker, start, end, supervisor->originalGraph(), std::ref(maxFlow),
+                             std::ref(spinLock), std::ref(pairs));
     }
 
-// Wait for all threads to finish
-    for (auto& thread : threads) {
-        thread.join();
+    for (auto &worker: workers) {
+        worker.join();
     }
 
-    std::cout << "Max: " << max << "\n"; //....
-    for (const auto& pair: pairs){
-        std::cout << pair.first <<" - " << pair.second << "\n";
+    std::cout << "\n Max: " << maxFlow << "\n"; //....
+    std::string srcStation, targetStation;
+    for (const auto &pair: *pairs) {
+        srcStation = supervisor->getGraph().findVertex(pair.first)->getStation().getName();
+        targetStation = supervisor->getGraph().findVertex(pair.second)->getStation().getName();
+        std::cout << " " << srcStation << " - " << targetStation << "\n";
     }
-*/
 }
-
 //2.3
 void Menu::statistics(){
     std::string option;
