@@ -261,7 +261,15 @@ int Graph::minCost(int source, int target) {
     return cost;
 
 }
-
+/**
+ * Stores the path of the stations of a specific district.
+ * @param v wanted vertex to see size of connected component
+ * @param comp contains all connected nodes
+ * @param district wanted district
+ *
+ * @par Time complexity
+ * O(E), E is the number of edges
+ */
 void Graph::dfsConnectedDistrict(Vertex *v, std::list<int> &comp, const std::string& district) {
     v->setVisited(true);
     comp.push_back(v->getId());
@@ -272,6 +280,15 @@ void Graph::dfsConnectedDistrict(Vertex *v, std::list<int> &comp, const std::str
         }
     }
 }
+/**
+ * Stores the path of the stations of a specific municipality.
+ * @param v wanted vertex to see size of connected component
+ * @param comp contains all connected nodes
+ * @param municipality wanted municipality
+ *
+ * @par Time complexity
+ * O(E), E is the number of edges
+ */
 
 void Graph::dfsConnectedMunicipality(Vertex *v, std::list<int> &comp, const std::string& municipality) {
     v->setVisited(true);
@@ -283,14 +300,21 @@ void Graph::dfsConnectedMunicipality(Vertex *v, std::list<int> &comp, const std:
         }
     }
 }
-
+/**
+ * This function calculates the largest connected component from a distric using DFS.
+ * @param district wanted district
+ * @return value of the largest connected component
+ *
+ * @par Time complexity
+ * O(V+E), where V is the number of nodes and E is the number of edges
+ */
 unsigned int Graph::maxConnectedDistrict(const std::string& district) {
     unsigned int maxSize = 0;
 
     for (auto v : vertexSet)
         v->setVisited(false);
 
-    for (auto v : vertexSet)
+    for (auto v  : vertexSet)
         if (!v->isVisited() && v->getStation().getDistrict() == district){
             std::list<int> components;
             dfsConnectedDistrict(v, components, district);
@@ -300,7 +324,14 @@ unsigned int Graph::maxConnectedDistrict(const std::string& district) {
 
     return maxSize;
 }
-
+/**
+ * This function calculates the largest connected component from a municipality using DFS.
+ * @param municipality wanted municipality
+ * @return value of the largest connected component
+ *
+ * @par Time complexity
+ * O(V+E), where V is the number of nodes and E is the number of edges
+ */
 unsigned int Graph::maxConnectedMunicipality(const std::string& municipality) {
     unsigned int maxSize = 0;
 

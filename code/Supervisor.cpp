@@ -235,7 +235,16 @@ Graph Supervisor::subgraph(const std::unordered_set<std::string>& failedLines){
     inFile.close();
     return _subGraph;
 }
-
+/**
+ * This function creates a subgraph of the main graph based on a set of failure segments, which represents transit segments
+ * that are currently out of service due to repairs, services, disasters, or other reasons. The new graph excludes any
+ * edges that belong to the failed segments.
+ *
+ * @param failedSegments The set of segments to be excluded.
+ *
+ * @par Time complexity
+ * O(n), where n is the number of segments in the CSV file
+ */
 Graph Supervisor::subgraph(const std::vector<std::pair<std::string, std::string>>& failedSegments){
 
     Graph _subGraph;
@@ -270,7 +279,16 @@ Graph Supervisor::subgraph(const std::vector<std::pair<std::string, std::string>
 }
 
 
-
+/**
+ * This function creates a subgraph of the main graph based on a set of failure stations, which represents stations
+ * that are currently out of service due to repairs, services, disasters, or other reasons. The new graph excludes any
+ * edges that belong to the failed stations.
+ *
+ * @param failedStations The set of stations to be excluded.
+ *
+ * @par Time complexity
+ * O(n), where n is the number of stations in the CSV file
+ */
 Graph Supervisor::subgraph(const Station::StationH& failedStations){
 
     Graph _subGraph;
@@ -357,26 +375,36 @@ bool Supervisor::segmentFailure(const std::vector<std::pair<std::string,std::str
        [&](const std::pair<std::string,std::string>& pair) {return pair.first == source && pair.second == target;});
 }
 
-
+/**
+ * This function adds a super source to the superGraph. It connects itself with all the nodes/stations that have only 1
+ * edge
+ *
+ * @param id super source node id
+ * @param targetStations unordered set with all the target stations
+ *
+ * @par Time complexity
+ * O(V), where V is the number of nodes
+ */
 void Supervisor::createSuperSource(int id, Station::StationH targetStations){
-
-    std::vector<int> sources;
+    superGraph.addVertex(id, Station("Super-Source"));
+    superGraphStations["Super-Source"] = id;
     for (auto v: graph.getVertexSet()){
         if (targetStations.find(v->getStation()) != targetStations.end()) continue;
 
         if (v->getAdj().size()==1){
-        //if (v->getStation().getName() == "A" || v->getStation().getName() == "B" ) {
-            sources.push_back(v->getId());
+            superGraph.addEdge(id,v->getId(),INF,"");
         }
     }
-
-    superGraph.addVertex(id, Station("Super-Source"));
-    superGraphStations["Super-Source"] = id;
-    for(auto i:sources)
-        superGraph.addEdge(id,i,INF,"");
-
 }
-
+/**
+ * This funcion creates a super sink node and then connects it to all the stations contained on target stations.
+ *
+ * @param id super sink id
+ * @param targetStations unordered set containing all the stations that are needed
+ *
+ * @par Time complexity
+ * O(V), where V is the number of nodes
+ */
 void Supervisor::createSuperSink(int id, Station::StationH targetStations){
 
     std::vector<int> targets;
@@ -392,7 +420,12 @@ void Supervisor::createSuperSink(int id, Station::StationH targetStations){
 
 }
 
-
+/**
+ * This function calculates the flow of all the stations.
+ *
+ * @par Time complexity
+ * O(V² * E²), where V is the number of nodes and E the number of edges
+ */
 void Supervisor::stationsFlow(){
     int flow;
     for (auto v: graph.getVertexSet()){
@@ -401,16 +434,42 @@ void Supervisor::stationsFlow(){
         stationFlow[v->getStation().getName()] = flow;
     }
 }
-
+/**
+ * This function returns the flow of a specific station.
+ *
+ * @param station wanted station
+ *
+ * @return max flow of a station
+ *
+ * @par Time complexity
+ * O(1), where V is the number of nodes and E the number of edges
+ */
 int Supervisor::maxStationFlow(const std::string& station){
     return stationFlow[station];
 }
-
+/**
+ * Calculates the max flow of a specific station from the superGraph which contains a Super-Source connected
+ * to all nodes that have 1 edge.
+ *
+ * @param _graph wanted graph
+ * @param target  wanted station id
+ * @return  max flow of target station value
+ *
+ * @par Time complexity
+ * O(V*E²), where V is the number of nodes and E the number of edges
+ */
 int Supervisor::finalStationFlow(const Graph &_graph, int target){
     createSuperSourceGraph(false,_graph,target);
     return superGraph.maxFlow(superGraphStations["Super-Source"], target);
 }
-
+/**
+ * This function calculates the reduction of flow created by failures of lines,stations or segments.
+ * @param _subGraph subGraph created because of line,station or segment failures
+ * @return  vector containing all stations and the difference of flow affected by the failures
+ *
+ * @par Time complexity
+ * O(V² * E²), where V is the number of nodes and E the number of edges
+ */
 std::vector<std::pair<std::string,int>> Supervisor::flowDifference(const Graph& _subGraph){
     std::vector<std::pair<std::string,int>> res;
     int initial, final, difference;
@@ -428,7 +487,19 @@ std::vector<std::pair<std::string,int>> Supervisor::flowDifference(const Graph& 
     });
     return res;
 }
-
+/**
+ * This function calculates the max flow of each district/municipality and then orders it by descending flow. Using the
+ * superGraph that has a Super-Source (connected to all the nodes with only 1 edge) and a Super-Sink connected to
+ * each target station.
+ * @param graphType
+ * @param _graph main graph
+ * @param type 1 if the user wants municipality or 2 if district
+ *
+ * @return vector of pairs municipality/distric its max flow, ordered in descending order
+ *
+ * @par Time complexity
+ * O(V² * E²), where V is the number of nodes and E the number of edges
+ */
 std::vector<std::pair<std::string,int>> Supervisor::transportNeeds(bool graphType, const Graph& _graph, bool type){
     auto _stations = type ? municipalityStations : districtStations;
 
@@ -447,7 +518,15 @@ std::vector<std::pair<std::string,int>> Supervisor::transportNeeds(bool graphTyp
 
     return res;
 }
-
+/**
+ * This function calculates the maximum connected stations of a municipality or district and orders them by descending order in
+ * a vector.
+ * @return vector of pairs,municipality/district and maximum connected components ordered in descending order
+ *
+ * @par Time complexity
+ * O(n * (V+E)), where V is the number of nodes and E the number of edges and n is the size of municipality/district unordered
+ * maps
+ */
 std::vector<std::pair<std::string, int>> Supervisor::maxConnectedStations(int type) {
 
     std::vector<std::pair<std::string, int>> res;
@@ -470,7 +549,16 @@ void Supervisor::setSubGraph(const Graph& subgraph) {
     this->subGraph = subgraph;
 }
 
-
+/**
+ * This function creates a graph  that  has a Super-Source connected to
+ * all the stations that have only 1 edge and a Super-Sink connected to all stations in targetStations.
+ * @param type
+ * @param _graph
+ * @param targetStations unordered map containing all target stations
+ *
+ * @par Time complexity
+ * O(V), where V is the number of nodes
+ */
 void Supervisor::createSuperGraph(bool type, const Graph& _graph, const Station::StationH& targetStations){
     superGraph = _graph;
     superGraphStations = type ? idStations : subGraphStations;
@@ -478,24 +566,26 @@ void Supervisor::createSuperGraph(bool type, const Graph& _graph, const Station:
     createSuperSource(id,targetStations);
     createSuperSink(id+1,targetStations);
 }
-
+/**
+ * This function creates a graph that only has a Super-Source connected to all
+ * nodes with only 1 edge.
+ * @param type
+ * @param _graph
+ * @param target
+ *
+ * @par Time complexity
+ * O(V), where V is the number of nodes
+ */
 void Supervisor::createSuperSourceGraph(bool type, const Graph& _graph, int target){
     superGraph = _graph;
     superGraphStations = type ? idStations : subGraphStations;
-    std::vector<int> sources;
-    for (auto v: superGraph.getVertexSet()){
-        if (v->getId() == target) continue;
-
-        if (v->getAdj().size() == 1){
-        //if (v->getStation().getName() == "A" || v->getStation().getName() == "B" ) {
-                sources.push_back(v->getId());
-            }
-    }
     int id = superGraphStations.size();
     superGraph.addVertex(id, Station("Super-Source"));
     superGraphStations["Super-Source"] = id;
-
-    for(auto i:sources)
-        superGraph.addEdge(id,i,INF,"");
-
+    for (auto v: superGraph.getVertexSet()){
+        if (v->getId() == target) continue;
+        if (v->getAdj().size()==1){
+            superGraph.addEdge(id,v->getId(),INF,"");
+        }
+    }
 }

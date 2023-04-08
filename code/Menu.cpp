@@ -1,12 +1,18 @@
 #include "Menu.h"
 
+/**
+ * Initializes the supervisor\n
+ */
 Menu::Menu() {
     supervisor = new Supervisor();
     printf("\n");
     printf("\033[44m===========================================================\033[0m\t\t");
     std::cout << "\n\n" << " Welcome!\n (Press [0] whenever you wish to go back)\n\n";
 }
-
+/**
+ * Initial menu where the user is able to choose what he wants to do: Explore basic service metrics, Consult operation cost
+ * optimization, Analyse reliability and sensitivity to line failures\n\n
+ */
 void Menu::init() {
     std::string option;
     while(true) {
@@ -47,7 +53,10 @@ void Menu::init() {
         }
     }
 }
-
+/**
+ * After choosing Basic service metrics, user can get information about maxFlow at a given time in one station/between
+ * two stations, know which municipalities/districts have the highest flow.
+ */
 void Menu::basicService(){
     std::string option;
     while(true){
@@ -93,7 +102,13 @@ void Menu::basicService(){
         }
     }
 }
-
+/**
+ * This function calculates the maximum number of trains that can simultaneously travel between
+ * two specific stations.
+ * @param subgraph true for a subGraph( line/station/segment failure)
+ * @param srcStation
+ * @param destStation
+ */
 //2.1
 void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::string& destStation) {
 
@@ -113,7 +128,19 @@ void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::stri
     << "\033[1m\033[42m" << " " << maxFlow * 2 << " " << "\033[0m" << "\n\n";
 
 }
-
+/**
+ * This functions calculates all the pairs of stations that require the most amount of trains
+ * when taking full advantage of the existing network capacity
+ * @param start starting station
+ * @param end ending station
+ * @param graph original graph
+ * @param maxFlow
+ * @param spinLock
+ * @param pairs
+ *
+ * @par Time complexity
+ * O(V² * E²), where V is the number of nodes, E is the number of edges
+ */
 void maxFlowWorker(int start, int end, Graph graph, std::atomic<int>& maxFlow, std::atomic_flag& spinLock, std::atomic<std::list<std::pair<int,int>>*>& pairs) {
     int localMax = 0;
     std::list<std::pair<int,int>> localPairs;
@@ -140,6 +167,10 @@ void maxFlowWorker(int start, int end, Graph graph, std::atomic<int>& maxFlow, s
 }
 
 //2.2
+/**
+ * This function creates the threads needed to make the maxFlowWorker run faster. And then informs the user about the results
+ * of the maxFlowWorker().
+ */
 void Menu::t2() {
 
     std::atomic<std::list<std::pair<int, int>> *> pairs(new std::list<std::pair<int, int>>());
@@ -148,7 +179,7 @@ void Menu::t2() {
     std::vector<std::thread> workers;
 
     int num_vertices = supervisor->getGraph().getVertexSet().size();
-    int num_threads = 50;
+    int num_threads = 32;
     int chunk_size = num_vertices / num_threads;
 
     for (int i = 0; i < num_threads; i++) {
@@ -172,6 +203,9 @@ void Menu::t2() {
     std::cout << '\n';
 }
 //2.3
+/**
+ * This function gives the user the option to get information about Municipalities or Districts.
+ */
 void Menu::statistics(){
     std::string option;
     while(true) {
@@ -193,7 +227,10 @@ void Menu::statistics(){
         }
     }
 }
-
+/**
+ * Asks the user what information about transport needs he wants. Then asks for a k and gives the Top-k results.
+ * @param type 1-Municipality or 2-District
+ */
 void Menu::transportNeeds(int type){
     std::string option;
     while(true) {
@@ -244,6 +281,11 @@ void Menu::transportNeeds(int type){
 }
 
 //2.4
+/**
+ * This function gives information to the user about the maxFlow at a given station. That means, the maximum amount of
+ * trains that can be, simultaneously, at a given station.
+ * @param station  user input
+ */
 void Menu::maxStationFlow(const std::string& station){
 
     int maxFlow = supervisor->maxStationFlow(station);
@@ -253,6 +295,13 @@ void Menu::maxStationFlow(const std::string& station){
 }
 
 //3.1
+/**
+ * This function calculates the maximum amount of trains that can simultaneously travel between
+ * two specific stations with minimum cost for the company.
+ * @param subgraph type of graph used
+ * @param srcStation user input for source station
+ * @param destStation user input for dest station
+ */
 void Menu::costOptimization(bool subgraph, const std::string& srcStation, const std::string& destStation){
 
     int src, dest;
@@ -269,6 +318,9 @@ void Menu::costOptimization(bool subgraph, const std::string& srcStation, const 
 }
 
 //4.1
+/**
+ * Gives the user the option to choose what type of failure he wants to assess.
+ */
 void Menu::reliability(){
     std::string option;
     while(true) {
@@ -302,7 +354,9 @@ void Menu::reliability(){
         }
     }
 }
-
+/**
+ * Asks the user what line(s) he wants to remove. Creates the subGraph and goes to the subGraphOperations menu.
+ */
 void Menu::lineFailures() {
 
     std::unordered_set<std::string> failedLines;
@@ -342,7 +396,9 @@ void Menu::lineFailures() {
     supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
-
+/**
+ * Asks the user what segment(s) he wants to remove. Creates the subGraph and goes to the subGraphOperations menu.
+ */
 void Menu::segmentFailures(){
 
     std::vector<std::pair<std::string,std::string>> failedSegments;
@@ -387,7 +443,9 @@ void Menu::segmentFailures(){
     supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
-
+/**
+ * Asks the user what station(s) he wants to remove. Creates the subGraph and goes to the subGraphOperations menu.
+ */
 void Menu::stationFailures(){
     Station::StationH failedStations;
     std::string option;
@@ -431,7 +489,10 @@ void Menu::stationFailures(){
     supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
-
+/**
+ * Initial menu where the user is able to choose what he wants to do for the newly created graph: Max flow between to stations,
+ * Minimum Cost Max Flow between two stations  or the K most affected stations because of failures\n\n
+ */
 void Menu::subGraphOperations(){
     std::string option;
     while(true){
@@ -473,6 +534,10 @@ void Menu::subGraphOperations(){
 }
 
 //4.2
+/**
+ * This function tells the user what are the most affected stations by a failure and  shows the difference of flow
+ * created by that failure.
+ */
 void Menu::mostAffectedStations(){
     std::vector<std::pair<std::string,int>> difference = supervisor->flowDifference(supervisor->getSubGraph());
     int choice = showTop(), top;
@@ -488,6 +553,10 @@ void Menu::mostAffectedStations(){
 }
 
 //validate
+/**
+ * Validates line input
+ * @return  input if valid
+ */
 std::string Menu::validateLine() {
     std::string line;
 
@@ -504,7 +573,11 @@ std::string Menu::validateLine() {
     }
     return line;
 }
-
+/**
+ * Validates station input
+ * @param message  station
+ * @return station input if valid
+ */
 std::string Menu::validateStation(const std::string& message){
 
     std::string station;
@@ -522,7 +595,12 @@ std::string Menu::validateStation(const std::string& message){
     }
     return station;
 }
-
+/**
+ * Validates the source/target inputs
+ * @param source
+ * @param target
+ * @return
+ */
 std::string Menu::validatePath(std::string& source, std::string& target){
     source = validateStation("\n Insert the name of the source station (ex: Porto Campanhã): ");
     if (source == "0") return "0";
@@ -538,6 +616,10 @@ std::string Menu::validatePath(std::string& source, std::string& target){
     return "";
 }
 //top-k
+/**
+ * Asks the user what Top-k he wants to see
+ * @return
+ */
 int Menu::showTop(){
     std::cout << "\n What do you wish to check:\n\n "
             "[1] Top 10\n [2] Top 15\n [3] Other\n\n Option: ";
@@ -551,6 +633,12 @@ int Menu::showTop(){
     }
     return option;
 }
+/**
+ * If user chooses a custom top,validates its option.
+ * @param message
+ * @param n
+ * @return
+ */
 int Menu::customTop(const std::string& message, unsigned int n) {
     std::cout << message;
     int option; std::cin >> option;
@@ -564,6 +652,9 @@ int Menu::customTop(const std::string& message, unsigned int n) {
 }
 
 //end
+/**
+ * Closes the menu and ends the program.
+ */
 void Menu::end() {
     printf("\n");
     printf("\033[46m===========================================================\033[0m\n");
