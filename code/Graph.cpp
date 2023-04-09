@@ -190,8 +190,8 @@ bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
             int residual = e->getResidualCapacity();
             if (!w->isVisited() && residual > 0){
                 double oldDist = w->getDist();
-                if (e->getCost() < oldDist){
-                    w->setDist(e->getCost());
+                if (v->getDist() + e->getCost() < oldDist){
+                    w->setDist(v->getDist()+e->getCost());
                     w->setPath(e);
                     if(oldDist == INF)
                         q.insert(w);
