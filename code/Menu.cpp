@@ -594,7 +594,7 @@ int Menu::showTop(){
  * @param message message chosen from developers
  * @param n maximum size for top
  *
- * @return chosen top
+ * @return Chosen top
  */
 int Menu::customTop(const std::string& message, unsigned int n) {
     std::cout << message;
@@ -610,7 +610,7 @@ int Menu::customTop(const std::string& message, unsigned int n) {
 
 /**
  * Validates line input.\n\n
- * @return line if it is valid
+ * @return Line if it is valid
  */
 std::string Menu::validateLine() {
     std::string line;
@@ -632,7 +632,7 @@ std::string Menu::validateLine() {
 /**
  * Validates station input.\n\n
  * @param message message chosen from developers
- * @return station if it is valid
+ * @return Station if it is valid
  */
 std::string Menu::validateStation(const std::string& message){
     std::string station;

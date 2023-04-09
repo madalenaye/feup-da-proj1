@@ -96,7 +96,7 @@ int Graph::findMinResidualAlongPath(Vertex* src, Vertex* dest){
  * @brief Augments the flow along the chosen augmenting path from the source to the target.
  *
  * This function updates the flow along the chosen augmenting path from the source vertex to the
- * target vertex in the graph by adding or subtracting the flow amount `flow` from the residual
+ * target vertex in the graph by adding or subtracting the flow amount from the residual
  * capacity of each edge along the path.\n\n
  *
  * @param src A pointer to the source vertex.
@@ -284,7 +284,7 @@ void Graph::dfsConnectedMunicipality(Vertex *v, std::list<int> &comp, const std:
  *
  * @param district wanted district
  *
- * @return value of the largest connected component
+ * @return Value of the largest connected component
  *
  * @par Time complexity
  * O(V + E), where V is the number of vertexes and E the number of edges in the graph.
@@ -311,7 +311,7 @@ unsigned int Graph::maxConnectedDistrict(const std::string& district) {
  *
  * @param municipality wanted municipality
  *
- * @return value of the largest connected component
+ * @return Value of the largest connected component
  *
  * @par Time complexity
  * O(V + E), where V is the number of vertexes and E the number of edges in the graph.

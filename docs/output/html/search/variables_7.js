@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['line_281',['line',['../class_station.html#a49c6e75f4e4d46f2ad01bad229ee0d71',1,'Station']]],
-  ['lines_282',['lines',['../class_supervisor.html#a943794bfa6e0c1843a86684929efc9f2',1,'Supervisor']]]
+  ['municipality_282',['municipality',['../class_station.html#afc7ced847bb4273f9154ee3259265d79',1,'Station']]],
+  ['municipalitystations_283',['municipalityStations',['../class_supervisor.html#ad4782ce7a1b54efa9b0a02a7d96479a5',1,'Supervisor']]]
 ];

@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['checkfield_176',['checkField',['../class_supervisor.html#a3f227b68126d4a86ad8d2849c5b3715a',1,'Supervisor']]],
-  ['costoptimization_177',['costOptimization',['../class_menu.html#ac3b5d22c355002e1f60e4cf31811e048',1,'Menu']]],
-  ['creategraph_178',['createGraph',['../class_supervisor.html#a71ffecb2d9f4b4b3f70a1f8baae9b877',1,'Supervisor']]],
-  ['createstations_179',['createStations',['../class_supervisor.html#af9a9e34eadb2a4fc3f3ec412d6a0922e',1,'Supervisor']]],
-  ['createsubgraph_180',['createSubgraph',['../class_supervisor.html#a4a430a53cf67225bc49c9ec9a0114bec',1,'Supervisor::createSubgraph(const unordered_set&lt; string &gt; &amp;failedLines)'],['../class_supervisor.html#a35ef82cd29167eed7cf4f43bf70f7ece',1,'Supervisor::createSubgraph(const vector&lt; pair&lt; string, string &gt;&gt; &amp;failedSegments)'],['../class_supervisor.html#ab72efa9fcf0a02dbaceea14c217d8bd8',1,'Supervisor::createSubgraph(const Station::StationH &amp;failedStations)']]],
-  ['customtop_181',['customTop',['../class_menu.html#ae1b6754ba00a6dcfa7f9115c0a713137',1,'Menu']]]
+  ['checkfield_176',['checkField',['../class_supervisor.html#a3915b0821652daf6bf080d6ad1b89234',1,'Supervisor']]],
+  ['costoptimization_177',['costOptimization',['../class_menu.html#a55217621e148b9ef91de6b1c39a2cfe3',1,'Menu']]],
+  ['createstations_178',['createStations',['../class_supervisor.html#af9a9e34eadb2a4fc3f3ec412d6a0922e',1,'Supervisor']]],
+  ['createsupergraph_179',['createSuperGraph',['../class_supervisor.html#af89a463786d8fe7167fa7bb4ddfaaff8',1,'Supervisor']]],
+  ['createsupersink_180',['createSuperSink',['../class_supervisor.html#af60ce9c1f265448da5bfec74876e6683',1,'Supervisor']]],
+  ['createsupersource_181',['createSuperSource',['../class_supervisor.html#a68b51e955330e5a45b3ba7e1f617ae73',1,'Supervisor']]],
+  ['createsupersourcegraph_182',['createSuperSourceGraph',['../class_supervisor.html#a072dd02ee556febc6f05723fed1c4139',1,'Supervisor']]],
+  ['customtop_183',['customTop',['../class_menu.html#a5feaaef9e9cdc1c1428074480e39df43',1,'Menu']]]
 ];

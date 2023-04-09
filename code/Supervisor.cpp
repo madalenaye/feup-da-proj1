@@ -61,7 +61,7 @@ bool Supervisor::isLine(const std::string& line){
  * @param name  the name of the station to create in the graph.
  * @param id  the ID of the next vertex to be created in the graph
  *
- * @return the vertex ID of the newly created or existing vertex
+ * @return The vertex ID of the newly created or existing vertex
  *
  * @par Time complexity
  * O(1)
@@ -85,7 +85,7 @@ int Supervisor::makeVertex(Graph& _graph, std::unordered_map<std::string, int>& 
  * @param iss  The istringstream object that contains the field to process.
  * @param field The string field containing a quoted string to process.
  *
- * @return a string containing the processed text with the quotes removed.
+ * @return A string containing the processed text with the quotes removed.
  *
  * @par Time complexity
  * O(n), where n is the length of the string field
@@ -160,7 +160,7 @@ void Supervisor::createStations() {
  * connections between the different stations. A graph of the railway network is created, where each station is
  * represented as a vertex and each connection is represented as an edge.\n\n
  *
- * @return graph created using the CSV file
+ * @return Graph created using the CSV file
  *
  * @par Time complexity
  * O(n), where n is the number of lines in the CSV file
@@ -202,7 +202,7 @@ Graph Supervisor::originalGraph() {
  *
  * @param failedLines The set of lines to be excluded.
  *
- * @return subgraph of the original graph
+ * @return Subgraph of the original graph
  *
  * @par Time complexity
  * O(n), where n is the number of lines in the CSV file
@@ -246,7 +246,7 @@ Graph Supervisor::subgraph(const std::unordered_set<std::string>& failedLines){
  *
  * @param failedSegments The set of segments to be excluded.
  *
- * @return subgraph of the original graph
+ * @return Subgraph of the original graph
  *
  * @par Time complexity
  * O(n), where n is the number of segments in the CSV file
@@ -290,7 +290,7 @@ Graph Supervisor::subgraph(const std::vector<std::pair<std::string, std::string>
  *
  * @param failedStations The set of stations to be excluded.
  *
- * @return subgraph of the original graph
+ * @return Subgraph of the original graph
  *
  * @par Time complexity
  * O(n), where n is the number of stations in the CSV file
@@ -400,7 +400,7 @@ void Supervisor::stationsFlow(){
  *
  * @param station wanted station
  *
- * @return max flow of a station
+ * @return Max flow of a station
  *
  * @par Time complexity
  * O(1), where V is the number of vertexes and E the number of edges in the graph
@@ -415,7 +415,7 @@ int Supervisor::maxStationFlow(const std::string& station){
  *
  * @param _graph wanted graph
  * @param target  wanted station id
- * @return  max flow of target station value
+ * @return Max flow of target station value
  *
  * @par Time complexity
  * O(V * E²), where V is the number of vertexes and E the number of edges in the graph
@@ -429,7 +429,7 @@ int Supervisor::finalStationFlow(const Graph &_graph, int target){
  * This function calculates the reduction of flow created by failures of lines, stations or segments.\n\n
  *
  * @param _subGraph subGraph created because of line,station or segment failures
- * @return  vector containing all stations and the difference of flow affected by the failures
+ * @return Vector containing all stations and the difference of flow affected by the failures
  *
  * @par Time complexity
  * O(V² * E²), where V is the number of vertexes and E the number of edges in the graph
@@ -463,10 +463,10 @@ std::vector<std::pair<std::string,int>> Supervisor::flowDifference(const Graph& 
  * @param _graph main graph
  * @param type 1 if the user wants municipality or 2 if district
  *
- * @return vector of pairs municipality/distric its max flow, ordered in descending order
+ * @return Vector of pairs municipality/district and its max flow, ordered in descending order
  *
  * @par Time complexity
- * O(n * (V * E²)), where V is the number of vertexes and E the number of edges in the graph n the size of municipality/district unordered maps
+ * O(n * (V * E²)), where V is the number of vertexes and E the number of edges in the graph and n the size of municipality/district unordered maps
  */
 std::vector<std::pair<std::string,int>> Supervisor::transportNeeds(bool graphType, const Graph& _graph, bool type){
     auto _stations = type ? municipalityStations : districtStations;
@@ -490,7 +490,7 @@ std::vector<std::pair<std::string,int>> Supervisor::transportNeeds(bool graphTyp
 /**
  * This function calculates the maximum number of connected stations in a municipality or district and orders them by descending order in
  * a vector.\n\n
- * @return vector of pairs,municipality/district and maximum connected components ordered in descending order
+ * @return Vector of pairs municipality/district and maximum connected components, ordered in descending order
  *
  * @par Time complexity
  * O(n * (V+E)), where V is the number of vertexes and E the number of edges and n the size of municipality/district unordered maps

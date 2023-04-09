@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['reliability_98',['reliability',['../class_menu.html#aa7d988f52bd20fa2cf9cb461358bff46',1,'Menu']]],
-  ['removeedge_99',['removeEdge',['../class_vertex.html#a10c6827225205dc4ad070914ebfa26e7',1,'Vertex']]],
-  ['removeoutgoingedges_100',['removeOutgoingEdges',['../class_vertex.html#afcde6d707aff7627df7adde8d8b74a89',1,'Vertex']]],
-  ['removequotes_101',['removeQuotes',['../class_supervisor.html#adacd529a1c69b0b9ec392cf7c110f782',1,'Supervisor']]],
-  ['residualcapacity_102',['residualCapacity',['../class_edge.html#aea20aa5100a4c418aeb38e3183af4647',1,'Edge']]],
-  ['reverse_103',['reverse',['../class_edge.html#abcadfaa8985d0d593a124d0fea39130a',1,'Edge']]]
+  ['reliability_102',['reliability',['../class_menu.html#aa7d988f52bd20fa2cf9cb461358bff46',1,'Menu']]],
+  ['removequotes_103',['removeQuotes',['../class_supervisor.html#aff0c33002433b826bbcfaa7cc6a5a448',1,'Supervisor']]],
+  ['residualcapacity_104',['residualCapacity',['../class_edge.html#aea20aa5100a4c418aeb38e3183af4647',1,'Edge']]],
+  ['reverse_105',['reverse',['../class_edge.html#abcadfaa8985d0d593a124d0fea39130a',1,'Edge']]]
 ];

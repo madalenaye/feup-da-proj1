@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Railis: Member List</title>
+<title>Linevision: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Railis
+   <div id="projectname">Linevision
    &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Unidade Curricular DA</div>
@@ -70,18 +70,21 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="class_graph.html">Graph</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_graph.html#a82b6b8539dff90e25337cd352b1a8ec6">addEdge</a>(const int &amp;source, const int &amp;dest, int capacity, string service)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_graph.html#a9c4211bf1782cc0f3c60ce969f5bf349">addEdge</a>(const int &amp;source, const int &amp;dest, int capacity, const std::string &amp;service) const</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_graph.html#a8763fcfd7222571a81ee9de58e51d3fd">addVertex</a>(const int &amp;id, Station station)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_graph.html#adb278aa71f7d4b95ebf66dfa7bc15f4f">augmentFlowAlongPath</a>(Vertex *src, Vertex *dest, int flow)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_graph.html#adb278aa71f7d4b95ebf66dfa7bc15f4f">augmentFlowAlongPath</a>(Vertex *src, Vertex *dest, int flow)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_graph.html#a60cd54a73032d80ac05c4b7c495b5acd">dfsConnectedDistrict</a>(Vertex *v, std::list&lt; int &gt; &amp;comp, const std::string &amp;district)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_graph.html#a5c5156488afc53b4e047f6a4b7c082b8">dfsConnectedMunicipality</a>(Vertex *v, std::list&lt; int &gt; &amp;comp, const std::string &amp;municipality)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_graph.html#ada20033a1f3809827d5251bfeb8a84d7">findAugmentingPath</a>(Vertex *src, Vertex *dest)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_graph.html#ab4ee1efb1c4fef61b36d7ee5e52b418b">findMinCostAugmentingPath</a>(Vertex *src, Vertex *dest)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_graph.html#a239d63949207e09f989868fb999ea8ca">findMinResidualAlongPath</a>(Vertex *src, Vertex *dest)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_graph.html#a239d63949207e09f989868fb999ea8ca">findMinResidualAlongPath</a>(Vertex *src, Vertex *dest)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_graph.html#a089f7fc73ea9976295d387846ad36c69">findVertex</a>(const int &amp;id) const</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_graph.html#a56576f9c2ee0afadc4b77dcbe3acb704">getVertexSet</a>() const</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_graph.html#a619ac583094079134074658e29463c0e">getVertexSet</a>() const</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_graph.html#a12e9ec030f47ba1ae53303606bdcebca">maxConnectedDistrict</a>(const std::string &amp;district)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_graph.html#a08cadedd8ec19cf519d6a651ae3d8f19">maxConnectedMunicipality</a>(const std::string &amp;municipality)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_graph.html#a7902f8f8a5ef7cc0319afcc95af0b1a4">maxFlow</a>(int source, int target)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_graph.html#a95e4fc836ea15984157cfcffaaa8371d">minCost</a>(int source, int target)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_graph.html#a8122dcb05def418a82e0cf23afacbfe6">pathCost</a>(Vertex *src, Vertex *dest)</td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_graph.html#aa9b0a6d8ad43c5eabaca5a7140bcc8b6">vertexSet</a></td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_graph.html#aa9b0a6d8ad43c5eabaca5a7140bcc8b6">vertexSet</a></td><td class="entry"><a class="el" href="class_graph.html">Graph</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

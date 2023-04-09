@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Railis: Graph Class Reference</title>
+<title>Linevision: Graph Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Railis
+   <div id="projectname">Linevision
    &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Unidade Curricular DA</div>
@@ -66,6 +66,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_graph-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -81,15 +82,19 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a089f7fc73ea9976295d387846ad36c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8763fcfd7222571a81ee9de58e51d3fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a8763fcfd7222571a81ee9de58e51d3fd">addVertex</a> (const int &amp;id, <a class="el" href="class_station.html">Station</a> station)</td></tr>
 <tr class="separator:a8763fcfd7222571a81ee9de58e51d3fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82b6b8539dff90e25337cd352b1a8ec6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a82b6b8539dff90e25337cd352b1a8ec6">addEdge</a> (const int &amp;source, const int &amp;dest, int capacity, string service)</td></tr>
-<tr class="separator:a82b6b8539dff90e25337cd352b1a8ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56576f9c2ee0afadc4b77dcbe3acb704"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a56576f9c2ee0afadc4b77dcbe3acb704">getVertexSet</a> () const</td></tr>
-<tr class="separator:a56576f9c2ee0afadc4b77dcbe3acb704"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c4211bf1782cc0f3c60ce969f5bf349"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a9c4211bf1782cc0f3c60ce969f5bf349">addEdge</a> (const int &amp;source, const int &amp;dest, int capacity, const std::string &amp;service) const</td></tr>
+<tr class="separator:a9c4211bf1782cc0f3c60ce969f5bf349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a619ac583094079134074658e29463c0e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a619ac583094079134074658e29463c0e">getVertexSet</a> () const</td></tr>
+<tr class="separator:a619ac583094079134074658e29463c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95e4fc836ea15984157cfcffaaa8371d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a95e4fc836ea15984157cfcffaaa8371d">minCost</a> (int source, int target)</td></tr>
 <tr class="separator:a95e4fc836ea15984157cfcffaaa8371d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7902f8f8a5ef7cc0319afcc95af0b1a4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a7902f8f8a5ef7cc0319afcc95af0b1a4">maxFlow</a> (int source, int target)</td></tr>
 <tr class="memdesc:a7902f8f8a5ef7cc0319afcc95af0b1a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the maximum flow from the source vertex to the target vertex using the Edmonds-Karp algorithm.  <a href="class_graph.html#a7902f8f8a5ef7cc0319afcc95af0b1a4">More...</a><br /></td></tr>
 <tr class="separator:a7902f8f8a5ef7cc0319afcc95af0b1a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12e9ec030f47ba1ae53303606bdcebca"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a12e9ec030f47ba1ae53303606bdcebca">maxConnectedDistrict</a> (const std::string &amp;district)</td></tr>
+<tr class="separator:a12e9ec030f47ba1ae53303606bdcebca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08cadedd8ec19cf519d6a651ae3d8f19"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a08cadedd8ec19cf519d6a651ae3d8f19">maxConnectedMunicipality</a> (const std::string &amp;municipality)</td></tr>
+<tr class="separator:a08cadedd8ec19cf519d6a651ae3d8f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -99,15 +104,19 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:ab4ee1efb1c4fef61b36d7ee5e52b418b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ab4ee1efb1c4fef61b36d7ee5e52b418b">findMinCostAugmentingPath</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest)</td></tr>
 <tr class="memdesc:ab4ee1efb1c4fef61b36d7ee5e52b418b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the minimum cost augmenting path from the source vertex to the destination vertex.  <a href="class_graph.html#ab4ee1efb1c4fef61b36d7ee5e52b418b">More...</a><br /></td></tr>
 <tr class="separator:ab4ee1efb1c4fef61b36d7ee5e52b418b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a239d63949207e09f989868fb999ea8ca"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a239d63949207e09f989868fb999ea8ca">findMinResidualAlongPath</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest)</td></tr>
+<tr class="memitem:a60cd54a73032d80ac05c4b7c495b5acd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a60cd54a73032d80ac05c4b7c495b5acd">dfsConnectedDistrict</a> (<a class="el" href="class_vertex.html">Vertex</a> *v, std::list&lt; int &gt; &amp;comp, const std::string &amp;district)</td></tr>
+<tr class="separator:a60cd54a73032d80ac05c4b7c495b5acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c5156488afc53b4e047f6a4b7c082b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a5c5156488afc53b4e047f6a4b7c082b8">dfsConnectedMunicipality</a> (<a class="el" href="class_vertex.html">Vertex</a> *v, std::list&lt; int &gt; &amp;comp, const std::string &amp;municipality)</td></tr>
+<tr class="separator:a5c5156488afc53b4e047f6a4b7c082b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a239d63949207e09f989868fb999ea8ca"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a239d63949207e09f989868fb999ea8ca">findMinResidualAlongPath</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest)</td></tr>
 <tr class="memdesc:a239d63949207e09f989868fb999ea8ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the minimum residual capacity along the chosen augmenting path from the source to the target.  <a href="class_graph.html#a239d63949207e09f989868fb999ea8ca">More...</a><br /></td></tr>
 <tr class="separator:a239d63949207e09f989868fb999ea8ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb278aa71f7d4b95ebf66dfa7bc15f4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#adb278aa71f7d4b95ebf66dfa7bc15f4f">augmentFlowAlongPath</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest, int flow)</td></tr>
+<tr class="memitem:adb278aa71f7d4b95ebf66dfa7bc15f4f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#adb278aa71f7d4b95ebf66dfa7bc15f4f">augmentFlowAlongPath</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest, int flow)</td></tr>
 <tr class="memdesc:adb278aa71f7d4b95ebf66dfa7bc15f4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Augments the flow along the chosen augmenting path from the source to the target.  <a href="class_graph.html#adb278aa71f7d4b95ebf66dfa7bc15f4f">More...</a><br /></td></tr>
 <tr class="separator:adb278aa71f7d4b95ebf66dfa7bc15f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8122dcb05def418a82e0cf23afacbfe6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a8122dcb05def418a82e0cf23afacbfe6">pathCost</a> (<a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *dest)</td></tr>
-<tr class="memdesc:a8122dcb05def418a82e0cf23afacbfe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the cost of the path found from the source vertex to the destination vertex.  <a href="class_graph.html#a8122dcb05def418a82e0cf23afacbfe6">More...</a><br /></td></tr>
-<tr class="separator:a8122dcb05def418a82e0cf23afacbfe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -115,8 +124,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aa9b0a6d8ad43c5eabaca5a7140bcc8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a82b6b8539dff90e25337cd352b1a8ec6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82b6b8539dff90e25337cd352b1a8ec6">&#9670;&nbsp;</a></span>addEdge()</h2>
+<a id="a9c4211bf1782cc0f3c60ce969f5bf349"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c4211bf1782cc0f3c60ce969f5bf349">&#9670;&nbsp;</a></span>addEdge()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,13 +151,13 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>service</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -218,14 +227,15 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Augments the flow along the chosen augmenting path from the source to the target. </p>
-<p>This function updates the flow along the chosen augmenting path from the source vertex to the target vertexin the graph by adding or subtracting the flow amount <code>flow</code> from the residual capacity of each edge along the path.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>This function updates the flow along the chosen augmenting path from the source vertex to the target vertex in the graph by adding or subtracting the flow amount from the residual capacity of each edge along the path.<br  />
+<br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">src</td><td>A pointer to the source vertex. </td></tr>
     <tr><td class="paramname">dest</td><td>A pointer to the target vertex. </td></tr>
@@ -233,7 +243,113 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of vertexes and E the number of edges in the graph. </dd></dl>
+
+</div>
+</div>
+<a id="a60cd54a73032d80ac05c4b7c495b5acd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60cd54a73032d80ac05c4b7c495b5acd">&#9670;&nbsp;</a></span>dfsConnectedDistrict()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Graph::dfsConnectedDistrict </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_vertex.html">Vertex</a> *&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::list&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>comp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>district</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Stores the path of the stations of a specific district.<br  />
+<br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>wanted vertex to see size of connected component </td></tr>
+    <tr><td class="paramname">comp</td><td>contains all connected vertexes </td></tr>
+    <tr><td class="paramname">district</td><td>wanted district</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of vertexes and E the number of edges in the graph. </dd></dl>
+
+</div>
+</div>
+<a id="a5c5156488afc53b4e047f6a4b7c082b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c5156488afc53b4e047f6a4b7c082b8">&#9670;&nbsp;</a></span>dfsConnectedMunicipality()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Graph::dfsConnectedMunicipality </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_vertex.html">Vertex</a> *&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::list&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>comp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>municipality</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Stores the path of the stations of a specific municipality.<br  />
+<br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>wanted vertex to see size of connected component </td></tr>
+    <tr><td class="paramname">comp</td><td>contains all connected vertexes </td></tr>
+    <tr><td class="paramname">municipality</td><td>wanted municipality</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of vertexes and E the number of edges in the graph. </dd></dl>
 
 </div>
 </div>
@@ -272,8 +388,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Finds the shortest augmenting path from the source to the target using a BFS. </p>
-<p>This function finds the shortest augmenting path from the source vertex to the target vertex in the graph using a breadth-first search algorithm.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>This function finds the shortest augmenting path from the source vertex to the target vertex in the graph using a breadth-first search algorithm.<br  />
+<br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">src</td><td>A pointer to the source vertex. </td></tr>
     <tr><td class="paramname">dest</td><td>A pointer to the target vertex.</td></tr>
@@ -281,7 +398,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if a path from the source to the target was found, false otherwise.</dd></dl>
-<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of vertexes and E the number of edges in the graph. </dd></dl>
 
 </div>
 </div>
@@ -320,16 +437,17 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Finds the minimum cost augmenting path from the source vertex to the destination vertex. </p>
-<p>This function uses Dijkstra's algorithm with a priority queue to find the minimum cost augmenting path from the source vertex to the destination vertex in the graph. The function updates the path information for each visited vertex and returns a boolean indicating whether a path was found or not.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>This function uses Dijkstra's algorithm with a priority queue to find the minimum cost augmenting path from the source vertex to the destination vertex in the graph. The function updates the path information for each visited vertex and returns a boolean indicating whether a path was found or not.<br  />
+<br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">src</td><td>A pointer to the source vertex. </td></tr>
-    <tr><td class="paramname">dest</td><td>A pointer to the destination vertex. </td></tr>
+    <tr><td class="paramname">dest</td><td>A pointer to the destination vertex.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if a minimum cost augmenting path was found, false otherwise.</dd></dl>
-<dl class="section user"><dt>Time Complexity</dt><dd>O((V + E) * log(V)), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
+<dl class="section user"><dt>Time Complexity</dt><dd>O((V + E) * log(V)), where V is the number of vertexes and E the number of edges in the graph. </dd></dl>
 
 </div>
 </div>
@@ -362,14 +480,15 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Finds the minimum residual capacity along the chosen augmenting path from the source to the target. </p>
-<p>This function finds the minimum residual capacity along the chosen augmenting path from the source vertex to the target vertex in the graph, by examining each edge along the path and returning the smallest residual capacity.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>This function finds the minimum residual capacity along the chosen augmenting path from the source vertex to the target vertex in the graph, by examining each edge along the path and returning the smallest residual capacity.<br  />
+<br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">src</td><td>A pointer to the source vertex. </td></tr>
     <tr><td class="paramname">dest</td><td>A pointer to the target vertex.</td></tr>
@@ -377,7 +496,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The bottleneck capacity of the chosen augmenting path from the source to the target.</dd></dl>
-<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of vertexes and E the number of edges in the graph. </dd></dl>
 
 </div>
 </div>
@@ -399,20 +518,76 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a56576f9c2ee0afadc4b77dcbe3acb704"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56576f9c2ee0afadc4b77dcbe3acb704">&#9670;&nbsp;</a></span>getVertexSet()</h2>
+<a id="a619ac583094079134074658e29463c0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a619ac583094079134074658e29463c0e">&#9670;&nbsp;</a></span>getVertexSet()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; Graph::getVertexSet </td>
+          <td class="memname">std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt; Graph::getVertexSet </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a12e9ec030f47ba1ae53303606bdcebca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12e9ec030f47ba1ae53303606bdcebca">&#9670;&nbsp;</a></span>maxConnectedDistrict()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Graph::maxConnectedDistrict </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>district</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This function calculates the largest connected component of a district using a depth-first search algorithm.<br  />
+<br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">district</td><td>wanted district</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Value of the largest connected component</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of vertexes and E the number of edges in the graph. </dd></dl>
+
+</div>
+</div>
+<a id="a08cadedd8ec19cf519d6a651ae3d8f19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08cadedd8ec19cf519d6a651ae3d8f19">&#9670;&nbsp;</a></span>maxConnectedMunicipality()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Graph::maxConnectedMunicipality </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>municipality</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This function calculates the largest connected component of a municipality using a depth-first search algorithm.<br  />
+<br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">municipality</td><td>wanted municipality</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Value of the largest connected component</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of vertexes and E the number of edges in the graph. </dd></dl>
 
 </div>
 </div>
@@ -443,8 +618,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Finds the maximum flow from the source vertex to the target vertex using the Edmonds-Karp algorithm. </p>
-<p>This function implements the Edmonds-Karp algorithm to find the maximum flow from the source vertex to the target vertex in the graph. The algorithm works by repeatedly finding the shortest augmenting path from the source to the target using BFS, and then augmenting the flow along that path until no more augmenting paths exist.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>This function implements the Edmonds-Karp algorithm to find the maximum flow from the source vertex to the target vertex in the graph. The algorithm works by repeatedly finding the shortest augmenting path from the source to the target using BFS, and then augmenting the flow along that path until no more augmenting paths exist. <br  />
+<br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">source</td><td>The identifier of the source vertex. </td></tr>
     <tr><td class="paramname">target</td><td>The identifier of the target vertex.</td></tr>
@@ -452,7 +628,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The maximum flow from the source vertex to the target vertex.</dd></dl>
-<dl class="section user"><dt>Time complexity</dt><dd>O(V * E²), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V * E²), where V is the number of vertexes and E the number of edges in the graph. </dd></dl>
 
 </div>
 </div>
@@ -481,63 +657,17 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This function calculates the minimum cost maximum flow from the source vertex to the destination vertex using the successive shortest path algorithm.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>This function calculates the minimum cost maximum flow from the source vertex to the destination vertex using the successive shortest path algorithm.<br  />
+<br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">source</td><td>The identifier of the source vertex. </td></tr>
-    <tr><td class="paramname">target</td><td>The identifier of the target vertex. </td></tr>
+    <tr><td class="paramname">target</td><td>The identifier of the target vertex.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The minimum cost of the flow from the source to the target, or 0 if there is no feasible flow. </dd></dl>
-
-</div>
-</div>
-<a id="a8122dcb05def418a82e0cf23afacbfe6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8122dcb05def418a82e0cf23afacbfe6">&#9670;&nbsp;</a></span>pathCost()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Graph::pathCost </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_vertex.html">Vertex</a> *&#160;</td>
-          <td class="paramname"><em>src</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_vertex.html">Vertex</a> *&#160;</td>
-          <td class="paramname"><em>dest</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Calculates the cost of the path found from the source vertex to the destination vertex. </p>
-<p>This function implements Ford-Fulkerson algorithm to find the minimum cost maximum flow from the source vertex to the target vertex in the graph. The algorithm works by repeatedly finding the minimum cost augmenting path from the source to the target using Dijkstra's algorithm, and then augmenting the flow along that path until no more augmenting paths exist.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">src</td><td>A pointer to the source vertex. </td></tr>
-    <tr><td class="paramname">dest</td><td>A pointer to the destination vertex.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The minimum cost of all path found from the source vertex to the destination vertex.</dd></dl>
-<dl class="section user"><dt>Time complexity</dt><dd>O(V + E), where V is the number of nodes and E the number of edges in the graph. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The minimum cost of the flow from the source to the target, or 0 if there is no feasible flow.</dd></dl>
+<dl class="section user"><dt>Time complexity</dt><dd>O(V * E² * log(V)), where V is the number of vertexes and E the number of edges in the graph. </dd></dl>
 
 </div>
 </div>

@@ -1,12 +1,20 @@
 var searchData=
 [
-  ['main_76',['main',['../main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main.cpp']]],
-  ['main_2ecpp_77',['main.cpp',['../main_8cpp.html',1,'']]],
-  ['makevertex_78',['makeVertex',['../class_supervisor.html#ab24e222fffaaffa57d6f0efd2fee7fa1',1,'Supervisor']]],
-  ['maxflow_79',['maxFlow',['../class_graph.html#a7902f8f8a5ef7cc0319afcc95af0b1a4',1,'Graph::maxFlow()'],['../class_menu.html#a7c5f1e22b389c14755208cafe2ac2a34',1,'Menu::maxFlow()']]],
-  ['menu_80',['Menu',['../class_menu.html',1,'Menu'],['../class_menu.html#ad466dd83355124a6ed958430450bfe94',1,'Menu::Menu()']]],
-  ['menu_2ecpp_81',['Menu.cpp',['../_menu_8cpp.html',1,'']]],
-  ['menu_2eh_82',['Menu.h',['../_menu_8h.html',1,'']]],
-  ['mincost_83',['minCost',['../class_graph.html#a95e4fc836ea15984157cfcffaaa8371d',1,'Graph']]],
-  ['municipality_84',['municipality',['../class_station.html#a2a4bb78d0acf07ffce910f750c68892a',1,'Station']]]
+  ['main_73',['main',['../main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main.cpp']]],
+  ['main_2ecpp_74',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['makevertex_75',['makeVertex',['../class_supervisor.html#a17974894c613b80c839199832f8b3b83',1,'Supervisor']]],
+  ['maxconnecteddistrict_76',['maxConnectedDistrict',['../class_graph.html#a12e9ec030f47ba1ae53303606bdcebca',1,'Graph']]],
+  ['maxconnectedmunicipality_77',['maxConnectedMunicipality',['../class_graph.html#a08cadedd8ec19cf519d6a651ae3d8f19',1,'Graph']]],
+  ['maxconnectedstations_78',['maxConnectedStations',['../class_supervisor.html#a5a2fe371923e8c1d190eb1c651525df8',1,'Supervisor']]],
+  ['maxflow_79',['maxFlow',['../class_menu.html#a962077909251b5dccc34fe35b6177350',1,'Menu::maxFlow()'],['../class_graph.html#a7902f8f8a5ef7cc0319afcc95af0b1a4',1,'Graph::maxFlow()']]],
+  ['maxflowworker_80',['maxFlowWorker',['../_menu_8cpp.html#a2f4be1e57de0acfb8d37231caa45eb38',1,'Menu.cpp']]],
+  ['maxstationflow_81',['maxStationFlow',['../class_menu.html#ac3fe825306d501d6b0541f103fb87287',1,'Menu::maxStationFlow()'],['../class_supervisor.html#aac3af3ff752272b9a639c401f376fcb8',1,'Supervisor::maxStationFlow()']]],
+  ['menu_82',['Menu',['../class_menu.html#ad466dd83355124a6ed958430450bfe94',1,'Menu::Menu()'],['../class_menu.html',1,'Menu']]],
+  ['menu_2ecpp_83',['Menu.cpp',['../_menu_8cpp.html',1,'']]],
+  ['menu_2eh_84',['Menu.h',['../_menu_8h.html',1,'']]],
+  ['mincost_85',['minCost',['../class_graph.html#a95e4fc836ea15984157cfcffaaa8371d',1,'Graph']]],
+  ['mostaffectedstations_86',['mostAffectedStations',['../class_menu.html#a352c6effa8f7603d89ddbdd0838a6788',1,'Menu']]],
+  ['mostamountoftrains_87',['mostAmountOfTrains',['../class_menu.html#a3a074c9245e9a58f98b56fddd68ba4ad',1,'Menu']]],
+  ['municipality_88',['municipality',['../class_station.html#afc7ced847bb4273f9154ee3259265d79',1,'Station']]],
+  ['municipalitystations_89',['municipalityStations',['../class_supervisor.html#ad4782ce7a1b54efa9b0a02a7d96479a5',1,'Supervisor']]]
 ];

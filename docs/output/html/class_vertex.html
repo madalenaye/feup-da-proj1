@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Railis: Vertex Class Reference</title>
+<title>Linevision: Vertex Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Railis
+   <div id="projectname">Linevision
    &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Unidade Curricular DA</div>
@@ -66,7 +66,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_vertex-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -84,52 +83,31 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad4ccd48170a1530ec1db5eb306357a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75b6b4a4afc26affea59fdae48aa30b1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a75b6b4a4afc26affea59fdae48aa30b1">getId</a> () const</td></tr>
 <tr class="separator:a75b6b4a4afc26affea59fdae48aa30b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a843f1e651c3ee0f3bcbaa11420b29282"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a843f1e651c3ee0f3bcbaa11420b29282">getAdj</a> () const</td></tr>
-<tr class="separator:a843f1e651c3ee0f3bcbaa11420b29282"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4bd82105b85ee53a917391f4811cd8a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#aa4bd82105b85ee53a917391f4811cd8a">isVisited</a> () const</td></tr>
-<tr class="separator:aa4bd82105b85ee53a917391f4811cd8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a126e306f0534b99cd97aa864fdb243d4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a126e306f0534b99cd97aa864fdb243d4">isProcessing</a> () const</td></tr>
-<tr class="separator:a126e306f0534b99cd97aa864fdb243d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7348af9376d4b9ada5ceeca3bd1b2b7"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#ad7348af9376d4b9ada5ceeca3bd1b2b7">getIndegree</a> () const</td></tr>
-<tr class="separator:ad7348af9376d4b9ada5ceeca3bd1b2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8adaf96563455141f2e198959fe3e13f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a8adaf96563455141f2e198959fe3e13f">getDist</a> () const</td></tr>
-<tr class="separator:a8adaf96563455141f2e198959fe3e13f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9858f2aa388d2bfb49d9df8f4504b5a0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a9858f2aa388d2bfb49d9df8f4504b5a0">getAdj</a> () const</td></tr>
+<tr class="separator:a9858f2aa388d2bfb49d9df8f4504b5a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7711cb9117a3b7e95d9b6846b42ba05e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a7711cb9117a3b7e95d9b6846b42ba05e">getPathCost</a> () const</td></tr>
+<tr class="separator:a7711cb9117a3b7e95d9b6846b42ba05e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e120e57da6af94892fae44e05868794"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_edge.html">Edge</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a6e120e57da6af94892fae44e05868794">getPath</a> () const</td></tr>
 <tr class="separator:a6e120e57da6af94892fae44e05868794"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe9510eca16890ce358c1f67f8102861"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#afe9510eca16890ce358c1f67f8102861">getIncoming</a> () const</td></tr>
-<tr class="separator:afe9510eca16890ce358c1f67f8102861"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26a316171220eb69c913c029ddbe270a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_station.html">Station</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a26a316171220eb69c913c029ddbe270a">getStation</a> () const</td></tr>
 <tr class="separator:a26a316171220eb69c913c029ddbe270a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fbffd695323f52f0b93276176781c7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a5fbffd695323f52f0b93276176781c7d">setId</a> (int info)</td></tr>
-<tr class="separator:a5fbffd695323f52f0b93276176781c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaba1686847ac27788b890d663b77acf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#aaba1686847ac27788b890d663b77acf6">setStation</a> (<a class="el" href="class_station.html">Station</a> <a class="el" href="class_vertex.html#adaa014eec496002d35289720b45f8611">station</a>)</td></tr>
 <tr class="separator:aaba1686847ac27788b890d663b77acf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15eeabbbb6d517af746ae137c6d5b595"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a15eeabbbb6d517af746ae137c6d5b595">setVisited</a> (bool <a class="el" href="class_vertex.html#aaef9f7de91b4b8f1752d391a1aae9c2e">visited</a>)</td></tr>
 <tr class="separator:a15eeabbbb6d517af746ae137c6d5b595"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c93b166281b30db2edef03791748ace"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a1c93b166281b30db2edef03791748ace">setProcesssing</a> (bool <a class="el" href="class_vertex.html#a305dc8fcad6e4c7ef2491409ca7ddaa4">processing</a>)</td></tr>
-<tr class="separator:a1c93b166281b30db2edef03791748ace"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb605d2ba9296a5e40496a9e37557d03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#aeb605d2ba9296a5e40496a9e37557d03">setIndegree</a> (unsigned int <a class="el" href="class_vertex.html#a94ae99aae9b1a426feda5ecda70c598b">indegree</a>)</td></tr>
-<tr class="separator:aeb605d2ba9296a5e40496a9e37557d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a187fac164b46f908dc62fd3f03ba24ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a187fac164b46f908dc62fd3f03ba24ca">setDist</a> (int <a class="el" href="class_vertex.html#a4299c7826ba6d099ecd86127bbb798db">dist</a>)</td></tr>
-<tr class="separator:a187fac164b46f908dc62fd3f03ba24ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f2a760374685ace19117e5b979b1f2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a8f2a760374685ace19117e5b979b1f2e">setPathCost</a> (int <a class="el" href="class_vertex.html#aeb3af4d6884ba3159b6a5718dee7a4d9">pathCost</a>)</td></tr>
+<tr class="separator:a8f2a760374685ace19117e5b979b1f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe4bc30005eec65e775d0cd51f456460"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#abe4bc30005eec65e775d0cd51f456460">setPath</a> (<a class="el" href="class_edge.html">Edge</a> *<a class="el" href="class_vertex.html#a4e83821f961f6eb63ad210260ba0e1e2">path</a>)</td></tr>
 <tr class="separator:abe4bc30005eec65e775d0cd51f456460"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac67cb72fa557c417d9d897ba243b32f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_edge.html">Edge</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#ac67cb72fa557c417d9d897ba243b32f6">addEdge</a> (<a class="el" href="class_vertex.html">Vertex</a> *dest, int capacity, string service)</td></tr>
-<tr class="separator:ac67cb72fa557c417d9d897ba243b32f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10c6827225205dc4ad070914ebfa26e7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a10c6827225205dc4ad070914ebfa26e7">removeEdge</a> (int destID)</td></tr>
-<tr class="separator:a10c6827225205dc4ad070914ebfa26e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcde6d707aff7627df7adde8d8b74a89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#afcde6d707aff7627df7adde8d8b74a89">removeOutgoingEdges</a> ()</td></tr>
-<tr class="separator:afcde6d707aff7627df7adde8d8b74a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4bd82105b85ee53a917391f4811cd8a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#aa4bd82105b85ee53a917391f4811cd8a">isVisited</a> () const</td></tr>
+<tr class="separator:aa4bd82105b85ee53a917391f4811cd8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc851ccb0d6be6787a98c7887b113cb2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_edge.html">Edge</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#acc851ccb0d6be6787a98c7887b113cb2">addEdge</a> (<a class="el" href="class_vertex.html">Vertex</a> *dest, int capacity, const std::string &amp;service)</td></tr>
+<tr class="separator:acc851ccb0d6be6787a98c7887b113cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a78ba760e405ba9f66129b3870065b48f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a78ba760e405ba9f66129b3870065b48f">queueIndex</a> = 0</td></tr>
 <tr class="separator:a78ba760e405ba9f66129b3870065b48f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ac2a80daa5a6a208173f55d4d161334f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#ac2a80daa5a6a208173f55d4d161334f1">deleteEdge</a> (<a class="el" href="class_edge.html">Edge</a> *edge)</td></tr>
-<tr class="separator:ac2a80daa5a6a208173f55d4d161334f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -137,20 +115,16 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a2e69697726190f50c7fc040fb1ddac7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0be7a8d322f99d4812261af91c3e2178"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a0be7a8d322f99d4812261af91c3e2178">adj</a></td></tr>
 <tr class="separator:a0be7a8d322f99d4812261af91c3e2178"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adaa014eec496002d35289720b45f8611"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_station.html">Station</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#adaa014eec496002d35289720b45f8611">station</a> = <a class="el" href="class_station.html">Station</a>(&quot;&quot;)</td></tr>
-<tr class="separator:adaa014eec496002d35289720b45f8611"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaef9f7de91b4b8f1752d391a1aae9c2e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#aaef9f7de91b4b8f1752d391a1aae9c2e">visited</a> = false</td></tr>
-<tr class="separator:aaef9f7de91b4b8f1752d391a1aae9c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a305dc8fcad6e4c7ef2491409ca7ddaa4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a305dc8fcad6e4c7ef2491409ca7ddaa4">processing</a> = false</td></tr>
-<tr class="separator:a305dc8fcad6e4c7ef2491409ca7ddaa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94ae99aae9b1a426feda5ecda70c598b"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a94ae99aae9b1a426feda5ecda70c598b">indegree</a></td></tr>
-<tr class="separator:a94ae99aae9b1a426feda5ecda70c598b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4299c7826ba6d099ecd86127bbb798db"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a4299c7826ba6d099ecd86127bbb798db">dist</a> = 0</td></tr>
-<tr class="separator:a4299c7826ba6d099ecd86127bbb798db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e83821f961f6eb63ad210260ba0e1e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_edge.html">Edge</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a4e83821f961f6eb63ad210260ba0e1e2">path</a> = nullptr</td></tr>
-<tr class="separator:a4e83821f961f6eb63ad210260ba0e1e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d41654d7aee77d99edacca6a923f4ee"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a2d41654d7aee77d99edacca6a923f4ee">incoming</a></td></tr>
 <tr class="separator:a2d41654d7aee77d99edacca6a923f4ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaef9f7de91b4b8f1752d391a1aae9c2e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#aaef9f7de91b4b8f1752d391a1aae9c2e">visited</a> = false</td></tr>
+<tr class="separator:aaef9f7de91b4b8f1752d391a1aae9c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb3af4d6884ba3159b6a5718dee7a4d9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#aeb3af4d6884ba3159b6a5718dee7a4d9">pathCost</a> = 0</td></tr>
+<tr class="separator:aeb3af4d6884ba3159b6a5718dee7a4d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e83821f961f6eb63ad210260ba0e1e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_edge.html">Edge</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a4e83821f961f6eb63ad210260ba0e1e2">path</a> = nullptr</td></tr>
+<tr class="separator:a4e83821f961f6eb63ad210260ba0e1e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaa014eec496002d35289720b45f8611"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_station.html">Station</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#adaa014eec496002d35289720b45f8611">station</a> = <a class="el" href="class_station.html">Station</a>(&quot;&quot;)</td></tr>
+<tr class="separator:adaa014eec496002d35289720b45f8611"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af2d4681f3cb6deeeed264950bf2d4a9e"></a>
@@ -172,8 +146,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac67cb72fa557c417d9d897ba243b32f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac67cb72fa557c417d9d897ba243b32f6">&#9670;&nbsp;</a></span>addEdge()</h2>
+<a id="acc851ccb0d6be6787a98c7887b113cb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc851ccb0d6be6787a98c7887b113cb2">&#9670;&nbsp;</a></span>addEdge()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -193,7 +167,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>service</em>&#160;</td>
         </tr>
         <tr>
@@ -206,57 +180,14 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ac2a80daa5a6a208173f55d4d161334f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2a80daa5a6a208173f55d4d161334f1">&#9670;&nbsp;</a></span>deleteEdge()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Vertex::deleteEdge </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_edge.html">Edge</a> *&#160;</td>
-          <td class="paramname"><em>edge</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a843f1e651c3ee0f3bcbaa11420b29282"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a843f1e651c3ee0f3bcbaa11420b29282">&#9670;&nbsp;</a></span>getAdj()</h2>
+<a id="a9858f2aa388d2bfb49d9df8f4504b5a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9858f2aa388d2bfb49d9df8f4504b5a0">&#9670;&nbsp;</a></span>getAdj()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt; Vertex::getAdj </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8adaf96563455141f2e198959fe3e13f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8adaf96563455141f2e198959fe3e13f">&#9670;&nbsp;</a></span>getDist()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Vertex::getDist </td>
+          <td class="memname">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt; Vertex::getAdj </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -283,40 +214,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afe9510eca16890ce358c1f67f8102861"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe9510eca16890ce358c1f67f8102861">&#9670;&nbsp;</a></span>getIncoming()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt; Vertex::getIncoming </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad7348af9376d4b9ada5ceeca3bd1b2b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7348af9376d4b9ada5ceeca3bd1b2b7">&#9670;&nbsp;</a></span>getIndegree()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int Vertex::getIndegree </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a6e120e57da6af94892fae44e05868794"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6e120e57da6af94892fae44e05868794">&#9670;&nbsp;</a></span>getPath()</h2>
 
@@ -334,14 +231,14 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a26a316171220eb69c913c029ddbe270a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26a316171220eb69c913c029ddbe270a">&#9670;&nbsp;</a></span>getStation()</h2>
+<a id="a7711cb9117a3b7e95d9b6846b42ba05e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7711cb9117a3b7e95d9b6846b42ba05e">&#9670;&nbsp;</a></span>getPathCost()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_station.html">Station</a> Vertex::getStation </td>
+          <td class="memname">int Vertex::getPathCost </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -351,14 +248,14 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a126e306f0534b99cd97aa864fdb243d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a126e306f0534b99cd97aa864fdb243d4">&#9670;&nbsp;</a></span>isProcessing()</h2>
+<a id="a26a316171220eb69c913c029ddbe270a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26a316171220eb69c913c029ddbe270a">&#9670;&nbsp;</a></span>getStation()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Vertex::isProcessing </td>
+          <td class="memname"><a class="el" href="class_station.html">Station</a> Vertex::getStation </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -403,95 +300,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a10c6827225205dc4ad070914ebfa26e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10c6827225205dc4ad070914ebfa26e7">&#9670;&nbsp;</a></span>removeEdge()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Vertex::removeEdge </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>destID</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afcde6d707aff7627df7adde8d8b74a89"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcde6d707aff7627df7adde8d8b74a89">&#9670;&nbsp;</a></span>removeOutgoingEdges()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Vertex::removeOutgoingEdges </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a187fac164b46f908dc62fd3f03ba24ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a187fac164b46f908dc62fd3f03ba24ca">&#9670;&nbsp;</a></span>setDist()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Vertex::setDist </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dist</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5fbffd695323f52f0b93276176781c7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fbffd695323f52f0b93276176781c7d">&#9670;&nbsp;</a></span>setId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Vertex::setId </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>info</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aeb605d2ba9296a5e40496a9e37557d03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb605d2ba9296a5e40496a9e37557d03">&#9670;&nbsp;</a></span>setIndegree()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Vertex::setIndegree </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>indegree</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="abe4bc30005eec65e775d0cd51f456460"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abe4bc30005eec65e775d0cd51f456460">&#9670;&nbsp;</a></span>setPath()</h2>
 
@@ -510,17 +318,17 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1c93b166281b30db2edef03791748ace"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c93b166281b30db2edef03791748ace">&#9670;&nbsp;</a></span>setProcesssing()</h2>
+<a id="a8f2a760374685ace19117e5b979b1f2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f2a760374685ace19117e5b979b1f2e">&#9670;&nbsp;</a></span>setPathCost()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Vertex::setProcesssing </td>
+          <td class="memname">void Vertex::setPathCost </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>processing</em></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pathCost</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -587,28 +395,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4299c7826ba6d099ecd86127bbb798db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4299c7826ba6d099ecd86127bbb798db">&#9670;&nbsp;</a></span>dist</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Vertex::dist = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2e69697726190f50c7fc040fb1ddac7a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e69697726190f50c7fc040fb1ddac7a">&#9670;&nbsp;</a></span>id</h2>
 
@@ -653,28 +439,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a94ae99aae9b1a426feda5ecda70c598b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94ae99aae9b1a426feda5ecda70c598b">&#9670;&nbsp;</a></span>indegree</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int Vertex::indegree</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a4e83821f961f6eb63ad210260ba0e1e2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e83821f961f6eb63ad210260ba0e1e2">&#9670;&nbsp;</a></span>path</h2>
 
@@ -697,8 +461,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a305dc8fcad6e4c7ef2491409ca7ddaa4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a305dc8fcad6e4c7ef2491409ca7ddaa4">&#9670;&nbsp;</a></span>processing</h2>
+<a id="aeb3af4d6884ba3159b6a5718dee7a4d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb3af4d6884ba3159b6a5718dee7a4d9">&#9670;&nbsp;</a></span>pathCost</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -707,7 +471,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool Vertex::processing = false</td>
+          <td class="memname">int Vertex::pathCost = 0</td>
         </tr>
       </table>
   </td>

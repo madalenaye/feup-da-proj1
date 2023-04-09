@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Railis: /home/luisdu/CLionProjects/feup-da-proj1/code/PriorityQueue.h Source File</title>
+<title>Linevision: /home/luisdu/CLionProjects/feup-da-proj1/code/PriorityQueue.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Railis
+   <div id="projectname">Linevision
    &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Unidade Curricular DA</div>
@@ -71,8 +71,8 @@ $(function() {
 <div class="title">PriorityQueue.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_priority_queue_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef PRIORITYQUEUE</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define PRIORITYQUEUE</span></div>
+<a href="_priority_queue_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef DA_PRIORITYQUEUE_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define DA_PRIORITYQUEUE_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_vertex_edge_8h.html">VertexEdge.h</a>&quot;</span></div>
@@ -93,19 +93,19 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="_priority_queue_8h.html#a915a9564b15f2c25e828da2e9a05769c">   20</a></span>&#160;<span class="preprocessor">#define parent(i) ((i) / 2)</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="_priority_queue_8h.html#ac84ef3998ba958fd8abf03d08cc5ffcb">   21</a></span>&#160;<span class="preprocessor">#define leftChild(i) ((i) * 2)</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//DA_PRIORITYQUEUE_H</span></div>
 <div class="ttc" id="a_vertex_edge_8h_html"><div class="ttname"><a href="_vertex_edge_8h.html">VertexEdge.h</a></div></div>
 <div class="ttc" id="aclass_priority_queue_html"><div class="ttname"><a href="class_priority_queue.html">PriorityQueue</a></div><div class="ttdef"><b>Definition:</b> PriorityQueue.h:7</div></div>
-<div class="ttc" id="aclass_priority_queue_html_a2898819bf7bffee37ff2db2cab8fb90a"><div class="ttname"><a href="class_priority_queue.html#a2898819bf7bffee37ff2db2cab8fb90a">PriorityQueue::insert</a></div><div class="ttdeci">void insert(Vertex *x)</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:43</div></div>
-<div class="ttc" id="aclass_priority_queue_html_a39f863f0a358df2a14a6388f3e347010"><div class="ttname"><a href="class_priority_queue.html#a39f863f0a358df2a14a6388f3e347010">PriorityQueue::empty</a></div><div class="ttdeci">bool empty()</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:15</div></div>
-<div class="ttc" id="aclass_priority_queue_html_a3a106104f70723e561b7f406a4bd7623"><div class="ttname"><a href="class_priority_queue.html#a3a106104f70723e561b7f406a4bd7623">PriorityQueue::heapifyUp</a></div><div class="ttdeci">void heapifyUp(unsigned i)</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:68</div></div>
+<div class="ttc" id="aclass_priority_queue_html_a2898819bf7bffee37ff2db2cab8fb90a"><div class="ttname"><a href="class_priority_queue.html#a2898819bf7bffee37ff2db2cab8fb90a">PriorityQueue::insert</a></div><div class="ttdeci">void insert(Vertex *x)</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:44</div></div>
+<div class="ttc" id="aclass_priority_queue_html_a39f863f0a358df2a14a6388f3e347010"><div class="ttname"><a href="class_priority_queue.html#a39f863f0a358df2a14a6388f3e347010">PriorityQueue::empty</a></div><div class="ttdeci">bool empty()</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:16</div></div>
+<div class="ttc" id="aclass_priority_queue_html_a3a106104f70723e561b7f406a4bd7623"><div class="ttname"><a href="class_priority_queue.html#a3a106104f70723e561b7f406a4bd7623">PriorityQueue::heapifyUp</a></div><div class="ttdeci">void heapifyUp(unsigned i)</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:69</div></div>
 <div class="ttc" id="aclass_priority_queue_html_a43c56db471bb26fc2ae0f2ad90d81256"><div class="ttname"><a href="class_priority_queue.html#a43c56db471bb26fc2ae0f2ad90d81256">PriorityQueue::PriorityQueue</a></div><div class="ttdeci">PriorityQueue()</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:3</div></div>
 <div class="ttc" id="aclass_priority_queue_html_a44c9b54fe3a997c6eef041e71a50236c"><div class="ttname"><a href="class_priority_queue.html#a44c9b54fe3a997c6eef041e71a50236c">PriorityQueue::Heap</a></div><div class="ttdeci">std::vector&lt; Vertex * &gt; Heap</div><div class="ttdef"><b>Definition:</b> PriorityQueue.h:8</div></div>
-<div class="ttc" id="aclass_priority_queue_html_a8a6f02d1d683b4349ff1f809d100e923"><div class="ttname"><a href="class_priority_queue.html#a8a6f02d1d683b4349ff1f809d100e923">PriorityQueue::heapifyDown</a></div><div class="ttdeci">void heapifyDown(unsigned i)</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:86</div></div>
-<div class="ttc" id="aclass_priority_queue_html_a8eeeae8737323cbde0792e37ce2896a1"><div class="ttname"><a href="class_priority_queue.html#a8eeeae8737323cbde0792e37ce2896a1">PriorityQueue::extractMin</a></div><div class="ttdeci">Vertex * extractMin()</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:27</div></div>
-<div class="ttc" id="aclass_priority_queue_html_a9df2dceb62a0efded6c12e61b9326016"><div class="ttname"><a href="class_priority_queue.html#a9df2dceb62a0efded6c12e61b9326016">PriorityQueue::decreaseKey</a></div><div class="ttdeci">void decreaseKey(Vertex *x)</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:55</div></div>
-<div class="ttc" id="aclass_priority_queue_html_afade3a8bd5de7cf013fb66e5eda111ec"><div class="ttname"><a href="class_priority_queue.html#afade3a8bd5de7cf013fb66e5eda111ec">PriorityQueue::set</a></div><div class="ttdeci">void set(unsigned i, Vertex *x)</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:110</div></div>
-<div class="ttc" id="aclass_vertex_html"><div class="ttname"><a href="class_vertex.html">Vertex</a></div><div class="ttdef"><b>Definition:</b> VertexEdge.h:18</div></div>
+<div class="ttc" id="aclass_priority_queue_html_a8a6f02d1d683b4349ff1f809d100e923"><div class="ttname"><a href="class_priority_queue.html#a8a6f02d1d683b4349ff1f809d100e923">PriorityQueue::heapifyDown</a></div><div class="ttdeci">void heapifyDown(unsigned i)</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:87</div></div>
+<div class="ttc" id="aclass_priority_queue_html_a8eeeae8737323cbde0792e37ce2896a1"><div class="ttname"><a href="class_priority_queue.html#a8eeeae8737323cbde0792e37ce2896a1">PriorityQueue::extractMin</a></div><div class="ttdeci">Vertex * extractMin()</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:28</div></div>
+<div class="ttc" id="aclass_priority_queue_html_a9df2dceb62a0efded6c12e61b9326016"><div class="ttname"><a href="class_priority_queue.html#a9df2dceb62a0efded6c12e61b9326016">PriorityQueue::decreaseKey</a></div><div class="ttdeci">void decreaseKey(Vertex *x)</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:56</div></div>
+<div class="ttc" id="aclass_priority_queue_html_afade3a8bd5de7cf013fb66e5eda111ec"><div class="ttname"><a href="class_priority_queue.html#afade3a8bd5de7cf013fb66e5eda111ec">PriorityQueue::set</a></div><div class="ttdeci">void set(unsigned i, Vertex *x)</div><div class="ttdef"><b>Definition:</b> PriorityQueue.cpp:111</div></div>
+<div class="ttc" id="aclass_vertex_html"><div class="ttname"><a href="class_vertex.html">Vertex</a></div><div class="ttdef"><b>Definition:</b> VertexEdge.h:16</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

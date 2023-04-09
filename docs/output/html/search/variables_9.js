@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_284',['name',['../class_station.html#a87111da4cfca52c6083ad8ddc636cd5d',1,'Station']]]
+  ['orig_285',['orig',['../class_edge.html#a48f1521d20ead8492fd1d184656862f5',1,'Edge']]]
 ];
