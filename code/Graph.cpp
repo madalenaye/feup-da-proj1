@@ -22,7 +22,7 @@ void Graph::addEdge(const int &source, const int &dest, int capacity, const std:
 }
 
 std::vector<Vertex *> Graph::getVertexSet() const {
-    return vertexSet;
+    return this->vertexSet;
 }
 
 /**
@@ -172,12 +172,12 @@ int Graph::maxFlow(int source, int target){
  */
 bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
     for(Vertex* v: vertexSet){
-        v->setDist(INF);
+        v->setPathCost(INF);
         v->setPath(nullptr);
         v->setVisited(false);
     }
 
-    src->setDist(0);
+    src->setPathCost(0);
 
     PriorityQueue q;
     q.insert(src);
@@ -189,12 +189,12 @@ bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
             Vertex* w = e->getDest();
             int residual = e->getResidualCapacity();
             if (!w->isVisited() && residual > 0){
-                int oldDist = w->getDist();
-                int newDist = v->getDist() + e->getCost();
-                if (newDist < oldDist){
-                    w->setDist(newDist);
+                int oldPathCost = w->getPathCost();
+                int newPathCost = v->getPathCost() + e->getCost();
+                if (newPathCost < oldPathCost){
+                    w->setPathCost(newPathCost);
                     w->setPath(e);
-                    if(oldDist == INF)
+                    if(oldPathCost == INF)
                         q.insert(w);
                     else
                         q.decreaseKey(w);
@@ -233,7 +233,7 @@ int Graph::minCost(int source, int target) {
     while (findMinCostAugmentingPath(src,dest)) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
-        cost += dest->getDist();
+        cost += dest->getPathCost();
     }
 
     return cost;

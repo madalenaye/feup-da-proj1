@@ -186,7 +186,7 @@ void Menu::mostAmountOfTrains() {
     std::vector<std::thread> workers;
 
     int num_vertices = supervisor->getGraph().getVertexSet().size();
-    int num_threads = 32;
+    int num_threads = 50;
     int chunk_size = num_vertices / num_threads;
 
     for (int i = 0; i < num_threads; i++) {

@@ -21,16 +21,17 @@ public:
 
     int getId() const;
     std::vector<Edge *> getAdj() const;
-    bool isVisited() const;
-    int getDist() const;
+
+    int getPathCost() const;
     Edge *getPath() const;
     Station getStation() const;
 
     void setStation(Station station);
-
     void setVisited(bool visited);
-    void setDist(int dist);
+    void setPathCost(int pathCost);
     void setPath(Edge *path);
+
+    bool isVisited() const;
     Edge * addEdge(Vertex *dest, int capacity, const std::string& service);
 
     int queueIndex = 0;
@@ -40,7 +41,7 @@ private:
     std::vector<Edge *> adj;
     std::vector<Edge *> incoming;
     bool visited = false;
-    int dist = 0;
+    int pathCost = 0;
     Edge *path = nullptr;
     Station station = Station("");
 };
@@ -61,8 +62,8 @@ public:
     int getCost() const;
 
     void setReverse(Edge *reverse);
-
     void setResidualCapacity(int residualCapacity);
+
 private:
     Vertex * dest;
     Vertex *orig;

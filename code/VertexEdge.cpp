@@ -5,14 +5,14 @@
 Vertex::Vertex(int id): id(id) {}
 
 Edge * Vertex::addEdge(Vertex *d, int capacity, const std::string& service) {
-    auto newEdge = new Edge(this, d, capacity, service);
+    Edge* newEdge = new Edge(this, d, capacity, service);
     adj.push_back(newEdge);
     d->incoming.push_back(newEdge);
     return newEdge;
 }
 
 bool Vertex::operator<(Vertex & vertex) const {
-    return this->dist < vertex.dist;
+    return this->pathCost < vertex.pathCost;
 }
 
 Station Vertex::getStation() const {
@@ -31,8 +31,8 @@ bool Vertex::isVisited() const {
     return this->visited;
 }
 
-int Vertex::getDist() const {
-    return this->dist;
+int Vertex::getPathCost() const {
+    return this->pathCost;
 }
 
 Edge *Vertex::getPath() const {
@@ -43,8 +43,8 @@ void Vertex::setVisited(bool visited) {
     this->visited = visited;
 }
 
-void Vertex::setDist(int dist) {
-    this->dist = dist;
+void Vertex::setPathCost(int pathCost) {
+    this->pathCost = pathCost;
 }
 
 void Vertex::setPath(Edge *path) {
@@ -59,9 +59,9 @@ void Vertex::setStation(Station station) {
 
 Edge::Edge(Vertex *orig, Vertex *dest, int capacity, const std::string& service): orig(orig), dest(dest), capacity(capacity), service(service) {
     if (service == "STANDARD")
-        cost = 2;
+        this->cost = 2;
     else if (service == "ALFA PENDULAR")
-        cost = 4;
+        this->cost = 4;
 }
 
 void Edge::setResidualCapacity(int residualCapacity) {

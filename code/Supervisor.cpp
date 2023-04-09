@@ -2,28 +2,28 @@
 
 Supervisor::Supervisor() {
     createStations();
-    graph = originalGraph();
+    this->graph = originalGraph();
     stationsFlow();
 }
 
 Station::StationH Supervisor::getStations() const{
-    return stations;
+    return this->stations;
 }
 
 std::unordered_map<std::string, int> Supervisor::getId() const{
-    return idStations;
+    return this->idStations;
 }
 
 std::unordered_map<std::string, int> Supervisor::getSubGraphStations() const{
-    return subGraphStations;
+    return this->subGraphStations;
 }
 
 Graph Supervisor::getGraph() const {
-    return graph;
+    return this->graph;
 }
 
 Graph Supervisor::getSubGraph() const{
-    return subGraph;
+    return this->subGraph;
 }
 
 void Supervisor::setSubGraph(const Graph& subgraph) {
