@@ -13,7 +13,7 @@
 ### Remarks:
 
 * `Everytime you need to go back in the menu, simply press [0]!`
-* 
+
 * `If you are using Windows and cannot see the colors/accents of the words, we have 2 solutions:`
   
   * Run the project in `debug mode`;
