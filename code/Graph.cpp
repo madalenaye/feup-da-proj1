@@ -29,7 +29,7 @@ Vertex * Graph::findVertex(const int &id) const {
  * @brief Finds the shortest augmenting path from the source to the target using a BFS.
  *
  * This function finds the shortest augmenting path from the source vertex to the target vertex
- * in the graph using a breadth-first search algorithm.
+ * in the graph using a breadth-first search algorithm.\n\n
  *
  * @param src A pointer to the source vertex.
  * @param dest A pointer to the target vertex.
@@ -72,7 +72,7 @@ bool Graph::findAugmentingPath(Vertex* src, Vertex* dest){
  *
  * This function finds the minimum residual capacity along the chosen augmenting path from the source
  * vertex to the target vertex in the graph, by examining each edge along the path and
- * returning the smallest residual capacity.
+ * returning the smallest residual capacity.\n\n
  *
  * @param src A pointer to the source vertex.
  * @param dest A pointer to the target vertex.
@@ -96,8 +96,8 @@ int Graph::findMinResidualAlongPath(Vertex* src, Vertex* dest){
  * @brief Augments the flow along the chosen augmenting path from the source to the target.
  *
  * This function updates the flow along the chosen augmenting path from the source vertex to the
- * target vertexin the graph by adding or subtracting the flow amount `flow` from the residual
- * capacity of each edge along the path.
+ * target vertex in the graph by adding or subtracting the flow amount `flow` from the residual
+ * capacity of each edge along the path.\n\n
  *
  * @param src A pointer to the source vertex.
  * @param dest A pointer to the target vertex.
@@ -123,7 +123,7 @@ void Graph::augmentFlowAlongPath(Vertex *src, Vertex *dest, int flow){
  *
  * This function implements the Edmonds-Karp algorithm to find the maximum flow from the source vertex to the target
  * vertex in the graph. The algorithm works by repeatedly finding the shortest augmenting path from the source to
- * the target using BFS, and then augmenting the flow along that path until no more augmenting paths exist.
+ * the target using BFS, and then augmenting the flow along that path until no more augmenting paths exist. \n\n
  *
  * @param source The identifier of the source vertex.
  * @param target The identifier of the target vertex.
@@ -160,7 +160,7 @@ int Graph::maxFlow(int source, int target){
  *
  * This function uses Dijkstra's algorithm with a priority queue to find the minimum cost augmenting
  * path from the source vertex to the destination vertex in the graph. The function updates the path
- * information for each visited vertex and returns a boolean indicating whether a path was found or not.
+ * information for each visited vertex and returns a boolean indicating whether a path was found or not.\n\n
  *
  * @param src A pointer to the source vertex.
  * @param dest A pointer to the destination vertex.
@@ -209,7 +209,7 @@ bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
  * This function implements Ford-Fulkerson algorithm to find the minimum cost maximum flow from the
  * source vertex to the target vertex in the graph. The algorithm works by repeatedly finding the minimum cost
  * augmenting path from the source to the target using Dijkstra's algorithm, and then augmenting the flow
- * along that path until no more augmenting paths exist.
+ * along that path until no more augmenting paths exist.\n\n
  *
  * @param src A pointer to the source vertex.
  * @param dest A pointer to the destination vertex.
@@ -231,7 +231,7 @@ int Graph::pathCost(Vertex* src, Vertex* dest){
 
 /**
  * This function calculates the minimum cost maximum flow from the source vertex to the destination vertex using the
- * successive shortest path algorithm.
+ * successive shortest path algorithm.\n\n
  *
  * @param source The identifier of the source vertex.
  * @param target The identifier of the target vertex.
@@ -262,7 +262,7 @@ int Graph::minCost(int source, int target) {
 
 }
 /**
- * Stores the path of the stations of a specific district.
+ * Stores the path of the stations of a specific district.\n\n
  * @param v wanted vertex to see size of connected component
  * @param comp contains all connected nodes
  * @param district wanted district
@@ -281,7 +281,7 @@ void Graph::dfsConnectedDistrict(Vertex *v, std::list<int> &comp, const std::str
     }
 }
 /**
- * Stores the path of the stations of a specific municipality.
+ * Stores the path of the stations of a specific municipality.\n\n
  * @param v wanted vertex to see size of connected component
  * @param comp contains all connected nodes
  * @param municipality wanted municipality
@@ -301,7 +301,7 @@ void Graph::dfsConnectedMunicipality(Vertex *v, std::list<int> &comp, const std:
     }
 }
 /**
- * This function calculates the largest connected component from a distric using DFS.
+ * This function calculates the largest connected component from a distric using DFS.\n\n
  * @param district wanted district
  * @return value of the largest connected component
  *
@@ -325,7 +325,7 @@ unsigned int Graph::maxConnectedDistrict(const std::string& district) {
     return maxSize;
 }
 /**
- * This function calculates the largest connected component from a municipality using DFS.
+ * This function calculates the largest connected component from a municipality using DFS.\n\n
  * @param municipality wanted municipality
  * @return value of the largest connected component
  *
