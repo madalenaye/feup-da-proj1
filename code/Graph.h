@@ -34,8 +34,6 @@ private:
 
     static void augmentFlowAlongPath(Vertex *src, Vertex *dest, int flow);
 
-    static int pathCost(Vertex *src, Vertex *dest);
-
     void dfsConnectedDistrict(Vertex* v, std::list<int>& comp, const std::string& district);
 
     void dfsConnectedMunicipality(Vertex* v, std::list<int>& comp, const std::string& municipality);

@@ -189,9 +189,10 @@ bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
             Vertex* w = e->getDest();
             int residual = e->getResidualCapacity();
             if (!w->isVisited() && residual > 0){
-                double oldDist = w->getDist();
-                if (v->getDist() + e->getCost() < oldDist){
-                    w->setDist(v->getDist()+e->getCost());
+                int oldDist = w->getDist();
+                int newDist = v->getDist() + e->getCost();
+                if (newDist < oldDist){
+                    w->setDist(newDist);
                     w->setPath(e);
                     if(oldDist == INF)
                         q.insert(w);
@@ -202,32 +203,6 @@ bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
         }
     }
     return dest->isVisited();
-}
-
-/**
- * @brief Calculates the cost of the path found from the source vertex to the destination vertex.
- *
- * This function implements Ford-Fulkerson algorithm to find the minimum cost maximum flow from the
- * source vertex to the target vertex in the graph. The algorithm works by repeatedly finding the minimum cost
- * augmenting path from the source to the target using Dijkstra's algorithm, and then augmenting the flow
- * along that path until no more augmenting paths exist.\n\n
- *
- * @param src A pointer to the source vertex.
- * @param dest A pointer to the destination vertex.
- *
- * @return The minimum cost of all paths found from the source vertex to the destination vertex.
- *
- * @par Time complexity
- * O(V + E), where V is the number of vertexes and E the number of edges in the graph.
- */
-int Graph::pathCost(Vertex* src, Vertex* dest){
-    int cost = 0;
-    for(Vertex* v = dest; v != src;){
-        Edge* e = v->getPath();
-        cost += e->getCost();
-        v = e->getOrig();
-    }
-    return cost;
 }
 
 /**
@@ -258,8 +233,9 @@ int Graph::minCost(int source, int target) {
     while (findMinCostAugmentingPath(src,dest)) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
-        cost += pathCost(src,dest);
+        cost += dest->getDist();
     }
+
     return cost;
 }
 
