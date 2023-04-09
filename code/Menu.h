@@ -24,7 +24,7 @@ private:
 
     void maxFlow(bool subgraph, const std::string &srcStation, const std::string &destStation);
 
-    void t2();
+    void mostAmountOfTrains();
 
     void statistics();
     void transportNeeds(int type);

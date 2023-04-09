@@ -1,7 +1,7 @@
 #include "Menu.h"
 
 /**
- * Initializes the supervisor\n
+ * Initializes the supervisor.\n\n
  */
 Menu::Menu() {
     supervisor = new Supervisor();
@@ -9,9 +9,10 @@ Menu::Menu() {
     printf("\033[44m===========================================================\033[0m\t\t");
     std::cout << "\n\n" << " Welcome!\n (Press [0] whenever you wish to go back)\n\n";
 }
+
 /**
- * Initial menu where the user is able to choose what he wants to do: Explore basic service metrics, Consult operation cost
- * optimization, Analyse reliability and sensitivity to line failures\n\n
+ * Initial menu where the user is able to choose what he wants to do: explore basic service metrics, consult operation cost
+ * optimization or analyse reliability and sensitivity to line failures.\n\n
  */
 void Menu::init() {
     std::string option;
@@ -53,9 +54,12 @@ void Menu::init() {
         }
     }
 }
+
 /**
- * After choosing Basic service metrics, user can get information about maxFlow at a given time in one station/between
- * two stations, know which municipalities/districts have the highest flow.
+ * Allows the user to choose what details of basic services they want to know: the
+ * maximum number of trains that can simultaneously travel between two specific stations,
+ * which pairs of stations require the most amount of trains, where management should assign larger budgets for the purchasing and
+ * maintenance of trains or the maximum number of trains that can simultaneously arrive at a given station.\n\n
  */
 void Menu::basicService(){
     std::string option;
@@ -76,7 +80,7 @@ void Menu::basicService(){
             return;
         }
         else if (option == "2"){
-            t2();
+            mostAmountOfTrains();
             return;
         }
         else if (option == "3"){
@@ -102,14 +106,14 @@ void Menu::basicService(){
         }
     }
 }
+
 /**
  * This function calculates the maximum number of trains that can simultaneously travel between
- * two specific stations.
- * @param subgraph true for a subGraph( line/station/segment failure)
+ * two specific stations.\n\n
+ * @param subgraph true for a subGraph(line/station/segment failure)
  * @param srcStation
  * @param destStation
  */
-//2.1
 void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::string& destStation) {
 
     int src, dest, maxFlow;
@@ -128,9 +132,10 @@ void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::stri
     << "\033[1m\033[42m" << " " << maxFlow * 2 << " " << "\033[0m" << "\n\n";
 
 }
+
 /**
  * This functions calculates all the pairs of stations that require the most amount of trains
- * when taking full advantage of the existing network capacity
+ * when taking full advantage of the existing network capacity.\n\n
  * @param start starting station
  * @param end ending station
  * @param graph original graph
@@ -139,7 +144,7 @@ void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::stri
  * @param pairs
  *
  * @par Time complexity
- * O(V² * E²), where V is the number of nodes, E is the number of edges
+ * O(V² * E²), where V is the number of nodes and E is the number of edges
  */
 void maxFlowWorker(int start, int end, Graph graph, std::atomic<int>& maxFlow, std::atomic_flag& spinLock, std::atomic<std::list<std::pair<int,int>>*>& pairs) {
     int localMax = 0;
@@ -166,12 +171,11 @@ void maxFlowWorker(int start, int end, Graph graph, std::atomic<int>& maxFlow, s
     spinLock.clear(std::memory_order_release);
 }
 
-//2.2
 /**
- * This function creates the threads needed to make the maxFlowWorker run faster. And then informs the user about the results
- * of the maxFlowWorker().
+ * This function calculates the station pairs that require the highest number of trains and distributes the workload across threads,
+ * resulting in faster execution of the maxFlowWorker function.\n\n
  */
-void Menu::t2() {
+void Menu::mostAmountOfTrains() {
 
     std::atomic<std::list<std::pair<int, int>> *> pairs(new std::list<std::pair<int, int>>());
     std::atomic<int> maxFlow(0);
@@ -191,20 +195,24 @@ void Menu::t2() {
     for (auto &worker: workers)
         worker.join();
 
-    std::cout << "\n The maximum possible flow between two stations: " << maxFlow * 2 << "\n\n";
+    std::cout << "\n The maximum possible flow between two stations: "
+                 "\033[1m\033[36m" << maxFlow * 2 << "\033[0m \n\n";
 
     std::string srcStation, targetStation;
 
     for (const auto &pair: *pairs) {
+        std::cout << "\033[1m\033[31m • \033[0m";
         srcStation = supervisor->getGraph().findVertex(pair.first)->getStation().getName();
         targetStation = supervisor->getGraph().findVertex(pair.second)->getStation().getName();
         std::cout << " " << srcStation << " - " << targetStation << '\n';
     }
     std::cout << '\n';
 }
-//2.3
+
+
 /**
- * This function gives the user the option to get information about Municipalities or Districts.
+ * The user can get information about the top-k municipalities or districts where
+ * management should assign larger budgets for the purchasing and maintenance of trains.\n\n
  */
 void Menu::statistics(){
     std::string option;
@@ -227,8 +235,10 @@ void Menu::statistics(){
         }
     }
 }
+
 /**
- * Asks the user what information about transport needs he wants. Then asks for a k and gives the Top-k results.
+ * Asks the user what kind of information about transport needs he seeks.
+ * Then it requests a value for a value k, so that it can give the top-k results.\n\n
  * @param type 1-Municipality or 2-District
  */
 void Menu::transportNeeds(int type){
@@ -280,10 +290,10 @@ void Menu::transportNeeds(int type){
     }
 }
 
-//2.4
+
 /**
- * This function gives information to the user about the maxFlow at a given station. That means, the maximum amount of
- * trains that can be, simultaneously, at a given station.
+ * Provides information about the max flow at a given station. In other words, the maximum number of
+ * trains that can simultaneously arrive at a given station.\n\n
  * @param station  user input
  */
 void Menu::maxStationFlow(const std::string& station){
@@ -294,10 +304,10 @@ void Menu::maxStationFlow(const std::string& station){
     << "\033[1m\033[35m" << maxFlow * 2 << "\033[0m \n" << "\n";
 }
 
-//3.1
+
 /**
  * This function calculates the maximum amount of trains that can simultaneously travel between
- * two specific stations with minimum cost for the company.
+ * two specific stations with minimum cost for the company.\n\n
  * @param subgraph type of graph used
  * @param srcStation user input for source station
  * @param destStation user input for dest station
@@ -317,9 +327,8 @@ void Menu::costOptimization(bool subgraph, const std::string& srcStation, const 
             << "\033[1m\033[36m" << cost << "\033[0m\n\n";
 }
 
-//4.1
 /**
- * Gives the user the option to choose what type of failure he wants to assess.
+ * Gives the user the option to choose what type of failure he wants to assess.\n\n
  */
 void Menu::reliability(){
     std::string option;
@@ -354,8 +363,9 @@ void Menu::reliability(){
         }
     }
 }
+
 /**
- * Asks the user what line(s) he wants to remove. Creates the subGraph and goes to the subGraphOperations menu.
+ * Asks the user what line(s) he wants to remove. Creates the subGraph and proceeds to the subGraphOperations menu.\n\n
  */
 void Menu::lineFailures() {
 
@@ -396,8 +406,9 @@ void Menu::lineFailures() {
     supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
+
 /**
- * Asks the user what segment(s) he wants to remove. Creates the subGraph and goes to the subGraphOperations menu.
+ * Asks the user what segment(s) he wants to remove. Creates the subGraph and proceeds to the subGraphOperations menu.\n\n
  */
 void Menu::segmentFailures(){
 
@@ -443,8 +454,9 @@ void Menu::segmentFailures(){
     supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
+
 /**
- * Asks the user what station(s) he wants to remove. Creates the subGraph and goes to the subGraphOperations menu.
+ * Asks the user what station(s) he wants to remove. Creates the subGraph and proceeds to the subGraphOperations menu.\n\n
  */
 void Menu::stationFailures(){
     Station::StationH failedStations;
@@ -489,9 +501,10 @@ void Menu::stationFailures(){
     supervisor->setSubGraph(subGraph);
     subGraphOperations();
 }
+
 /**
- * Initial menu where the user is able to choose what he wants to do for the newly created graph: Max flow between to stations,
- * Minimum Cost Max Flow between two stations  or the K most affected stations because of failures\n\n
+ * Menu where the user is able to choose what he wants to do for the newly created graph: max flow/minimum cost max flow between two stations
+ * or the top-k most affected stations because of failures.\n\n
  */
 void Menu::subGraphOperations(){
     std::string option;
@@ -533,10 +546,10 @@ void Menu::subGraphOperations(){
     }
 }
 
-//4.2
+
 /**
- * This function tells the user what are the most affected stations by a failure and  shows the difference of flow
- * created by that failure.
+ * Computes the most affected stations by a failure and shows the difference of flow
+ * created by that failure.\n\n
  */
 void Menu::mostAffectedStations(){
     std::vector<std::pair<std::string,int>> difference = supervisor->flowDifference(supervisor->getSubGraph());
@@ -552,9 +565,9 @@ void Menu::mostAffectedStations(){
     std::cout << '\n';
 }
 
-//validate
+
 /**
- * Validates line input
+ * Validates line input.\n\n
  * @return  input if valid
  */
 std::string Menu::validateLine() {
@@ -573,8 +586,9 @@ std::string Menu::validateLine() {
     }
     return line;
 }
+
 /**
- * Validates station input
+ * Validates station input.\n\n
  * @param message  station
  * @return station input if valid
  */
@@ -595,8 +609,9 @@ std::string Menu::validateStation(const std::string& message){
     }
     return station;
 }
+
 /**
- * Validates the source/target inputs
+ * Validates the source/target inputs.\n\n
  * @param source
  * @param target
  * @return
@@ -615,9 +630,9 @@ std::string Menu::validatePath(std::string& source, std::string& target){
 
     return "";
 }
-//top-k
+
 /**
- * Asks the user what Top-k he wants to see
+ * Asks the user what top-k he wants to see.
  * @return
  */
 int Menu::showTop(){
@@ -633,8 +648,9 @@ int Menu::showTop(){
     }
     return option;
 }
+
 /**
- * If user chooses a custom top,validates its option.
+ * If user chooses a custom top, validates that option.\n\n
  * @param message
  * @param n
  * @return
@@ -651,9 +667,9 @@ int Menu::customTop(const std::string& message, unsigned int n) {
     return option;
 }
 
-//end
+
 /**
- * Closes the menu and ends the program.
+ * Closes the menu and ends the program.\n\n
  */
 void Menu::end() {
     printf("\n");
