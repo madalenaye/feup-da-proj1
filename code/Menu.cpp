@@ -555,7 +555,7 @@ void Menu::mostAffectedStations(){
     int choice = showTop(), top;
     if (choice == 1) top = 10;
     else if (choice == 2) top = 15;
-    else if (choice == 3) top = customTop("\n Selecione um valor para o top: ", difference.size());
+    else if (choice == 3) top = customTop("\n Pick a custom top: ", difference.size());
     else return;
 
     for (int i = 0; i < top; i++)
