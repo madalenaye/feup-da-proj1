@@ -128,10 +128,13 @@ void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::stri
         maxFlow = graph.maxFlow(src,dest);
     } else
         maxFlow = 0;
-
-    std::cout << "\n Maximum number of trains between " << "\033[1m\033[36m" << srcStation << "\033[0m"
-    << " and " << "\033[1m\033[36m" << destStation << "\033[0m" << ": "
-    << "\033[1m\033[42m" << " " << maxFlow * 2 << " " << "\033[0m" << "\n\n";
+    if (maxFlow != 0)
+        std::cout << "\n Maximum number of trains between " << "\033[1m\033[36m" << srcStation << "\033[0m"
+        << " and " << "\033[1m\033[36m" << destStation << "\033[0m" << ": "
+        << "\033[1m\033[42m" << " " << maxFlow * 2 << " " << "\033[0m" << "\n\n";
+    else
+        std::cout << "\n There is no path between " << "\033[1m\033[36m" << srcStation << "\033[0m"
+                  << " and " << "\033[1m\033[36m" << destStation << "\033[0m" << " :(\n\n";
 
 }
 
@@ -322,9 +325,13 @@ void Menu::costOptimization(bool subgraph, const std::string& srcStation, const 
     dest = idStations[destStation];
 
     int cost = graph.minCost(src,dest);
-    std::cout << "\n\033[1m\033[36m Minimum\033[0m cost for the \033[1m\033[34mmaximum\033[0m amount of trains between "
-            "\033[1m\033[45m " << srcStation << " \033[0m and \033[1m\033[43m " << destStation << " \033[0m : "
-            << "\033[1m\033[36m" << cost << "\033[0m\n\n";
+    if (cost != 0)
+        std::cout << "\n\033[1m\033[36m Minimum\033[0m cost for the \033[1m\033[34mmaximum\033[0m amount of trains between "
+        "\033[1m\033[45m " << srcStation << " \033[0m and \033[1m\033[43m " << destStation << " \033[0m : "
+        << "\033[1m\033[36m" << cost * 2 << "\033[0m €\n\n";
+    else
+        std::cout << "\n There is no path between " << "\033[1m\033[36m" << srcStation << "\033[0m"
+          << " and " << "\033[1m\033[36m" << destStation << "\033[0m" << " :(\n\n";
 }
 
 /**
