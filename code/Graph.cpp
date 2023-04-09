@@ -1,5 +1,9 @@
 #include "Graph.h"
 
+Vertex * Graph::findVertex(const int &id) const {
+    return vertexSet[id];
+}
+
 void Graph::addVertex(const int &id, Station station) {
     auto* v = new Vertex(id);
     v->setStation(std::move(station));
@@ -21,10 +25,6 @@ std::vector<Vertex *> Graph::getVertexSet() const {
     return vertexSet;
 }
 
-Vertex * Graph::findVertex(const int &id) const {
-    return vertexSet[id];
-}
-
 /**
  * @brief Finds the shortest augmenting path from the source to the target using a BFS.
  *
@@ -37,7 +37,7 @@ Vertex * Graph::findVertex(const int &id) const {
  * @return True if a path from the source to the target was found, false otherwise.
  *
  * @par Time complexity
- * O(V + E), where V is the number of nodes and E the number of edges in the graph.
+ * O(V + E), where V is the number of vertexes and E the number of edges in the graph.
  */
 bool Graph::findAugmentingPath(Vertex* src, Vertex* dest){
     for (Vertex*  v : vertexSet)
@@ -80,7 +80,7 @@ bool Graph::findAugmentingPath(Vertex* src, Vertex* dest){
  * @return The bottleneck capacity of the chosen augmenting path from the source to the target.
  *
  * @par Time complexity
- * O(V + E), where V is the number of nodes and E the number of edges in the graph.
+ * O(V + E), where V is the number of vertexes and E the number of edges in the graph.
  */
 int Graph::findMinResidualAlongPath(Vertex* src, Vertex* dest){
     int f = INF;
@@ -104,7 +104,7 @@ int Graph::findMinResidualAlongPath(Vertex* src, Vertex* dest){
  * @param flow The amount of flow to augment along the path.
  *
  * @par Time complexity
- * O(V + E), where V is the number of nodes and E the number of edges in the graph.
+ * O(V + E), where V is the number of vertexes and E the number of edges in the graph.
  */
 void Graph::augmentFlowAlongPath(Vertex *src, Vertex *dest, int flow){
     for (Vertex* v = dest; v != src;){
@@ -131,7 +131,7 @@ void Graph::augmentFlowAlongPath(Vertex *src, Vertex *dest, int flow){
  * @return The maximum flow from the source vertex to the target vertex.
  *
  * @par Time complexity
- * O(V * E²), where V is the number of nodes and E the number of edges in the graph.
+ * O(V * E²), where V is the number of vertexes and E the number of edges in the graph.
  */
 int Graph::maxFlow(int source, int target){
 
@@ -146,12 +146,12 @@ int Graph::maxFlow(int source, int target){
         for (Edge* edge : vertex->getAdj())
             edge->setResidualCapacity(edge->getCapacity());
 
-
     while (findAugmentingPath(src,dest)) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
         flow+=f;
     }
+
     return flow;
 }
 
@@ -164,10 +164,11 @@ int Graph::maxFlow(int source, int target){
  *
  * @param src A pointer to the source vertex.
  * @param dest A pointer to the destination vertex.
+ *
  * @return True if a minimum cost augmenting path was found, false otherwise.
  *
  * @par Time Complexity
- * O((V + E) * log(V)), where V is the number of nodes and E the number of edges in the graph.
+ * O((V + E) * log(V)), where V is the number of vertexes and E the number of edges in the graph.
  */
 bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
     for(Vertex* v: vertexSet){
@@ -214,10 +215,10 @@ bool Graph::findMinCostAugmentingPath(Vertex* src, Vertex* dest){
  * @param src A pointer to the source vertex.
  * @param dest A pointer to the destination vertex.
  *
- * @return The minimum cost of all path found from the source vertex to the destination vertex.
+ * @return The minimum cost of all paths found from the source vertex to the destination vertex.
  *
  * @par Time complexity
- * O(V + E), where V is the number of nodes and E the number of edges in the graph.
+ * O(V + E), where V is the number of vertexes and E the number of edges in the graph.
  */
 int Graph::pathCost(Vertex* src, Vertex* dest){
     int cost = 0;
@@ -235,7 +236,11 @@ int Graph::pathCost(Vertex* src, Vertex* dest){
  *
  * @param source The identifier of the source vertex.
  * @param target The identifier of the target vertex.
+ *
  * @return The minimum cost of the flow from the source to the target, or 0 if there is no feasible flow.
+ *
+ * @par Time complexity
+ * O(V * E² * log(V)), where V is the number of vertexes and E the number of edges in the graph.
  */
 int Graph::minCost(int source, int target) {
 
@@ -244,69 +249,69 @@ int Graph::minCost(int source, int target) {
     if (src == nullptr || dest == nullptr || src == dest)
         return 0;
 
-    int flow = 0, cost = 0;
+    int cost = 0;
 
     for (Vertex* vertex : vertexSet)
         for (Edge* edge : vertex->getAdj())
             edge->setResidualCapacity(edge->getCapacity());
 
-
-
     while (findMinCostAugmentingPath(src,dest)) {
         auto f = findMinResidualAlongPath(src, dest);
         augmentFlowAlongPath(src, dest, f);
-        flow += f;
         cost += pathCost(src,dest);
     }
     return cost;
-
 }
+
 /**
  * Stores the path of the stations of a specific district.\n\n
+ *
  * @param v wanted vertex to see size of connected component
- * @param comp contains all connected nodes
+ * @param comp contains all connected vertexes
  * @param district wanted district
  *
  * @par Time complexity
- * O(E), E is the number of edges
+ * O(V + E), where V is the number of vertexes and E the number of edges in the graph.
  */
 void Graph::dfsConnectedDistrict(Vertex *v, std::list<int> &comp, const std::string& district) {
     v->setVisited(true);
     comp.push_back(v->getId());
     for (auto e : v->getAdj()){
         auto w = e->getDest();
-        if (!w->isVisited() && w->getStation().getDistrict() == district){
+        if (!w->isVisited() && w->getStation().getDistrict() == district)
             dfsConnectedDistrict(w, comp, district);
-        }
     }
 }
+
 /**
  * Stores the path of the stations of a specific municipality.\n\n
+ *
  * @param v wanted vertex to see size of connected component
- * @param comp contains all connected nodes
+ * @param comp contains all connected vertexes
  * @param municipality wanted municipality
  *
  * @par Time complexity
- * O(E), E is the number of edges
+ * O(V + E), where V is the number of vertexes and E the number of edges in the graph.
  */
-
 void Graph::dfsConnectedMunicipality(Vertex *v, std::list<int> &comp, const std::string& municipality) {
     v->setVisited(true);
     comp.push_back(v->getId());
     for (auto e : v->getAdj()){
         auto w = e->getDest();
-        if (!w->isVisited() && w->getStation().getMunicipality() == municipality){
+        if (!w->isVisited() && w->getStation().getMunicipality() == municipality)
             dfsConnectedMunicipality(w, comp, municipality);
-        }
     }
 }
+
 /**
- * This function calculates the largest connected component from a distric using DFS.\n\n
+ * This function calculates the largest connected component of a district using a depth-first search algorithm.\n\n
+ *
  * @param district wanted district
+ *
  * @return value of the largest connected component
  *
  * @par Time complexity
- * O(V+E), where V is the number of nodes and E is the number of edges
+ * O(V + E), where V is the number of vertexes and E the number of edges in the graph.
  */
 unsigned int Graph::maxConnectedDistrict(const std::string& district) {
     unsigned int maxSize = 0;
@@ -324,13 +329,16 @@ unsigned int Graph::maxConnectedDistrict(const std::string& district) {
 
     return maxSize;
 }
+
 /**
- * This function calculates the largest connected component from a municipality using DFS.\n\n
+ * This function calculates the largest connected component of a municipality using a depth-first search algorithm.\n\n
+ *
  * @param municipality wanted municipality
+ *
  * @return value of the largest connected component
  *
  * @par Time complexity
- * O(V+E), where V is the number of nodes and E is the number of edges
+ * O(V + E), where V is the number of vertexes and E the number of edges in the graph.
  */
 unsigned int Graph::maxConnectedMunicipality(const std::string& municipality) {
     unsigned int maxSize = 0;

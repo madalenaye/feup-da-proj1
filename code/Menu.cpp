@@ -11,8 +11,10 @@ Menu::Menu() {
 }
 
 /**
- * Initial menu where the user is able to choose what he wants to do: explore basic service metrics, consult operation cost
- * optimization or analyse reliability and sensitivity to line failures.\n\n
+ * Initial menu where the user is able to choose what he wants to do:
+ *     explore basic service metrics,
+ *     consult operation cost optimization or
+ *     analyse reliability and sensitivity to line failures.\n\n
  */
 void Menu::init() {
     std::string option;
@@ -56,10 +58,11 @@ void Menu::init() {
 }
 
 /**
- * Allows the user to choose what details of basic services they want to know: the
- * maximum number of trains that can simultaneously travel between two specific stations,
- * which pairs of stations require the most amount of trains, where management should assign larger budgets for the purchasing and
- * maintenance of trains or the maximum number of trains that can simultaneously arrive at a given station.\n\n
+ * Allows the user to choose what details of basic services they want to know:
+ *      the maximum number of trains that can simultaneously travel between two specific stations,
+ *      which pairs of stations require the most amount of trains,
+ *      where management should assign larger budgets for the purchasing and maintenance of trains or
+ *      the maximum number of trains that can simultaneously arrive at a given station.\n\n
  */
 void Menu::basicService(){
     std::string option;
@@ -108,8 +111,7 @@ void Menu::basicService(){
 }
 
 /**
- * This function calculates the maximum number of trains that can simultaneously travel between
- * two specific stations.\n\n
+ * This function calculates the maximum number of trains that can simultaneously travel between two specific stations.\n\n
  * @param subgraph true for a subGraph(line/station/segment failure)
  * @param srcStation
  * @param destStation
@@ -134,8 +136,8 @@ void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::stri
 }
 
 /**
- * This functions calculates all the pairs of stations that require the most amount of trains
- * when taking full advantage of the existing network capacity.\n\n
+ * This functions calculates all the pairs of stations that require the most amount of trains when taking full advantage of the existing network capacity.\n\n
+ *
  * @param start starting station
  * @param end ending station
  * @param graph original graph
@@ -144,23 +146,21 @@ void Menu::maxFlow(bool subgraph, const std::string& srcStation, const std::stri
  * @param pairs
  *
  * @par Time complexity
- * O(V² * E²), where V is the number of nodes and E is the number of edges
+ * O(V³ * E²), where V is the number of nodes and E is the number of edges
  */
 void maxFlowWorker(int start, int end, Graph graph, std::atomic<int>& maxFlow, std::atomic_flag& spinLock, std::atomic<std::list<std::pair<int,int>>*>& pairs) {
     int localMax = 0;
     std::list<std::pair<int,int>> localPairs;
-    for (int i = start; i < end; i++) {
+    for (int i = start; i < end; i++)
         for (int j = i + 1; j < graph.getVertexSet().size(); j++) {
             int flow = graph.maxFlow(i, j);
             if (flow > localMax) {
                 localMax = flow;
                 localPairs.clear();
                 localPairs.emplace_back(i, j);
-            } else if (flow == localMax) {
+            } else if (flow == localMax)
                 localPairs.emplace_back(i, j);
-            }
         }
-    }
 
     while (spinLock.test_and_set(std::memory_order_acquire));
     if (localMax > maxFlow) {
@@ -209,7 +209,6 @@ void Menu::mostAmountOfTrains() {
     std::cout << '\n';
 }
 
-
 /**
  * The user can get information about the top-k municipalities or districts where
  * management should assign larger budgets for the purchasing and maintenance of trains.\n\n
@@ -224,11 +223,14 @@ void Menu::statistics(){
         std::cin >> option;
         if (option == "1") {
             transportNeeds(1);
-        } else if (option == "2") {
+        }
+        else if (option == "2") {
             transportNeeds(0);
-        } else if (option == "0") {
+        }
+        else if (option == "0") {
             return;
-        } else {
+        }
+        else {
             std::cout << "\n Invalid input, try again. \n";
             std::cin.clear();
             std::cin.ignore(INT_MAX, '\n');
@@ -290,7 +292,6 @@ void Menu::transportNeeds(int type){
     }
 }
 
-
 /**
  * Provides information about the max flow at a given station. In other words, the maximum number of
  * trains that can simultaneously arrive at a given station.\n\n
@@ -303,7 +304,6 @@ void Menu::maxStationFlow(const std::string& station){
     << "\033[1m\033[43m " << station << " \033[0m" << " : "
     << "\033[1m\033[35m" << maxFlow * 2 << "\033[0m \n" << "\n";
 }
-
 
 /**
  * This function calculates the maximum amount of trains that can simultaneously travel between
@@ -546,7 +546,6 @@ void Menu::subGraphOperations(){
     }
 }
 
-
 /**
  * Computes the most affected stations by a failure and shows the difference of flow
  * created by that failure.\n\n
@@ -565,10 +564,46 @@ void Menu::mostAffectedStations(){
     std::cout << '\n';
 }
 
+/**
+ * Asks the user what top-k he wants to see.
+ */
+int Menu::showTop(){
+    std::cout << "\n What do you wish to check:\n\n "
+                 "[1] Top 10\n [2] Top 15\n [3] Other\n\n Option: ";
+    int option;
+    std::cin >> option;
+    while (std::cin.fail() || option < 0  || option > 4){
+        std::cout << " Invalid input\n Try again: ";
+        std::cin.clear();
+        std::cin.ignore(INT_MAX, '\n');
+        std::cin >> option;
+    }
+    return option;
+}
+
+/**
+ * If user chooses a custom top, validates that option.\n\n
+ *
+ * @param message message chosen from developers
+ * @param n maximum size for top
+ *
+ * @return chosen top
+ */
+int Menu::customTop(const std::string& message, unsigned int n) {
+    std::cout << message;
+    int option; std::cin >> option;
+    while (std::cin.fail() || option < 0 || option > n){
+        std::cout << " Choose a number between 1 and " << n << "\n Try again: ";
+        std::cin.clear();
+        std::cin.ignore(INT_MAX, '\n');
+        std::cin >> option;
+    }
+    return option;
+}
 
 /**
  * Validates line input.\n\n
- * @return  input if valid
+ * @return line if it is valid
  */
 std::string Menu::validateLine() {
     std::string line;
@@ -589,15 +624,12 @@ std::string Menu::validateLine() {
 
 /**
  * Validates station input.\n\n
- * @param message  station
- * @return station input if valid
+ * @param message message chosen from developers
+ * @return station if it is valid
  */
 std::string Menu::validateStation(const std::string& message){
-
     std::string station;
-
     std::cout << message;
-
     getline(std::cin,station,'\n');
 
     while(!supervisor->isStation(station)) {
@@ -611,10 +643,9 @@ std::string Menu::validateStation(const std::string& message){
 }
 
 /**
- * Validates the source/target inputs.\n\n
+ * Validates the inputs for both source and target stations.\n\n
  * @param source
  * @param target
- * @return
  */
 std::string Menu::validatePath(std::string& source, std::string& target){
     source = validateStation("\n Insert the name of the source station (ex: Porto Campanhã): ");
@@ -630,43 +661,6 @@ std::string Menu::validatePath(std::string& source, std::string& target){
 
     return "";
 }
-
-/**
- * Asks the user what top-k he wants to see.
- * @return
- */
-int Menu::showTop(){
-    std::cout << "\n What do you wish to check:\n\n "
-            "[1] Top 10\n [2] Top 15\n [3] Other\n\n Option: ";
-    int option;
-    std::cin >> option;
-    while (std::cin.fail() || option < 0  || option > 4){
-        std::cout << " Invalid input\n Try again: ";
-        std::cin.clear();
-        std::cin.ignore(INT_MAX, '\n');
-        std::cin >> option;
-    }
-    return option;
-}
-
-/**
- * If user chooses a custom top, validates that option.\n\n
- * @param message
- * @param n
- * @return
- */
-int Menu::customTop(const std::string& message, unsigned int n) {
-    std::cout << message;
-    int option; std::cin >> option;
-    while (std::cin.fail() || option < 0 || option > n){
-        std::cout << " Choose a number between 1 and " << n << "\n Try again: ";
-        std::cin.clear();
-        std::cin.ignore(INT_MAX, '\n');
-        std::cin >> option;
-    }
-    return option;
-}
-
 
 /**
  * Closes the menu and ends the program.\n\n

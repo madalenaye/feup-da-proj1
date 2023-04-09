@@ -6,7 +6,6 @@ Supervisor::Supervisor() {
     stationsFlow();
 }
 
-
 Station::StationH Supervisor::getStations() const{
     return stations;
 }
@@ -14,7 +13,6 @@ Station::StationH Supervisor::getStations() const{
 std::unordered_map<std::string, int> Supervisor::getId() const{
     return idStations;
 }
-
 
 std::unordered_map<std::string, int> Supervisor::getSubGraphStations() const{
     return subGraphStations;
@@ -28,8 +26,12 @@ Graph Supervisor::getSubGraph() const{
     return subGraph;
 }
 
+void Supervisor::setSubGraph(const Graph& subgraph) {
+    this->subGraph = subgraph;
+}
+
 /**
- * Checks if input station belongs to unordered_set of stations.\n\n
+ * Checks if input station belongs to the unordered_set of stations.\n\n
  * @param station The name of the station.
  * @return True if the station exists, false otherwise.
  * @par Time complexity
@@ -40,7 +42,7 @@ bool Supervisor::isStation(const std::string& station){
 }
 
 /**
- * Checks if a line is present in the lines unordered_set.\n\n
+ * Checks if a line is present in the unordered_set lines.\n\n
  * @param line The name of the line.
  * @return True if the line exists, false otherwise.
  * @par Time complexity
@@ -53,6 +55,7 @@ bool Supervisor::isLine(const std::string& line){
 /**
  * Creates a new vertex in the graph for the station with the given name,
  * or returns the existing vertex ID if the station already exists in the graph.\n\n
+ *
  * @param _graph  The graph in which the vertex is to be created (main graph or subgraph).
  * @param ids  The unordered map that contains the station names and their corresponding vertex IDs.
  * @param name  the name of the station to create in the graph.
@@ -61,7 +64,7 @@ bool Supervisor::isLine(const std::string& line){
  * @return the vertex ID of the newly created or existing vertex
  *
  * @par Time complexity
- * O(log(n)), where n is the number of elements in the unordered map ids
+ * O(1)
  */
 int Supervisor::makeVertex(Graph& _graph, std::unordered_map<std::string, int>& ids, const std::string& name, int &id) {
     auto it = ids.find(name);
@@ -70,9 +73,9 @@ int Supervisor::makeVertex(Graph& _graph, std::unordered_map<std::string, int>& 
         stationId = id++;
         _graph.addVertex(stationId, *stations.find(name));
         ids[name] = stationId;
-    } else {
-        stationId = it->second;
     }
+    else
+        stationId = it->second;
     return stationId;
 }
 
@@ -97,7 +100,6 @@ std::string Supervisor::removeQuotes(std::istringstream& iss, std::string field)
     return s.substr(0, s.length() - 1);
 }
 
-
 /**
  * Extracts the next field from an istringstream object and checks if it needs quotes to be removed.\n\n
  *
@@ -115,8 +117,11 @@ void Supervisor::checkField(std::istringstream& iss, std::string& field){
 
 /**
  * Reads the stations' data from the CSV file "stations.csv" and creates Station objects and data structures for them,
- * namely an unordered set of stations, an unordered set of their main lines (lines), and an unordered map that contains
- * the line names and their corresponding stations.\n\n
+ * namely an unordered set of stations (stations),
+ * an unordered set of their main lines (lines),
+ * an unordered map that contains the line names and their corresponding stations (lineStations),
+ * an unordered map that contains the district names and their corresponding stations (districtStations),
+ * an unordered map that contains the municipality names and their corresponding stations (municipalityStations).\n\n
  *
  * @par Time complexity
  * O(n), where n is the number of lines in the CSV file
@@ -126,7 +131,7 @@ void Supervisor::createStations() {
     std::ifstream myFile;
     std::string currentLine, name, district, municipality, township, line;
 
-   myFile.open("../data/stations.csv");
+    myFile.open("../data/stations.csv");
     getline(myFile, currentLine);
 
     while (getline(myFile,currentLine)){
@@ -144,7 +149,6 @@ void Supervisor::createStations() {
         Station station(name,district,municipality,township,line);
         stations.insert(station);
         lines.insert(line);
-        stationsPerLine[line].insert(station);
         municipalityStations[municipality].insert(station);
         districtStations[district].insert(station);
     }
@@ -156,6 +160,8 @@ void Supervisor::createStations() {
  * connections between the different stations. A graph of the railway network is created, where each station is
  * represented as a vertex and each connection is represented as an edge.\n\n
  *
+ * @return graph created using the CSV file
+ *
  * @par Time complexity
  * O(n), where n is the number of lines in the CSV file
  */
@@ -166,7 +172,6 @@ Graph Supervisor::originalGraph() {
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
     inFile.open("../data/network.csv");
-    //inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -190,13 +195,14 @@ Graph Supervisor::originalGraph() {
     return _graph;
 }
 
-
 /**
  * This function creates a subgraph of the main graph based on a set of failed lines, which represents transit lines
  * that are currently out of service due to repairs, services, disasters, or other reasons. The new graph excludes any
  * edges that belong to the failed lines.\n\n
  *
  * @param failedLines The set of lines to be excluded.
+ *
+ * @return subgraph of the original graph
  *
  * @par Time complexity
  * O(n), where n is the number of lines in the CSV file
@@ -209,7 +215,6 @@ Graph Supervisor::subgraph(const std::unordered_set<std::string>& failedLines){
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
     inFile.open("../data/network.csv");
-    //inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -241,6 +246,8 @@ Graph Supervisor::subgraph(const std::unordered_set<std::string>& failedLines){
  *
  * @param failedSegments The set of segments to be excluded.
  *
+ * @return subgraph of the original graph
+ *
  * @par Time complexity
  * O(n), where n is the number of segments in the CSV file
  */
@@ -252,7 +259,6 @@ Graph Supervisor::subgraph(const std::vector<std::pair<std::string, std::string>
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
     inFile.open("../data/network.csv");
-    //inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -277,13 +283,14 @@ Graph Supervisor::subgraph(const std::vector<std::pair<std::string, std::string>
     return _subGraph;
 }
 
-
 /**
  * This function creates a subgraph of the main graph based on a set of failed stations, which represents stations
  * that are currently out of service due to repairs, services, disasters, or other reasons. The new graph excludes any
  * edges that belong to the failed stations.\n\n
  *
  * @param failedStations The set of stations to be excluded.
+ *
+ * @return subgraph of the original graph
  *
  * @par Time complexity
  * O(n), where n is the number of stations in the CSV file
@@ -296,7 +303,6 @@ Graph Supervisor::subgraph(const Station::StationH& failedStations){
     std::string source, target, service, line, x;
     int capacity, idA, idB, id=0;
     inFile.open("../data/network.csv");
-    //inFile.open("../data/network2.csv");
     getline(inFile, line);
 
     while(getline(inFile, line)) {
@@ -339,7 +345,7 @@ bool Supervisor::stationFailure(Station::StationH failedStations, const std::str
 }
 
 /**
- * This function checks if either the source or the target stations of a given edge
+ * This function checks if both the source and the target stations of a given edge
  * are in the set of failed lines.\n\n
  *
  * @param failedLines The set of lines to be excluded.
@@ -375,56 +381,10 @@ bool Supervisor::segmentFailure(const std::vector<std::pair<std::string,std::str
 }
 
 /**
- * This function adds a super source to the superGraph. It connects itself with all the nodes/stations that have only 1
- * edge.\n\n
- *
- * @param id super source node id
- * @param targetStations unordered set with all the target stations
- *
- * @par Time complexity
- * O(V), where V is the number of nodes
- */
-void Supervisor::createSuperSource(int id, Station::StationH targetStations){
-    superGraph.addVertex(id, Station("Super-Source"));
-    superGraphStations["Super-Source"] = id;
-    for (auto v: graph.getVertexSet()){
-        if (targetStations.find(v->getStation()) != targetStations.end()) continue;
-
-        if (v->getAdj().size()==1){
-            superGraph.addEdge(id,v->getId(),INF,"");
-        }
-    }
-}
-
-/**
- * This function creates a super sink node and then connects it to all the target stations.\n\n
- *
- * @param id super sink id
- * @param targetStations unordered set containing all the stations that are needed
- *
- * @par Time complexity
- * O(V), where V is the number of nodes
- */
-void Supervisor::createSuperSink(int id, Station::StationH targetStations){
-
-    std::vector<int> targets;
-    for (auto v: graph.getVertexSet()){
-        if (targetStations.find(v->getStation()) != targetStations.end())
-            targets.push_back(v->getId());
-
-    }
-    superGraphStations["Super-Sink"] = id;
-    superGraph.addVertex(id, Station("Super-Sink"));
-    for(auto i:targets)
-        superGraph.addEdge(i,id,INF,"");
-
-}
-
-/**
  * Calculates the flow of all the stations.\n\n
  *
  * @par Time complexity
- * O(V² * E²), where V is the number of nodes and E the number of edges
+ * O(V² * E²), where V is the number of vertexes and E the number of edges in the graph
  */
 void Supervisor::stationsFlow(){
     int flow;
@@ -443,7 +403,7 @@ void Supervisor::stationsFlow(){
  * @return max flow of a station
  *
  * @par Time complexity
- * O(1), where V is the number of nodes and E the number of edges
+ * O(1), where V is the number of vertexes and E the number of edges in the graph
  */
 int Supervisor::maxStationFlow(const std::string& station){
     return stationFlow[station];
@@ -451,14 +411,14 @@ int Supervisor::maxStationFlow(const std::string& station){
 
 /**
  * Calculates the max flow of a specific station from the superGraph which contains a Super-Source connected
- * to all nodes that have 1 edge.\n\n
+ * to all vertexes that have 1 outgoing edge.\n\n
  *
  * @param _graph wanted graph
  * @param target  wanted station id
  * @return  max flow of target station value
  *
  * @par Time complexity
- * O(V*E²), where V is the number of nodes and E the number of edges
+ * O(V * E²), where V is the number of vertexes and E the number of edges in the graph
  */
 int Supervisor::finalStationFlow(const Graph &_graph, int target){
     createSuperSourceGraph(false,_graph,target);
@@ -467,11 +427,12 @@ int Supervisor::finalStationFlow(const Graph &_graph, int target){
 
 /**
  * This function calculates the reduction of flow created by failures of lines, stations or segments.\n\n
+ *
  * @param _subGraph subGraph created because of line,station or segment failures
  * @return  vector containing all stations and the difference of flow affected by the failures
  *
  * @par Time complexity
- * O(V² * E²), where V is the number of nodes and E the number of edges
+ * O(V² * E²), where V is the number of vertexes and E the number of edges in the graph
  */
 std::vector<std::pair<std::string,int>> Supervisor::flowDifference(const Graph& _subGraph){
     std::vector<std::pair<std::string,int>> res;
@@ -485,17 +446,19 @@ std::vector<std::pair<std::string,int>> Supervisor::flowDifference(const Graph& 
         difference = initial - final;
         res.emplace_back(vertex->getStation().getName(), difference);
     }
+
     sort(res.begin(), res.end(), [](const std::pair<std::string,int>& a, const std::pair<std::string, int>& b){
         return a.second > b.second;
     });
+
     return res;
 }
 
-
 /**
- * This function calculates the max flow of each district/municipality and then orders it by descending flow. Using the
- * superGraph that has a Super-Source (connected to all the nodes with only 1 edge) and a Super-Sink connected to
+ * This function calculates the max flow of each district/municipality and then orders it by descending flow, using the
+ * superGraph that has a Super-Source (connected to all the vertexes with only 1 edge) and a Super-Sink connected to
  * each target station.\n\n
+ *
  * @param graphType
  * @param _graph main graph
  * @param type 1 if the user wants municipality or 2 if district
@@ -503,7 +466,7 @@ std::vector<std::pair<std::string,int>> Supervisor::flowDifference(const Graph& 
  * @return vector of pairs municipality/distric its max flow, ordered in descending order
  *
  * @par Time complexity
- * O(V² * E²), where V is the number of nodes and E the number of edges
+ * O(n * (V * E²)), where V is the number of vertexes and E the number of edges in the graph n the size of municipality/district unordered maps
  */
 std::vector<std::pair<std::string,int>> Supervisor::transportNeeds(bool graphType, const Graph& _graph, bool type){
     auto _stations = type ? municipalityStations : districtStations;
@@ -524,47 +487,85 @@ std::vector<std::pair<std::string,int>> Supervisor::transportNeeds(bool graphTyp
     return res;
 }
 
-
 /**
  * This function calculates the maximum number of connected stations in a municipality or district and orders them by descending order in
  * a vector.\n\n
  * @return vector of pairs,municipality/district and maximum connected components ordered in descending order
  *
  * @par Time complexity
- * O(n * (V+E)), where V is the number of nodes and E the number of edges and n is the size of municipality/district unordered
- * maps
+ * O(n * (V+E)), where V is the number of vertexes and E the number of edges and n the size of municipality/district unordered maps
  */
 std::vector<std::pair<std::string, int>> Supervisor::maxConnectedStations(int type) {
 
     std::vector<std::pair<std::string, int>> res;
-    if (type) {
-        for (const auto& municipality: municipalityStations) {
+    if (type)
+        for (const auto& municipality: municipalityStations)
             res.emplace_back(municipality.first, graph.maxConnectedMunicipality(municipality.first));
-        }
-    }
-    else{
-        for (const auto& district: districtStations) {
+    else
+        for (const auto& district: districtStations)
             res.emplace_back(district.first, graph.maxConnectedDistrict(district.first));
-        }
-    }
+
     sort(res.begin(), res.end(), [](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b){
         return a.second > b.second; });
+
     return res;
 }
 
-void Supervisor::setSubGraph(const Graph& subgraph) {
-    this->subGraph = subgraph;
+/**
+ * This function adds a super source to the superGraph. It connects itself with all the vertexes/stations that have only 1 outgoing
+ * edge.\n\n
+ *
+ * @param id super source node id
+ * @param targetStations unordered set with all the target stations
+ *
+ * @par Time complexity
+ * O(V), where V is the number of vertexes in the graph
+ */
+void Supervisor::createSuperSource(int id, Station::StationH targetStations){
+    superGraph.addVertex(id, Station("Super-Source"));
+    superGraphStations["Super-Source"] = id;
+    for (auto v: graph.getVertexSet()){
+        if (targetStations.find(v->getStation()) != targetStations.end())
+            continue;
+        if (v->getAdj().size()==1)
+            superGraph.addEdge(id,v->getId(),INF,"");
+    }
+}
+
+/**
+ * This function creates a super sink node and then connects it to all the target stations.\n\n
+ *
+ * @param id super sink id
+ * @param targetStations unordered set containing all the stations that are needed
+ *
+ * @par Time complexity
+ * O(V), where V is the number of vertexes in the graph
+ */
+void Supervisor::createSuperSink(int id, Station::StationH targetStations){
+
+    std::vector<int> targets;
+    for (auto v: graph.getVertexSet())
+        if (targetStations.find(v->getStation()) != targetStations.end())
+            targets.push_back(v->getId());
+
+    superGraphStations["Super-Sink"] = id;
+    superGraph.addVertex(id, Station("Super-Sink"));
+
+    for(auto i:targets)
+        superGraph.addEdge(i,id,INF,"");
+
 }
 
 /**
  * This function creates a graph  that  has a Super-Source connected to
- * all the stations that have only 1 edge and a Super-Sink connected to all stations in targetStations.\n\n
+ * all the stations that have only 1 outgoing edge and a Super-Sink connected to all stations in the targetStations.\n\n
+ *
  * @param type
  * @param _graph
  * @param targetStations unordered map containing all target stations
  *
  * @par Time complexity
- * O(V), where V is the number of nodes
+ * O(V), where V is the number of vertexes in the graph
  */
 void Supervisor::createSuperGraph(bool type, const Graph& _graph, const Station::StationH& targetStations){
     superGraph = _graph;
@@ -576,13 +577,14 @@ void Supervisor::createSuperGraph(bool type, const Graph& _graph, const Station:
 
 /**
  * This function creates a graph that only has a Super-Source connected to all
- * nodes with only 1 edge.\n\n
+ * vertexes with only 1 outgoing edge.\n\n
+ *
  * @param type
  * @param _graph
  * @param target
  *
  * @par Time complexity
- * O(V), where V is the number of nodes
+ * O(V), where V is the number of vertexes in the graph
  */
 void Supervisor::createSuperSourceGraph(bool type, const Graph& _graph, int target){
     superGraph = _graph;
@@ -591,9 +593,9 @@ void Supervisor::createSuperSourceGraph(bool type, const Graph& _graph, int targ
     superGraph.addVertex(id, Station("Super-Source"));
     superGraphStations["Super-Source"] = id;
     for (auto v: superGraph.getVertexSet()){
-        if (v->getId() == target) continue;
-        if (v->getAdj().size()==1){
+        if (v->getId() == target)
+            continue;
+        if (v->getAdj().size()==1)
             superGraph.addEdge(id,v->getId(),INF,"");
-        }
     }
 }

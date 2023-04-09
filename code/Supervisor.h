@@ -23,6 +23,8 @@ public:
     Graph getSubGraph() const;
     std::unordered_map<std::string, int> getSubGraphStations() const;
 
+    void setSubGraph(const Graph& subgraph);
+
     //validate
     bool isStation(const std::string& station);
     bool isLine(const std::string& line);
@@ -32,8 +34,6 @@ public:
     Graph subgraph(const std::unordered_set<std::string>& failedLines);
     Graph subgraph(const std::vector<std::pair<std::string, std::string>>& failedSegments);
     Graph subgraph(const Station::StationH& failedStations);
-
-    void setSubGraph(const Graph& subgraph);
 
     std::vector<std::pair<std::string, int>> maxConnectedStations(int type);
 
@@ -53,9 +53,7 @@ private:
     //graph variants
     void createSuperSource(int id, Station::StationH targetStations);
     void createSuperSink(int id, Station::StationH targetStations);
-
     void createSuperGraph(bool type, const Graph& graph, const Station::StationH& targetStations);
-
     void createSuperSourceGraph(bool type, const Graph& graph, int target);
 
     static void checkField(std::istringstream &iss, std::string &field);
@@ -77,7 +75,6 @@ private:
     std::unordered_map<std::string, int> superGraphStations;
 
     std::unordered_set<std::string> lines;
-    std::unordered_map<std::string, Station::StationH> stationsPerLine;
 
     std::unordered_map<std::string, int> stationFlow;
 

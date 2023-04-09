@@ -5,7 +5,8 @@ PriorityQueue::PriorityQueue() {
 }
 
 /**
- * This function checks where the priority queue is empty or not.
+ * This function checks whether the priority queue is empty or not.
+ *
  * @return True if the size of the heap is 1, which means that there are no elements in the queue
  * (since the 0th index of the heap is not used), false otherwise.
  *
