@@ -305,7 +305,7 @@ void Menu::maxStationFlow(const std::string& station){
     int maxFlow = supervisor->maxStationFlow(station);
     std::cout << "\n Maximum number of trains that can \033[1m\033[36msimultaneously\033[0m arrive at "
     << "\033[1m\033[43m " << station << " \033[0m" << " : "
-    << "\033[1m\033[35m" << maxFlow * 2 << "\033[0m \n" << "\n";
+    << "\033[1m\033[35m" << maxFlow << "\033[0m \n" << "\n";
 }
 
 /**
